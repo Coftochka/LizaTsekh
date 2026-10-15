@@ -32,6 +32,18 @@ class PortfolioHandler(SimpleHTTPRequestHandler):
     def __init__(self, *args, directory: str, **kwargs):
         super().__init__(*args, directory=directory, **kwargs)
 
+    def handle(self) -> None:
+        """Ignore a client that disconnects while a static file is sent.
+
+        Browsers may cancel image/video requests when a page reloads or closes.
+        For HTTPS Python otherwise prints a full SSLEOFError traceback, although
+        the server itself remains healthy.
+        """
+        try:
+            super().handle()
+        except (BrokenPipeError, ConnectionAbortedError, ConnectionResetError, ssl.SSLEOFError):
+            pass
+
     def _prepare_path(self) -> bool:
         path = urlsplit(self.path).path
         if path == URL_PREFIX:
