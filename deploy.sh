@@ -3,6 +3,7 @@
 # Usage:
 #   1. Fill in .env
 #   2. ./deploy.sh
+git pull
 
 set -Eeuo pipefail
 
