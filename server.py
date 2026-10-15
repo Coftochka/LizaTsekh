@@ -22,6 +22,8 @@ PROJECT_ROOT = Path(__file__).resolve().parent
 URL_PREFIX = "/portfolio"
 DEFAULT_PORT = 443
 DEFAULT_CERT_DIR = "/etc/letsencrypt/live/s883238.foxcdn.net"
+DEFAULT_CERT_DIR = "/etc/letsencrypt/live/lizatsekh.ru"
+
 
 
 class PortfolioHandler(SimpleHTTPRequestHandler):
