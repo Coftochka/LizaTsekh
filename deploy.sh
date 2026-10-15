@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-# Upload the portfolio and restart its HTTPS server in tmux.
+# Fast deployment: synchronise changes with rsync and restart tmux.
 # Usage:
 #   1. Fill in .env
-#   2. ./deploy.sh
-git pull
+#   2. ./deploy2.sh
 
 set -Eeuo pipefail
 
-# Configuration belongs in .env and must not be committed.
+git pull
+
 ENV_FILE="${ENV_FILE:-.env}"
 if [[ -f "$ENV_FILE" ]]; then
   set -a
@@ -24,11 +24,11 @@ TMUX_SESSION="${TMUX_SESSION:-liza-portfolio}"
 SSH_PASSWORD="${SSH_PASSWORD:-}"
 
 if [[ -z "$SERVER_USER" || -z "$SERVER_HOST" ]]; then
-  echo "Укажите сервер: SERVER_USER=имя SERVER_HOST=адрес bash deploy.sh" >&2
+  echo "Заполните SERVER_USER и SERVER_HOST в .env." >&2
   exit 2
 fi
 
-for command in ssh sftp; do
+for command in ssh rsync; do
   command -v "$command" >/dev/null || {
     echo "Не найдена команда: $command" >&2
     exit 1
@@ -46,7 +46,7 @@ AUTH_COMMAND=()
 
 if [[ -n "$SSH_PASSWORD" ]]; then
   command -v sshpass >/dev/null || {
-    echo "Для SSH_PASSWORD установите sshpass или удалите SSH_PASSWORD и используйте SSH-ключ/ввод пароля." >&2
+    echo "Для SSH_PASSWORD установите sshpass или используйте SSH-ключ." >&2
     exit 1
   }
   export SSHPASS="$SSH_PASSWORD"
@@ -54,11 +54,16 @@ if [[ -n "$SSH_PASSWORD" ]]; then
   trap 'unset SSHPASS' EXIT
 fi
 
-echo "Загружаю файлы по SFTP..."
-"${AUTH_COMMAND[@]}" sftp -P "$SSH_PORT" -o StrictHostKeyChecking=accept-new "$TARGET" <<SFTP_COMMANDS
-cd $REMOTE_DIR
-put -R * 
-SFTP_COMMANDS
+echo "Синхронизирую изменённые файлы через rsync..."
+# --delete deliberately omitted: remote-only files will not be removed.
+"${AUTH_COMMAND[@]}" rsync -azO --human-readable --progress \
+  --exclude='.env' \
+  --exclude='.git/' \
+  --exclude='.agents/' \
+  --exclude='__pycache__/' \
+  --exclude='*.pyc' \
+  -e "ssh -p $SSH_PORT -o BatchMode=no -o StrictHostKeyChecking=accept-new" \
+  ./ "$TARGET:$REMOTE_DIR/"
 
 echo "Перезапускаю tmux-сессию '$TMUX_SESSION'..."
 "${AUTH_COMMAND[@]}" ssh "${SSH_OPTIONS[@]}" "$TARGET" \
