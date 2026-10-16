@@ -22,6 +22,7 @@ SSH_PORT="${SSH_PORT:-22}"
 REMOTE_DIR="${REMOTE_DIR:-/home/coftochka/liza-tsekh}"
 TMUX_SESSION="${TMUX_SESSION:-liza-portfolio}"
 SSH_PASSWORD="${SSH_PASSWORD:-}"
+PORTFOLIO_CLIENT_TIMEOUT="${PORTFOLIO_CLIENT_TIMEOUT:-15}"
 
 if [[ -z "$SERVER_USER" || -z "$SERVER_HOST" ]]; then
   echo "Заполните SERVER_USER и SERVER_HOST в .env." >&2
@@ -60,6 +61,7 @@ echo "Синхронизирую изменённые файлы через rsyn
   --exclude='.env' \
   --exclude='.git/' \
   --exclude='.agents/' \
+  --exclude='access.log.jsonl' \
   --exclude='__pycache__/' \
   --exclude='*.pyc' \
   -e "ssh -p $SSH_PORT -o BatchMode=no -o StrictHostKeyChecking=accept-new" \
@@ -67,8 +69,24 @@ echo "Синхронизирую изменённые файлы через rsyn
 
 echo "Перезапускаю tmux-сессию '$TMUX_SESSION'..."
 "${AUTH_COMMAND[@]}" ssh "${SSH_OPTIONS[@]}" "$TARGET" \
-  "tmux kill-session -t '$TMUX_SESSION' 2>/dev/null || true; \
-   tmux new-session -d -s '$TMUX_SESSION' 'cd \"$REMOTE_DIR\" && exec python3 server.py'"
+  bash -s -- "$REMOTE_DIR" "$TMUX_SESSION" "$PORTFOLIO_CLIENT_TIMEOUT" <<'REMOTE_SCRIPT'
+set -Eeuo pipefail
+
+remote_dir="$1"
+tmux_session="$2"
+client_timeout="$3"
+
+# An absent session is normal on the first deploy. Only stop one that exists,
+# then create exactly one fresh session.
+if tmux has-session -t "$tmux_session" 2>/dev/null; then
+  tmux kill-session -t "$tmux_session"
+fi
+
+tmux_command=$(printf \
+  'cd %q && while true; do python3 server.py --client-timeout %q; status=$?; echo "Server exited ($status); restarting in 3 seconds..."; sleep 3; done' \
+  "$remote_dir" "$client_timeout")
+tmux new-session -d -s "$tmux_session" "$tmux_command"
+REMOTE_SCRIPT
 
 echo "Готово. Сервер запущен в tmux-сессии: $TMUX_SESSION"
 echo "Логи на сервере: tmux attach -t $TMUX_SESSION"
