@@ -116,6 +116,11 @@ class PortfolioHandler(SimpleHTTPRequestHandler):
     def _prepare_path(self) -> bool:
         path = urlsplit(self.path).path
         self._public_path = path
+        if path == "/":
+            self.send_response(HTTPStatus.MOVED_PERMANENTLY)
+            self.send_header("Location", f"{URL_PREFIX}/")
+            self.end_headers()
+            return False
         if path == URL_PREFIX:
             self.send_response(HTTPStatus.MOVED_PERMANENTLY)
             self.send_header("Location", f"{URL_PREFIX}/")
