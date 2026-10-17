@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Fast deployment: synchronise changes with rsync and restart tmux.
+# Fast deployment: synchronise static files and reload nginx.
 # Usage:
 #   1. Fill in .env
-#   2. ./deploy2.sh
+#   2. ./deploy.sh
 
 set -Eeuo pipefail
 
@@ -20,9 +20,9 @@ SERVER_USER="${SERVER_USER:-}"
 SERVER_HOST="${SERVER_HOST:-}"
 SSH_PORT="${SSH_PORT:-22}"
 REMOTE_DIR="${REMOTE_DIR:-/home/coftochka/liza-tsekh}"
-TMUX_SESSION="${TMUX_SESSION:-liza-portfolio}"
 SSH_PASSWORD="${SSH_PASSWORD:-}"
-PORTFOLIO_CLIENT_TIMEOUT="${PORTFOLIO_CLIENT_TIMEOUT:-15}"
+NGINX_SITE_NAME="${NGINX_SITE_NAME:-lizatsekh.ru}"
+LEGACY_TMUX_SESSION="${LEGACY_TMUX_SESSION:-${TMUX_SESSION:-liza-portfolio}}"
 
 if [[ -z "$SERVER_USER" || -z "$SERVER_HOST" ]]; then
   echo "Заполните SERVER_USER и SERVER_HOST в .env." >&2
@@ -67,26 +67,38 @@ echo "Синхронизирую изменённые файлы через rsyn
   -e "ssh -p $SSH_PORT -o BatchMode=no -o StrictHostKeyChecking=accept-new" \
   ./ "$TARGET:$REMOTE_DIR/"
 
-echo "Перезапускаю tmux-сессию '$TMUX_SESSION'..."
+echo "Устанавливаю конфигурацию nginx и применяю изменения..."
 "${AUTH_COMMAND[@]}" ssh "${SSH_OPTIONS[@]}" "$TARGET" \
-  bash -s -- "$REMOTE_DIR" "$TMUX_SESSION" "$PORTFOLIO_CLIENT_TIMEOUT" <<'REMOTE_SCRIPT'
+  bash -s -- "$REMOTE_DIR" "$NGINX_SITE_NAME" "$LEGACY_TMUX_SESSION" <<'REMOTE_SCRIPT'
 set -Eeuo pipefail
 
 remote_dir="$1"
-tmux_session="$2"
-client_timeout="$3"
+site_name="$2"
+legacy_tmux_session="$3"
+source_config="$remote_dir/nginx/$site_name.conf"
+installed_config="/etc/nginx/sites-available/$site_name"
+enabled_config="/etc/nginx/sites-enabled/$site_name"
 
-# An absent session is normal on the first deploy. Only stop one that exists,
-# then create exactly one fresh session.
-if tmux has-session -t "$tmux_session" 2>/dev/null; then
-  tmux kill-session -t "$tmux_session"
+if [[ ! -f "$source_config" ]]; then
+  echo "Не найден nginx-конфиг: $source_config" >&2
+  exit 1
 fi
 
-tmux_command=$(printf \
-  'cd %q && while true; do python3 server.py --client-timeout %q; status=$?; echo "Server exited ($status); restarting in 3 seconds..."; sleep 3; done' \
-  "$remote_dir" "$client_timeout")
-tmux new-session -d -s "$tmux_session" "$tmux_command"
+# -n prevents a deployment from hanging on a sudo password prompt. Configure
+# the remote account with passwordless sudo for these nginx administration
+# commands before using this script.
+sudo -n install -m 644 "$source_config" "$installed_config"
+sudo -n ln -sfn "$installed_config" "$enabled_config"
+sudo -n /usr/sbin/nginx -t
+
+# Retire the legacy Python listener if it is still present; nginx must own
+# ports 80 and 443. Its absence is expected after the first nginx deployment.
+if tmux has-session -t "$legacy_tmux_session" 2>/dev/null; then
+  tmux kill-session -t "$legacy_tmux_session"
+fi
+
+sudo -n systemctl enable nginx
+sudo -n systemctl reload-or-restart nginx
 REMOTE_SCRIPT
 
-echo "Готово. Сервер запущен в tmux-сессии: $TMUX_SESSION"
-echo "Логи на сервере: tmux attach -t $TMUX_SESSION"
+echo "Готово. Nginx обслуживает сайт. Логи: sudo tail -f /var/log/nginx/access.log"
