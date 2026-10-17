@@ -3,6 +3,7 @@
 # Usage:
 #   1. Fill in .env
 #   2. ./deploy.sh
+
 git pull
 
 set -Eeuo pipefail
@@ -67,3 +68,8 @@ echo "Перезапускаю tmux-сессию '$TMUX_SESSION'..."
 
 echo "Готово. Сервер запущен в tmux-сессии: $TMUX_SESSION"
 echo "Логи на сервере: tmux attach -t $TMUX_SESSION"
+
+git add * 
+git commit -m "Изменения с компа лизы"
+git push
+
