@@ -3,11 +3,6 @@
 # Usage:
 #   1. Fill in .env
 #   2. ./deploy.sh
-<<<<<<< HEAD
-
-git pull
-=======
->>>>>>> a4f3b49b87d8db81dcf0c0a8aac96ea9a1b9bf01
 
 set -Eeuo pipefail
 
@@ -77,15 +72,6 @@ echo "Устанавливаю конфигурацию nginx и применя�
   bash -s -- "$REMOTE_DIR" "$NGINX_SITE_NAME" "$LEGACY_TMUX_SESSION" <<'REMOTE_SCRIPT'
 set -Eeuo pipefail
 
-<<<<<<< HEAD
-echo "Готово. Сервер запущен в tmux-сессии: $TMUX_SESSION"
-echo "Логи на сервере: tmux attach -t $TMUX_SESSION"
-
-git add * 
-git commit -m "Изменения с компа лизы"
-git push
-
-=======
 remote_dir="$1"
 site_name="$2"
 legacy_tmux_session="$3"
@@ -116,4 +102,3 @@ sudo -n systemctl reload-or-restart nginx
 REMOTE_SCRIPT
 
 echo "Готово. Nginx обслуживает сайт. Логи: sudo tail -f /var/log/nginx/access.log"
->>>>>>> a4f3b49b87d8db81dcf0c0a8aac96ea9a1b9bf01
