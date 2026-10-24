@@ -6,8 +6,6 @@
 
 set -Eeuo pipefail
 
-git pull
-
 ENV_FILE="${ENV_FILE:-.env}"
 if [[ -f "$ENV_FILE" ]]; then
   set -a
@@ -22,7 +20,6 @@ SSH_PORT="${SSH_PORT:-22}"
 REMOTE_DIR="${REMOTE_DIR:-/home/coftochka/liza-tsekh}"
 SSH_PASSWORD="${SSH_PASSWORD:-}"
 NGINX_SITE_NAME="${NGINX_SITE_NAME:-lizatsekh.ru}"
-LEGACY_TMUX_SESSION="${LEGACY_TMUX_SESSION:-${TMUX_SESSION:-liza-portfolio}}"
 
 if [[ -z "$SERVER_USER" || -z "$SERVER_HOST" ]]; then
   echo "Заполните SERVER_USER и SERVER_HOST в .env." >&2
@@ -69,12 +66,11 @@ echo "Синхронизирую изменённые файлы через rsyn
 
 echo "Устанавливаю конфигурацию nginx и применяю изменения..."
 "${AUTH_COMMAND[@]}" ssh "${SSH_OPTIONS[@]}" "$TARGET" \
-  bash -s -- "$REMOTE_DIR" "$NGINX_SITE_NAME" "$LEGACY_TMUX_SESSION" <<'REMOTE_SCRIPT'
+  bash -s -- "$REMOTE_DIR" "$NGINX_SITE_NAME" <<'REMOTE_SCRIPT'
 set -Eeuo pipefail
 
 remote_dir="$1"
 site_name="$2"
-legacy_tmux_session="$3"
 source_config="$remote_dir/nginx/$site_name.conf"
 installed_config="/etc/nginx/sites-available/$site_name"
 enabled_config="/etc/nginx/sites-enabled/$site_name"
@@ -90,12 +86,6 @@ fi
 sudo -n install -m 644 "$source_config" "$installed_config"
 sudo -n ln -sfn "$installed_config" "$enabled_config"
 sudo -n /usr/sbin/nginx -t
-
-# Retire the legacy Python listener if it is still present; nginx must own
-# ports 80 and 443. Its absence is expected after the first nginx deployment.
-if tmux has-session -t "$legacy_tmux_session" 2>/dev/null; then
-  tmux kill-session -t "$legacy_tmux_session"
-fi
 
 sudo -n systemctl enable nginx
 sudo -n systemctl reload-or-restart nginx
