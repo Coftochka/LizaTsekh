@@ -8,7 +8,7 @@ const THEMES = {
 const CSS = `
 :host{display:block;position:relative;width:100%;height:100%;overflow:hidden;background:var(--bg);font-family:Manrope,${FONT};-webkit-font-smoothing:antialiased}
 *{box-sizing:border-box;margin:0;padding:0}
-.bg{display:none}
+.bg{display:none}.portrait .features,.portrait .cards{display:none}.portrait .phone{transform:none!important}.portrait .cursor{display:none}
 .stage{position:absolute;left:0;top:0;width:1280px;height:720px;transform-origin:0 0;color:#F3F1EC;perspective:1700px;perspective-origin:50% 45%}
 .glow{position:absolute;left:706px;top:360px;width:900px;height:900px;margin:-450px 0 0 -450px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,164,27,.20),rgba(255,164,27,.06) 55%,transparent);opacity:0;transform:scale(.6);transition:opacity 1.2s,transform 1.6s cubic-bezier(.2,.8,.2,1),left 1.6s cubic-bezier(.65,0,.2,1)}
 .glow.on{opacity:1;transform:scale(1)}
@@ -146,8 +146,9 @@ class CaseReel extends HTMLElement {
     this.stage = this.$('.stage');
     const fit = () => {
       const w = this.clientWidth, h = this.clientHeight; if (!w || !h) return;
-      const s = Math.min(w / 1280, h / 720); this.s = s;
-      this.stage.style.transform = `translate(${(w - 1280 * s) / 2}px,${(h - 720 * s) / 2}px) scale(${s})`;
+      const portrait = w / h < 1.15; this.stage.classList.toggle('portrait', portrait);
+      const s = portrait ? Math.min(w / 420, h / 740) : Math.min(w / 1280, h / 720); this.s = s;
+      this.stage.style.transform = `translate(${w / 2 - (portrait ? 706 : 640) * s}px,${(h - 720 * s) / 2}px) scale(${s})`;
     };
     this._ro = new ResizeObserver(fit); this._ro.observe(this); fit();
     this.visible = true;
@@ -241,7 +242,7 @@ class CaseReel extends HTMLElement {
 
   async rag() {
     const src = '<div class="src"><i class="doc"></i>Дашборд КПЭ РСВ на 24.04.26.pdf, стр. 1</div>';
-    this.feats(['Отвечает обычным языком', 'Показывает источник', 'Помнит контекст', 'Честно говорит, если не уверен']);
+    this.feats(['Отвечает обычным языком', 'Показывает источник', 'Помнит контекст', 'Предупреждает о неточном совпадении']);
     this.on('.glow'); this.on('.phone'); this.cam('rise', true); await this.w(700); this.on('.features'); this.feat(0); await this.w(1100);
     this.cam('front'); await this.w(1300);
     await this.type('/start', { cps: 12 });
@@ -275,7 +276,7 @@ class CaseReel extends HTMLElement {
   }
 
   async meet() {
-    this.feats(['Понимает свободный текст', 'Уточняет, если нужно', 'Показывает итог', 'Готовит документы']);
+    this.feats(['Принимает запрос в свободной форме', 'Уточняет, если нужно', 'Показывает итог', 'Готовит документы']);
     this.on('.glow'); this.on('.phone'); this.cam('rise', true); await this.w(700); this.on('.features'); this.feat(0); await this.w(1000);
     this.cam('front'); await this.w(700);
     this.msg('bot', '<b>📋 Создание нового заседания</b><br>Отправьте информацию в свободной форме: тему, дату и время, место, участников и повестку с докладчиками.');

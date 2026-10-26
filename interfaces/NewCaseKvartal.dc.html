@@ -13,25 +13,25 @@
 <style>
 :where(body){margin:0;background:#F3F4F6;font-family:'Golos Text',sans-serif;color:#15171C;-webkit-font-smoothing:antialiased;font-feature-settings:"tnum" 1}
 :where(a){color:#D3233A;text-decoration:none}:where(a:hover){color:#A81A2D}
-</style>
+@media(max-width:760px){[data-detail-wrap]{padding:36px 16px!important;max-width:100%!important;box-sizing:border-box!important}.detail-grid{grid-template-columns:minmax(0,1fr)!important;gap:22px!important;min-width:0!important}.detail-grid>*{min-width:0!important;grid-column:auto!important}[data-detail-wrap] h2{font-size:30px!important;line-height:1.15!important}[data-detail-wrap] p{font-size:16px!important;line-height:1.55!important}[data-detail-wrap] [style*="font-size:96px"]{font-size:46px!important}[data-detail-wrap] [style*="padding:40px"]{padding:20px!important}[data-detail-wrap] [style*="padding:32px"]{padding:20px!important}}</style>
 </helmet>
 <div style="display:flex;flex-direction:column;align-items:center;overflow-x:hidden;background:#F3F4F6;color:#15171C">
 
 <sc-if value="{{ showHero }}" hint-placeholder-val="{{ true }}">
 <div style="width:100%;background:#14161C;color:#F2F3F5;display:flex;flex-direction:column;align-items:center">
-  <header data-rk="hero" style="width:100%;max-width:1240px;box-sizing:border-box;padding:88px 48px 88px;display:flex;flex-direction:column;gap:48px;opacity:{{ rv.hero.o }};transform:{{ rv.hero.t }};transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)">
+  <header data-rk="hero" data-detail-wrap="true" style="width:100%;max-width:1240px;box-sizing:border-box;padding:88px 48px 88px;display:flex;flex-direction:column;gap:48px;opacity:{{ rv.hero.o }};transform:{{ rv.hero.t }};transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)">
     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px">
       <div style="display:flex;align-items:center;gap:12px">
-        <div style="width:30px;height:30px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:3px"><span style="background:#fff;border-radius:4px 4px 4px 9px"></span><span style="background:#D3233A;border-radius:50%"></span><span style="background:#fff;border-radius:4px"></span><span style="background:#fff;border-radius:4px 9px 4px 4px"></span></div>
+        <div class="detail-grid" style="width:30px;height:30px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:3px"><span style="background:#fff;border-radius:4px 4px 4px 9px"></span><span style="background:#D3233A;border-radius:50%"></span><span style="background:#fff;border-radius:4px"></span><span style="background:#fff;border-radius:4px 9px 4px 4px"></span></div>
         <span style="font-size:15px">Елизавета Цех, продуктовый дизайнер</span>
       </div>
       <div style="height:32px;padding:0 14px;border-radius:8px;border:1px solid #2E323C;display:flex;align-items:center;font-size:13px;color:#A4A8B1">Концепт-кейс, B2B, 2026</div>
     </div>
     <div style="display:flex;flex-direction:column;gap:24px">
       <h1 style="margin:0;font-size:clamp(56px,8.5vw,120px);font-weight:400;letter-spacing:-.05em;line-height:.95">Квартал<span style="color:#D3233A">.</span><br>Панель правления ТСЖ</h1>
-      <p style="margin:0;max-width:780px;font-size:22px;line-height:1.5;color:#C5C8D0;text-wrap:pretty">Веб-инструмент, который собирает платежи, заявки жильцов и показания счётчиков в одном месте. Правление видит проблемы дома в день их появления, а не в конце квартала.</p>
+      <p style="margin:0;max-width:780px;font-size:22px;line-height:1.5;color:#C5C8D0;text-wrap:pretty">Панель для работы с платежами, заявками жильцов и показаниями счётчиков.</p>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:#2A2E37;border:1px solid #2A2E37;border-radius:14px;overflow:hidden">
+    <div class="detail-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:#2A2E37;border:1px solid #2A2E37;border-radius:14px;overflow:hidden">
       <sc-for list="{{ meta }}" as="m" hint-placeholder-count="4">
         <div style="background:#14161C;padding:20px 22px;display:flex;flex-direction:column;gap:8px">
           <div style="font-size:13px;color:#8A8F99">{{ m.k }}</div>
@@ -44,13 +44,13 @@
 </sc-if>
 
 
-<section data-rk="context" style="width:100%;max-width:1240px;box-sizing:border-box;padding:120px 48px 120px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:48px;opacity:{{ rv.context.o }};transform:{{ rv.context.t }};transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)">
+<section data-rk="context" class="detail-grid" data-detail-wrap="true" style="width:100%;max-width:1240px;box-sizing:border-box;padding:120px 48px 120px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:48px;opacity:{{ rv.context.o }};transform:{{ rv.context.t }};transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)">
   <div style="display:flex;flex-direction:column;gap:12px">
     <div style="font-size:14px;color:#D3233A;font-weight:500">01</div>
     <h2 style="margin:0;font-size:44px;font-weight:400;letter-spacing:-.03em;line-height:1.05">Контекст</h2>
     <p style="margin:0;font-size:16px;line-height:1.55;color:#5F6470;text-wrap:pretty">ТСЖ управляют сами жильцы. Правление из нескольких человек ведёт дом в свободное от основной работы время.</p>
   </div>
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px">
+  <div class="detail-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px">
     <div style="background:#fff;border:1px solid #E6E8EC;border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:16px">
       <div style="display:flex;align-items:center;gap:10px"><span style="padding:4px 10px;border-radius:6px;background:#FBE3E6;color:#A81A2D;font-size:12px;font-weight:500">Как сейчас</span></div>
       <sc-for list="{{ asIs }}" as="a" hint-placeholder-count="4">
@@ -66,13 +66,13 @@
   </div>
 </section>
 
-<section data-rk="research" style="width:100%;max-width:1240px;box-sizing:border-box;padding:0 48px 120px;display:flex;flex-direction:column;gap:32px;opacity:{{ rv.research.o }};transform:{{ rv.research.t }};transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)">
-  <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:48px">
+<section data-rk="research" data-detail-wrap="true" style="width:100%;max-width:1240px;box-sizing:border-box;padding:0 48px 120px;display:flex;flex-direction:column;gap:32px;opacity:{{ rv.research.o }};transform:{{ rv.research.t }};transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)">
+  <div class="detail-grid" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:48px">
     <div style="display:flex;flex-direction:column;gap:12px">
       <div style="font-size:14px;color:#D3233A;font-weight:500">02</div>
       <h2 style="margin:0;font-size:44px;font-weight:400;letter-spacing:-.03em;line-height:1.05">Исследование</h2>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">
+    <div class="detail-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">
       <sc-for list="{{ methods }}" as="m" hint-placeholder-count="3">
         <div style="background:#fff;border:1px solid #E6E8EC;border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:12px">
           <div style="width:36px;height:36px;border-radius:50%;background:#D3233A;display:grid;place-items:center"><span style="width:17px;height:17px;background-image:{{ m.icon }};background-size:contain;background-repeat:no-repeat;filter:invert(1)"></span></div>
@@ -87,7 +87,7 @@
       <div style="font-size:20px;font-weight:500">Месяц правления ТСЖ</div>
       <div style="font-size:14px;color:#5F6470">Карта процессов по итогам интервью</div>
     </div>
-    <div style="display:grid;grid-template-columns:140px minmax(0,1fr);gap:12px 16px;align-items:center">
+    <div class="detail-grid" style="display:grid;grid-template-columns:140px minmax(0,1fr);gap:12px 16px;align-items:center">
       <div></div>
       <div style="display:flex;justify-content:space-between;font-size:11px;color:#8A8F99"><span>1</span><span>5</span><span>10</span><span>15</span><span>20</span><span>25</span><span>31</span></div>
       <sc-for list="{{ month }}" as="r" hint-placeholder-count="4">
@@ -101,7 +101,7 @@
   </div>
 </section>
 
-<section data-rk="roles" style="width:100%;max-width:1240px;box-sizing:border-box;padding:0 48px 120px;display:flex;flex-direction:column;gap:32px;opacity:{{ rv.roles.o }};transform:{{ rv.roles.t }};transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)">
+<section data-rk="roles" data-detail-wrap="true" style="width:100%;max-width:1240px;box-sizing:border-box;padding:0 48px 120px;display:flex;flex-direction:column;gap:32px;opacity:{{ rv.roles.o }};transform:{{ rv.roles.t }};transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)">
   <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px">
     <div style="display:flex;flex-direction:column;gap:12px">
       <div style="font-size:14px;color:#D3233A;font-weight:500">03</div>
@@ -109,7 +109,7 @@
     </div>
     <div style="font-size:16px;color:#5F6470;max-width:420px;line-height:1.5;text-wrap:pretty">Каждый открывает панель со своим вопросом. Дашборд отвечает всем трём сверху вниз.</div>
   </div>
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px">
+  <div class="detail-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px">
     <sc-for list="{{ roles }}" as="r" hint-placeholder-count="3">
       <div style="background:#fff;border:1px solid #E6E8EC;border-radius:16px;padding:26px;display:flex;flex-direction:column;gap:16px">
         <div style="display:flex;align-items:center;gap:12px">
@@ -127,14 +127,14 @@
 </section>
 
 <section data-rk="insights" style="width:100%;background:#14161C;color:#F2F3F5;display:flex;justify-content:center">
-  <div style="width:100%;max-width:1240px;box-sizing:border-box;padding:120px 48px;display:flex;flex-direction:column;gap:32px;opacity:{{ rv.insights.o }};transform:{{ rv.insights.t }};transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)">
+  <div data-detail-wrap="true" style="width:100%;max-width:1240px;box-sizing:border-box;padding:120px 48px;display:flex;flex-direction:column;gap:32px;opacity:{{ rv.insights.o }};transform:{{ rv.insights.t }};transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)">
     <div style="display:flex;flex-direction:column;gap:12px">
       <div style="font-size:14px;color:#FF8A98;font-weight:500">04</div>
-      <h2 style="margin:0;font-size:44px;font-weight:400;letter-spacing:-.03em;line-height:1.05">Инсайты и решения</h2>
+      <h2 style="margin:0;font-size:44px;font-weight:400;letter-spacing:-.03em;line-height:1.05">Наблюдения и решения</h2>
     </div>
     <div style="display:flex;flex-direction:column">
       <sc-for list="{{ insights }}" as="i" hint-placeholder-count="5">
-        <div style="display:grid;grid-template-columns:56px minmax(0,1.1fr) minmax(0,1fr);gap:24px;padding:26px 0;border-top:1px solid #2A2E37;align-items:start">
+        <div class="detail-grid" style="display:grid;grid-template-columns:56px minmax(0,1.1fr) minmax(0,1fr);gap:24px;padding:26px 0;border-top:1px solid #2A2E37;align-items:start">
           <div style="width:36px;height:36px;border-radius:50%;background:#D3233A;color:#fff;display:grid;place-items:center;font-size:14px">{{ i.n }}</div>
           <div style="font-size:22px;line-height:1.35;letter-spacing:-.01em;text-wrap:pretty">{{ i.t }}</div>
           <div style="display:grid;grid-template-columns:20px minmax(0,1fr);gap:10px;font-size:16px;line-height:1.55;color:#C5C8D0;text-wrap:pretty"><img src="https://unpkg.com/lucide-static@0.452.0/icons/arrow-right.svg" alt="" style="width:16px;height:16px;margin-top:4px;filter:invert(1)">{{ i.d }}</div>
@@ -144,13 +144,13 @@
   </div>
 </section>
 
-<section data-rk="ia" style="width:100%;max-width:1240px;box-sizing:border-box;padding:120px 48px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:48px;opacity:{{ rv.ia.o }};transform:{{ rv.ia.t }};transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)">
+<section data-rk="ia" class="detail-grid" data-detail-wrap="true" style="width:100%;max-width:1240px;box-sizing:border-box;padding:120px 48px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:48px;opacity:{{ rv.ia.o }};transform:{{ rv.ia.t }};transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)">
   <div style="display:flex;flex-direction:column;gap:12px">
     <div style="font-size:14px;color:#D3233A;font-weight:500">05</div>
     <h2 style="margin:0;font-size:44px;font-weight:400;letter-spacing:-.03em;line-height:1.05">Информационная архитектура</h2>
     <p style="margin:0;font-size:16px;line-height:1.55;color:#5F6470;text-wrap:pretty">Провела карточную сортировку разделов. Участники группировали их не по типу данных, а по тому, о чём заботятся: дом, деньги, обслуживание, решения.</p>
   </div>
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px">
+  <div class="detail-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px">
     <sc-for list="{{ ia }}" as="g" hint-placeholder-count="5">
       <div style="background:#fff;border:1px solid #E6E8EC;border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:10px">
         <div style="font-size:12px;color:#5F6470">{{ g.title }}</div>
@@ -162,7 +162,7 @@
   </div>
 </section>
 
-<section data-rk="flow" style="width:100%;max-width:1240px;box-sizing:border-box;padding:0 48px 120px;display:flex;flex-direction:column;gap:24px;opacity:{{ rv.flow.o }};transform:{{ rv.flow.t }};transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)">
+<section data-rk="flow" data-detail-wrap="true" style="width:100%;max-width:1240px;box-sizing:border-box;padding:0 48px 120px;display:flex;flex-direction:column;gap:24px;opacity:{{ rv.flow.o }};transform:{{ rv.flow.t }};transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)">
   <div style="display:flex;flex-direction:column;gap:12px;padding-bottom:8px">
     <div style="font-size:14px;color:#D3233A;font-weight:500">06</div>
     <h2 style="margin:0;font-size:44px;font-weight:400;letter-spacing:-.03em;line-height:1.05">Ключевые сценарии</h2>
@@ -185,18 +185,18 @@
   </sc-for>
 </section>
 
-<section style="width:100%;max-width:1240px;box-sizing:border-box;padding:0 48px 40px;display:flex;flex-direction:column;gap:12px">
+<section data-detail-wrap="true" style="width:100%;max-width:1240px;box-sizing:border-box;padding:0 48px 40px;display:flex;flex-direction:column;gap:12px">
   <div style="font-size:14px;color:#D3233A;font-weight:500">07</div>
   <h2 style="margin:0;font-size:44px;font-weight:400;letter-spacing:-.03em;line-height:1.05">Экраны</h2>
 </section>
 <sc-for list="{{ shots }}" as="s" hint-placeholder-count="3">
-  <section data-rk="{{ s.key }}" style="width:100%;max-width:1240px;box-sizing:border-box;padding:0 48px 120px;display:flex;flex-direction:column;gap:28px">
+  <section data-rk="{{ s.key }}" data-detail-wrap="true" style="width:100%;max-width:1240px;box-sizing:border-box;padding:0 48px 120px;display:flex;flex-direction:column;gap:28px">
     <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;opacity:{{ s.o }};transform:{{ s.t1 }};transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)">
       <div style="display:flex;align-items:baseline;gap:16px"><span style="font-size:15px;color:#8A8F99">{{ s.n }}</span><span style="font-size:30px;letter-spacing:-.02em">{{ s.title }}</span></div>
       <div style="font-size:16px;color:#5F6470;max-width:520px;line-height:1.5;text-wrap:pretty">{{ s.lead }}</div>
     </div>
-    <div style="align-self:center;zoom:.79;border-radius:28px;box-shadow:0 30px 80px rgba(20,22,28,.14);opacity:{{ s.o }};transform:{{ s.t2 }};transition:opacity 1s ease .1s,transform 1.2s cubic-bezier(.2,.7,.2,1) .1s"><dc-import name="NewKvartalAdminPanel" page="{{ s.page }}" hint-size="1440px,1100px"></dc-import></div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px">
+    <div style="align-self:center;zoom:{{ screenZoom }};border-radius:28px;box-shadow:0 30px 80px rgba(20,22,28,.14);opacity:{{ s.o }};transform:{{ s.t2 }};transition:opacity 1s ease .1s,transform 1.2s cubic-bezier(.2,.7,.2,1) .1s"><dc-import name="NewKvartalAdminPanel" page="{{ s.page }}" hint-size="1440px,1100px"></dc-import></div>
+    <div class="detail-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px">
       <sc-for list="{{ s.notes }}" as="n" hint-placeholder-count="4">
         <div style="border-top:2px solid #15171C;padding-top:16px;display:flex;flex-direction:column;gap:8px;opacity:{{ n.o }};transform:{{ n.t }};transition:opacity .7s ease {{ n.d }},transform .7s cubic-bezier(.2,.7,.2,1) {{ n.d }}">
           <div style="font-size:13px;color:#D3233A;font-weight:500">{{ n.n }}</div>
@@ -209,15 +209,15 @@
 </sc-for>
 
 <section data-rk="kit" style="width:100%;background:#fff;border-top:1px solid #E6E8EC;border-bottom:1px solid #E6E8EC;display:flex;justify-content:center">
-  <div style="width:100%;max-width:1240px;box-sizing:border-box;padding:120px 48px;display:flex;flex-direction:column;gap:48px;opacity:{{ rv.kit.o }};transform:{{ rv.kit.t }};transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)">
+  <div data-detail-wrap="true" style="width:100%;max-width:1240px;box-sizing:border-box;padding:120px 48px;display:flex;flex-direction:column;gap:48px;opacity:{{ rv.kit.o }};transform:{{ rv.kit.t }};transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)">
     <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px">
       <div style="display:flex;flex-direction:column;gap:12px">
         <div style="font-size:14px;color:#D3233A;font-weight:500">08</div>
         <h2 style="margin:0;font-size:44px;font-weight:400;letter-spacing:-.03em;line-height:1.05">UI-кит</h2>
       </div>
-      <div style="font-size:16px;color:#5F6470;max-width:440px;line-height:1.5;text-wrap:pretty">Плотный рабочий интерфейс: мелкий кегль в таблицах, единые карточки и строгая палитра, где цвет несёт смысл.</div>
+      <div style="font-size:16px;color:#5F6470;max-width:440px;line-height:1.5;text-wrap:pretty">Для таблиц и карточек задала единые отступы, типографику и цвета статусов.</div>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px">
+    <div class="detail-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px">
       <sc-for list="{{ colors }}" as="c" hint-placeholder-count="6">
         <div style="border:1px solid #E6E8EC;border-radius:14px;padding:8px;display:flex;flex-direction:column;gap:10px">
           <div style="height:84px;border-radius:9px;background:{{ c.hex }};border:1px solid #E6E8EC"></div>
@@ -225,7 +225,7 @@
         </div>
       </sc-for>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px">
+    <div class="detail-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px">
       <div style="border:1px solid #E6E8EC;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:4px">
         <div style="display:flex;justify-content:space-between;padding-bottom:10px"><div style="font-size:16px;font-weight:500">Типографика</div><div style="font-size:13px;color:#5F6470">Golos Text, табличные цифры</div></div>
         <sc-for list="{{ type }}" as="t" hint-placeholder-count="5">
@@ -248,7 +248,7 @@
       <div style="border:1px solid #E6E8EC;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:14px">
         <div style="font-size:16px;font-weight:500">Строка таблицы</div>
         <sc-for list="{{ rowStates }}" as="r" hint-placeholder-count="3">
-          <div style="display:grid;grid-template-columns:28px 48px minmax(0,1fr) 90px;align-items:center;height:46px;border-radius:6px;font-size:12px;background:{{ r.bg }};box-shadow:{{ r.bar }};border:1px solid #F0F1F3">
+          <div class="detail-grid" style="display:grid;grid-template-columns:28px 48px minmax(0,1fr) 90px;align-items:center;height:46px;border-radius:6px;font-size:12px;background:{{ r.bg }};box-shadow:{{ r.bar }};border:1px solid #F0F1F3">
             <span style="margin-left:8px;display:grid;place-items:center;width:14px;height:14px;border-radius:4px;box-sizing:border-box;border:1.5px solid {{ r.cbBd }};background:{{ r.cbBg }};color:#fff;font-size:10px">{{ r.cb }}</span>
             <span style="color:#5F6470">2493</span><span style="font-weight:500">Протечка со стояка</span><span style="color:#5F6470">{{ r.l }}</span>
           </div>
@@ -271,13 +271,13 @@
   </div>
 </section>
 
-<section data-rk="metrics" style="width:100%;max-width:1240px;box-sizing:border-box;padding:120px 48px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:48px;opacity:{{ rv.metrics.o }};transform:{{ rv.metrics.t }};transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)">
+<section data-rk="metrics" class="detail-grid" data-detail-wrap="true" style="width:100%;max-width:1240px;box-sizing:border-box;padding:120px 48px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:48px;opacity:{{ rv.metrics.o }};transform:{{ rv.metrics.t }};transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)">
   <div style="display:flex;flex-direction:column;gap:12px">
     <div style="font-size:14px;color:#D3233A;font-weight:500">09</div>
     <h2 style="margin:0;font-size:44px;font-weight:400;letter-spacing:-.03em;line-height:1.05">Как измерить успех</h2>
     <p style="margin:0;font-size:16px;line-height:1.55;color:#5F6470;text-wrap:pretty">Проект концептуальный. Это метрики, по которым я проверяла бы решения на пилоте в 2–3 домах.</p>
   </div>
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px">
+  <div class="detail-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px">
     <sc-for list="{{ metrics }}" as="m" hint-placeholder-count="4">
       <div style="background:#fff;border:1px solid #E6E8EC;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:12px">
         <div style="font-size:13px;color:#D3233A;font-weight:500">{{ m.p }}</div>
@@ -288,12 +288,12 @@
   </div>
 </section>
 
-<section data-rk="outro" style="width:100%;max-width:1240px;box-sizing:border-box;padding:0 48px 96px;opacity:{{ rv.outro.o }};transform:{{ rv.outro.t }};transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)">
-  <div style="background:#14161C;color:#F2F3F5;border-radius:24px;padding:48px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px">
+<section data-rk="outro" data-detail-wrap="true" style="width:100%;max-width:1240px;box-sizing:border-box;padding:0 48px 96px;opacity:{{ rv.outro.o }};transform:{{ rv.outro.t }};transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)">
+  <div class="detail-grid" style="background:#14161C;color:#F2F3F5;border-radius:24px;padding:48px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px">
     <div style="display:flex;flex-direction:column;gap:16px">
       <div style="font-size:14px;color:#FF8A98;font-weight:500">10</div>
       <h2 style="margin:0;font-size:44px;font-weight:400;letter-spacing:-.03em;line-height:1.05">Выводы</h2>
-      <div style="font-size:17px;line-height:1.55;color:#C5C8D0;text-wrap:pretty">В B2B-инструменте красота проигрывает скорости ответа. Лучшее решение в проекте не график, а строка KPI над каждым разделом: правление получает ответ, не прокручивая страницу.</div>
+      <div style="font-size:17px;line-height:1.55;color:#C5C8D0;text-wrap:pretty">Основные показатели вынесла над каждым разделом. Сводка помогает определить приоритет, а таблицы и карточки — перейти к конкретной заявке или задолженности.</div>
     </div>
     <div style="display:flex;flex-direction:column">
       <div style="font-size:13px;color:#8A8F99;padding-bottom:8px">Следующие шаги</div>
@@ -315,8 +315,10 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;embedded&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;animate&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
 class Component extends DCLogic {
-  state = { seen: {} };
+  state = { seen: {}, viewport: 1440 };
   componentDidMount() {
+    this.resizeDetail = () => this.setState({viewport: window.innerWidth});
+    window.addEventListener("resize", this.resizeDetail); this.resizeDetail();
     const reveal = k => this.setState(s => s.seen[k] ? null : ({ seen: { ...s.seen, [k]: true } }));
     if (!('IntersectionObserver' in window) || this.props.animate === false) {
       ['hero','heroShot','context','research','roles','insights','ia','flow','s1','s2','s3','kit','metrics','outro'].forEach(reveal);
@@ -326,7 +328,7 @@ class Component extends DCLogic {
     const watch = () => document.querySelectorAll('[data-rk]').forEach(el => this.io.observe(el));
     watch(); this.t = setTimeout(watch, 800);
   }
-  componentWillUnmount() { this.io && this.io.disconnect(); clearTimeout(this.t); }
+  componentWillUnmount() { window.removeEventListener("resize", this.resizeDetail); this.io && this.io.disconnect(); clearTimeout(this.t); }
   renderVals() {
     const seen = this.state.seen, R = '#D3233A', embedded = !!this.props.embedded;
     const rv = {};
@@ -341,9 +343,9 @@ class Component extends DCLogic {
     const asIs = ['Оплаты сверяют в Excel по выписке банка раз в месяц', 'Заявки приходят в домовой чат и теряются в сообщениях', 'Показания собирают обзвоном и бумажными бланками', 'О крупном долге узнают, когда он уже за полгода'];
     const toBe = ['Долг дома виден в день просрочки', 'У каждой заявки есть исполнитель, срок и история', 'Видно, какие квартиры не передали показания', 'Напоминание должникам отправляется в два клика'];
     const methods = [
-      { icon: ic('messages-square'), t: 'Интервью', d: 'Поговорил с председателями и бухгалтерами ТСЖ: как проходит их месяц и где они теряют время.' },
-      { icon: ic('layout-grid'), t: 'Разбор решений', d: 'Изучил ГИС ЖКХ, программы учёта для УК и таблицы, которые ТСЖ ведут сами.' },
-      { icon: ic('message-circle'), t: 'Домовые чаты', d: 'Прочитал архивы чатов трёх домов и разметил сообщения: заявки, вопросы по оплате, жалобы.' }
+      { icon: ic('messages-square'), t: 'Интервью', d: 'Поговорила с председателями и бухгалтерами ТСЖ: как проходит их месяц и где они теряют время.' },
+      { icon: ic('layout-grid'), t: 'Разбор решений', d: 'Изучила ГИС ЖКХ, программы учёта для УК и таблицы, которые ТСЖ ведут сами.' },
+      { icon: ic('message-circle'), t: 'Домовые чаты', d: 'Прочитала архивы чатов трёх домов и разметила сообщения: заявки, вопросы по оплате, жалобы.' }
     ];
     const rs = !!seen.research;
     const month = [
@@ -358,8 +360,8 @@ class Component extends DCLogic {
       { ini: 'МД', role: 'Диспетчер', who: 'Мария, 38, принимает заявки', job: 'Хочу сразу видеть аварийные и горящие заявки, чтобы ни одна не ушла в просрочку.', looks: ['Заявки', 'Срок', 'Исполнители'] }
     ];
     const insights = [
-      { n: '1', t: 'Правлению нужен не отчёт, а ответ «где сейчас проблема»', d: 'Каждый раздел дашборда начинается строкой KPI, проблемные значения выделены красным.' },
-      { n: '2', t: 'Долг растёт незаметно: месяц просрочки не тревожит, полгода уже поздно', d: 'Долг разбит по срокам, у должника шкала месяцев, а при долге больше трёх месяцев появляется подсказка следующего шага.' },
+      { n: '1', t: 'Основные проблемы должны быть видны в сводке', d: 'Каждый раздел дашборда начинается строкой KPI, проблемные значения выделены красным.' },
+      { n: '2', t: 'Срок задолженности важен для выбора следующего действия', d: 'Долг разбит по срокам, у должника шкала месяцев, а при долге больше трёх месяцев появляется подсказка следующего шага.' },
       { n: '3', t: 'Заявки теряются, когда у них нет владельца и срока', d: 'Норматив 48 часов, колонка оставшегося времени и история действий в карточке заявки.' },
       { n: '4', t: 'Жильцы пишут текстом и присылают фото, а диспетчер пересказывает это по телефону', d: 'В карточке заявки описание и фото жильца, исполнитель видит их без звонка.' },
       { n: '5', t: 'Массовые действия делают вручную по одному', d: 'Выбор строк в таблице и панель действий: напоминание или претензия сразу нескольким квартирам.' }
@@ -416,7 +418,7 @@ class Component extends DCLogic {
       { p: 'Продукт', t: 'Время до первого действия', d: 'Сколько секунд проходит от входа до клика по проблемному блоку.' }
     ];
     const next = ['Юзабилити-тест с тремя председателями ТСЖ', 'Мобильная версия для диспетчера на выезде', 'Шаблоны объявлений и рассылок жильцам'];
-    return { showHero: !embedded, rv, meta, asIs, toBe, methods, month, roles, insights, ia, flows, shots, colors, type, statusGroups, rowStates, metrics, next };
+    return { screenZoom: Math.min(.79, Math.max(240, this.state.viewport - 72) / 1440), phoneZoom: Math.min(.82, Math.max(240, this.state.viewport - 72) / 410), showHero: !embedded, rv, meta, asIs, toBe, methods, month, roles, insights, ia, flows, shots, colors, type, statusGroups, rowStates, metrics, next };
   }
 }
 </script>

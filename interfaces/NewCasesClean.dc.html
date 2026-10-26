@@ -2,7 +2,7 @@
   <div style="background:#0B0B0B;color:#F3F1EC;padding:0;display:flex;flex-direction:column;gap:32px">
 <div data-rh="t1" class="newcase-header" style="opacity:{{ rv.t1.o }};transform:{{ rv.t1.t }};transition:opacity .7s,transform .7s">
  <div class="newcase-title"><span class="newcase-number">01</span><h3>Квартал — панель правления ТСЖ</h3></div>
- <div class="newcase-copy"><div><span class="newcase-label">Задача</span><p>Правление ведёт дом в Excel и домовом чате: о долгах узнаёт с опозданием, заявки теряются, показания собирают обзвоном.</p></div><div><span class="newcase-label">Решение</span><p>Одна панель для платежей, заявок и показаний. Каждый раздел начинается с ключевых цифр; от проблемы можно сразу перейти к действию.</p></div></div>
+ <div class="newcase-copy"><div><span class="newcase-label">Задача</span><p>Объединить работу правления ТСЖ с платежами, заявками и показаниями. В исходном процессе данные распределены между Excel, чатом и телефонными звонками.</p></div><div><span class="newcase-label">Решение</span><p>Спроектировала панель со сводкой по дому, списком должников и заявками жильцов. Добавила массовую отправку напоминаний и карточку заявки с историей и исполнителем.</p></div></div>
  <div class="newcase-meta"><button type="button" aria-expanded="{{ open1 }}" aria-controls="case1-details" onClick="{{ toggle1 }}">{{ btn1 }}</button></div></div>
     <div data-rh="st1" style="border-radius:28px;background:#14161C;padding:56px 40px 36px;display:{{ cover1 }};flex-direction:column;align-items:center;gap:40px;overflow:hidden">
       <div style="opacity:{{ rv.st1.o }};transform:{{ rv.st1.t }};transition:opacity 1s ease,transform 1.2s cubic-bezier(.2,.7,.2,1);display:flex;flex-direction:column;align-items:center;width:100%">
@@ -53,7 +53,7 @@
   <div style="background:#141413;border:1px solid #232322;border-radius:40px;padding:40px;display:flex;flex-direction:column;gap:36px">
 <div data-rh="t2" class="newcase-header" style="opacity:{{ rv.t2.o }};transform:{{ rv.t2.t }};transition:opacity .7s,transform .7s">
  <div class="newcase-title"><span class="newcase-number">02</span><h3>Учёт — трекер личных расходов</h3></div>
- <div class="newcase-copy"><div><span class="newcase-label">Задача</span><p>Банковская аналитика показывает траты постфактум, а ручной ввод в трекерах отнимает время. Месячный бюджет не помогает понять, сколько можно потратить сегодня.</p></div><div><span class="newcase-label">Решение</span><p>Остаток и дневной лимит — крупно, календарь показывает цвет дня, а расход записывается в коротком сценарии с суммой и категорией.</p></div></div>
+ <div class="newcase-copy"><div><span class="newcase-label">Задача</span><p>Спроектировать трекер расходов, в котором можно проверить остаток бюджета и быстро записать покупку. Помимо месячного лимита нужен ориентир на текущий день.</p></div><div><span class="newcase-label">Решение</span><p>Вынесла остаток на главный экран, добавила лимиты по категориям и календарь расходов. В сценарии добавления покупки оставила сумму, категорию и подтверждение.</p></div></div>
  <div class="newcase-meta"><button type="button" aria-expanded="{{ open2 }}" aria-controls="case2-details" onClick="{{ toggle2 }}">{{ btn2 }}</button></div></div>
     <div data-rh="st2" style="border-radius:28px;background:#0A0A0A;padding:56px 48px;display:{{ cover2 }};grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:48px;align-items:center;overflow:hidden">
       <div style="display:flex;justify-content:center;opacity:{{ rv.st2.o }};transform:{{ rv.st2.t }};transition:opacity 1s ease,transform 1.2s cubic-bezier(.2,.7,.2,1)">
@@ -158,10 +158,10 @@ class Component extends DCLogic {
     const kvT = ['Видит рост долга на дашборде', 'Отмечает должников в таблице', 'Отправляет напоминание в один клик', 'Открывает заявку с фото жильца', 'Закрывает заявку'];
     const kvSteps = kvT.map((t, i) => { const a = i === kv.step, past = i < kv.step; return { n: i + 1, t, bar: a ? '#FFA41B' : past ? '#4A4E58' : '#262A33', nb: a ? '#FFA41B' : '#262A33', nf: a ? '#fff' : '#8A8F99', c: a ? '#fff' : '#8A8F99' }; });
     const ucT = [
-      ['Видит остаток на месяц', 'Главная цифра экрана: сколько ещё можно потратить.'],
-      ['Вводит сумму и категорию', 'Плюс в таббаре, клавиатура открыта сразу, категория чипом.'],
+      ['Видит остаток на месяц', 'Остаток бюджета на главном экране.'],
+      ['Вводит сумму и категорию', 'Кнопка добавления расхода, ввод суммы и выбор категории.'],
       ['Остаток пересчитан сразу', 'Подтверждение и обновлённый столбец категории.'],
-      ['Проверяет день в календаре', 'Цвет дня показывает, уложился ли в дневной лимит.']
+      ['Проверяет день в календаре', 'В календаре видно, в какие дни превышен лимит.']
     ];
     const ucSteps = ucT.map(([t, d], i) => { const a = i === uc.step; return { n: i + 1, t, d, nb: a ? '#FFA41B' : '#1E1E1D', nf: a ? '#111' : '#8C8C8A', c: a ? '#F2F2F0' : '#6B6B67', dc: a ? '#A8A8A4' : '#4E4E4A' }; });
     return {
@@ -176,8 +176,8 @@ class Component extends DCLogic {
         tapPos: 'translate(' + uc.tx + 'px,' + uc.ty + 'px)', tapO: uc.tap ? 1 : 0 },
       did1: ['Интервью', 'Карта процессов', 'IA', 'Прототип', 'UI-кит'],
       did2: ['Интервью', 'JTBD', 'Сценарии', 'Прототип', 'UI-кит'],
-      btn1: open1 ? '← Вернуть обложку' : 'Открыть кейс по шагам ↓',
-      btn2: open2 ? '← Вернуть обложку' : 'Открыть кейс по шагам ↓',
+      btn1: open1 ? '← Вернуть обложку' : 'Подробнее о проекте ↓',
+      btn2: open2 ? '← Вернуть обложку' : 'Подробнее о проекте ↓',
       arrow1: open1 ? 'rotate(180deg)' : 'none', arrow2: open2 ? 'rotate(180deg)' : 'none',
       toggle1: () => this.toggle('open1', 'case1'), toggle2: () => this.toggle('open2', 'case2'),
       contacts: ['Telegram', 'Почта', 'Резюме PDF']
