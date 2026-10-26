@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0B0B0B">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script src="./activity.js"></script>
+<script src="./lazy-reels.js"></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -146,10 +148,15 @@
 class Component extends DCLogic {
   state = { pr: -1 };
   componentDidMount() { this.anims = []; this.t0 = setTimeout(() => this.init(), 60); this.onPr = e => this.setState({ pr: e.detail }); document.addEventListener('principle', this.onPr); }
-  componentWillUnmount() { clearTimeout(this.t0); document.removeEventListener('principle', this.onPr); window.removeEventListener('scroll', this.onScroll); (this.anims || []).forEach(a => a.cancel()); }
+  componentWillUnmount() { clearTimeout(this.t0); document.removeEventListener('principle', this.onPr); window.removeEventListener('scroll', this.onScroll); this.heroIo && this.heroIo.disconnect(); (this.anims || []).forEach(a => a.cancel()); }
   init() {
     this.drift = Array.from(document.querySelectorAll('[data-drift]'));
     this.drift.forEach(el => this.anims.push(el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 2000, delay: 300, fill: 'both' })));
+    this.heroFrame = document.querySelector('#top iframe');
+    if (this.heroFrame) {
+      this.heroIo = new IntersectionObserver(es => this.heroFrame.contentWindow?.postMessage({ heroPaused: !es[0].isIntersecting }, location.origin), { root: null, rootMargin: '300px 0px', threshold: 0 });
+      this.heroIo.observe(this.heroFrame);
+    }
     this.onScroll = () => { if (this.tick) return; this.tick = true; requestAnimationFrame(() => { this.tick = false; const y = scrollY; this.drift.forEach(el => el.style.transform = `translate(${-y * 0.5}px,-58%)`); }); };
     window.addEventListener('scroll', this.onScroll, { passive: true }); this.onScroll();
   }

@@ -88,7 +88,17 @@
     const SC = [['A', 4.4], ['B', 9.1], ['C', 11.4], ['D', 12.2], ['E', 13.4], ['F', 14.6], ['G', 18.2]];
     const sEls = [...R.querySelectorAll('[data-s]')], wEls = [...R.querySelectorAll('[data-w]')];
     let cur = '', cw = -1;
+    self.active = true;
+    const setActive = on => {
+      if (self.active === on) return;
+      self.active = on;
+      anims.forEach(a => on ? a.play() : a.pause());
+      R.querySelectorAll('iframe').forEach(frame => frame.contentWindow?.postMessage({ heroPaused: !on }, location.origin));
+      if (!on) { cancelAnimationFrame(self.raf); self.raf = 0; return; }
+      self.raf = requestAnimationFrame(tick);
+    };
     const tick = () => {
+      if (!self.active) return;
       const t = fromTime(((clock.currentTime || 0) / 1000) % duration);
       const sc = (SC.find(s => t < s[1]) || SC[0])[0];
       if (sc !== cur) { cur = sc; sEls.forEach(el => { el.style.display = el.dataset.s.split(' ').includes(sc) ? 'block' : 'none'; }); }
@@ -101,8 +111,11 @@
     window.__heroSeek = t => anims.forEach(a => { a.pause(); a.currentTime = toTime(t) * 1000; });
     const rate = self.props.speed ?? 1;
     anims.forEach(a => { a.playbackRate = rate; });
-    self.io = new IntersectionObserver(es => { const on = es[0].isIntersecting; anims.forEach(a => on ? a.play() : a.pause()); });
+    self.io = new IntersectionObserver(es => setActive(es[0].isIntersecting), { root: null, rootMargin: '300px 0px', threshold: 0 });
     self.io.observe(R);
+    addEventListener('message', e => {
+      if (e.origin === location.origin && typeof e.data?.heroPaused === 'boolean') setActive(!e.data.heroPaused);
+    });
     const reviewTime = new URLSearchParams(location.search).get('reviewTime');
     if (reviewTime !== null) requestAnimationFrame(() => requestAnimationFrame(() => window.__heroSeek(+reviewTime || 0)));
 

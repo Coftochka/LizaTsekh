@@ -81,12 +81,24 @@ const ring = (id, size, sw, pct, color, label, fs, track) => { const r = (size -
 function linePath(arr, w, h, max, min = 0) { return arr.map((v, i) => `${i ? 'L' : 'M'}${(i / (arr.length - 1) * w).toFixed(1)},${(h - (v - min) / (max - min) * h).toFixed(1)}`).join(' '); }
 const kpi = (l, v, dec, s, up, sp, col, suf = '') => { const mx = Math.max(...sp), mn = Math.min(...sp); return `<div class="c k glass an" data-g="1"><svg width="64" height="26" viewBox="-2 -2 68 30"><path pathLength="1" d="${linePath(sp, 64, 26, mx, mn)}" stroke="${col}"></path></svg><div class="l">${l}</div><div class="v" data-n="${v}" data-dec="${dec}" data-suf="${suf}">0</div><div class="s"><b style="color:${up ? GRN : RED};background:${up ? '#E2F6EB' : '#FDE6E6'}">${up ? '↑' : '↓'} ${s}</b>к маю</div></div>`; };
 
+const dashActivity = window.InterfaceActivity || {
+  observe(element, onChange) {
+    let inZone = true, externallyPaused = false, active;
+    const update = () => { const next = inZone && !externallyPaused && !document.hidden; if (next === active) return; active = next; onChange(next); };
+    const observer = 'IntersectionObserver' in window ? new IntersectionObserver(es => { inZone = es.some(e => e.isIntersecting); update(); }, { root: null, rootMargin: '300px 0px', threshold: 0 }) : null;
+    observer ? observer.observe(element) : update();
+    const onVisibility = () => update(); document.addEventListener('visibilitychange', onVisibility);
+    return { setExternallyPaused(v) { externallyPaused = Boolean(v); update(); }, disconnect() { observer && observer.disconnect(); document.removeEventListener('visibilitychange', onVisibility); } };
+  }
+};
+
 class DashReel extends HTMLElement {
   static get observedAttributes() { return ['speed']; }
   set speed(v) { this._speed = parseFloat(v) || 1; } get speed() { return this._speed || 1; }
+  set visible(v) { this.setExternalPaused(!v); } get visible() { return this._running; }
   attributeChangedCallback(n, o, v) { if (n === 'speed') this._speed = parseFloat(v) || 1; }
   connectedCallback() { if (!this.shadowRoot) this.attachShadow({ mode: 'open' }); setTimeout(() => { if (this.isConnected && !this._built) this.build(); }, 0); }
-  disconnectedCallback() { this._built = false; this.gen = (this.gen || 0) + 1; cancelAnimationFrame(this._raf); this._ro && this._ro.disconnect(); this._io && this._io.disconnect(); this.shadowRoot.innerHTML = ''; }
+  disconnectedCallback() { this._built = false; this.gen = (this.gen || 0) + 1; cancelAnimationFrame(this._raf); this._ro && this._ro.disconnect(); this._activity && this._activity.disconnect(); this.shadowRoot.innerHTML = ''; }
   build() {
     this._built = true; this.gen = (this.gen || 0) + 1;
     const lw = 410, lh = 300;
@@ -132,11 +144,10 @@ class DashReel extends HTMLElement {
     this.stage = this.$('.stage'); this.win = this.$('.win');
     const fit = () => { const w = this.clientWidth, h = this.clientHeight; if (!w || !h) return; const s = Math.min(w / 1920, h / 1080); this.stage.style.transform = `translate(${(w - 1920 * s) / 2}px,${(h - 1080 * s) / 2}px) scale(${s})`; };
     this._ro = new ResizeObserver(fit); this._ro.observe(this); fit();
-    this.visible = true; this._io = new IntersectionObserver(es => { this.visible = es[0].isIntersecting; }); this._io.observe(this);
-    this.clock = 0; this.waiters = []; this.counters = []; let last = performance.now();
-    const tick = () => {
-      const n = performance.now(), dt = Math.min(n - last, 100); last = n;
-      if (this.visible) this.clock += dt * this.speed;
+    this.clock = 0; this.waiters = []; this.counters = []; this._last = 0;
+    this._tick = () => {
+      const n = performance.now(), dt = Math.min(n - this._last, 100); this._last = n;
+      this.clock += dt * this.speed;
       const due = this.waiters.filter(x => x.t <= this.clock); this.waiters = this.waiters.filter(x => x.t > this.clock); due.forEach(x => x.r());
       this.counters = this.counters.filter(c => { const p = Math.min(1, (this.clock - c.t0) / 1300), e = 1 - Math.pow(1 - p, 3); c.el.textContent = (c.to * e).toLocaleString('ru-RU', { minimumFractionDigits: c.dec, maximumFractionDigits: c.dec }) + c.suf; return p < 1; });
       if (this.heroLive) {
@@ -147,12 +158,14 @@ class DashReel extends HTMLElement {
         this.$$('.ln,.ar').forEach((el,i)=>{const original=el.dataset.heroPath||(el.dataset.heroPath=el.getAttribute('d'));if(!original)return;let point=0;el.setAttribute('d',original.replace(/([ML])([\d.]+),([\d.]+)/g,(all,cmd,x,y)=>{const n=point++;return cmd+x+','+(+y+Math.sin(t*1.3+n*.8+i*.4)*7).toFixed(2)}))});
         this.$$('.k svg path').forEach((el,i)=>{const original=el.dataset.heroPath||(el.dataset.heroPath=el.getAttribute('d'));if(!original)return;let point=0;el.setAttribute('d',original.replace(/([ML])(-?[\d.]+),(-?[\d.]+)/g,(all,cmd,x,y)=>cmd+x+','+(+y+Math.sin(t*1.4+point++*.8+i)*2).toFixed(2)))});
       }
-      this._raf = requestAnimationFrame(tick);
+      this._raf = requestAnimationFrame(this._tick);
     };
-    this._raf = requestAnimationFrame(tick);
+    this._activity = dashActivity.observe(this, active => this._setRunning(active));
     const gen = this.gen;
     (async () => { await this.w(200); while (gen === this.gen) await this.loop(); })();
   }
+  _setRunning(active) { if (this._running === active) return; this._running = active; if (!active) { cancelAnimationFrame(this._raf); this._raf = 0; return; } this._last = performance.now(); this._raf = requestAnimationFrame(this._tick); }
+  setExternalPaused(paused) { this._activity && this._activity.setExternallyPaused(paused); }
   w(ms) { return new Promise(r => this.waiters.push({ t: this.clock + ms, r })); }
   cam(o, dur = 1.2, instant) {
     const k = o.k || 1, x = o.x ?? W / 2, y = o.y ?? H / 2;

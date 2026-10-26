@@ -106,12 +106,29 @@ const CSS = `
 @keyframes ring{from{transform:scale(.6);opacity:1}to{transform:scale(2);opacity:0}}
 `;
 
+const caseActivity = window.InterfaceActivity || {
+  observe(element, onChange) {
+    let inZone = true, externallyPaused = false, active;
+    const update = () => {
+      const next = inZone && !externallyPaused && !document.hidden;
+      if (next === active) return;
+      active = next; onChange(next);
+    };
+    const observer = 'IntersectionObserver' in window ? new IntersectionObserver(es => { inZone = es.some(e => e.isIntersecting); update(); }, { root: null, rootMargin: '300px 0px', threshold: 0 }) : null;
+    observer ? observer.observe(element) : update();
+    const onVisibility = () => update(); document.addEventListener('visibilitychange', onVisibility);
+    return { setExternallyPaused(v) { externallyPaused = Boolean(v); update(); }, disconnect() { observer && observer.disconnect(); document.removeEventListener('visibilitychange', onVisibility); } };
+  }
+};
+
 class CaseReel extends HTMLElement {
   static get observedAttributes() { return ['speed', 'scenario']; }
   set scenario(v) { this.setAttribute('scenario', v); }
   get scenario() { return this.getAttribute('scenario'); }
   set speed(v) { this._speed = parseFloat(v) || 1; }
   get speed() { return this._speed || 1; }
+  set visible(v) { this.setExternalPaused(!v); }
+  get visible() { return this._running; }
   attributeChangedCallback(n, o, v) {
     if (n === 'speed') this._speed = parseFloat(v) || 1;
     if (n === 'scenario' && this._built && o !== v) { this._teardown(); this._build(); }
@@ -120,14 +137,14 @@ class CaseReel extends HTMLElement {
   disconnectedCallback() { this._teardown(); }
   _teardown() {
     this._built = false; this.gen = (this.gen || 0) + 1; this.waiters = [];
-    cancelAnimationFrame(this._raf); this._ro && this._ro.disconnect(); this._io && this._io.disconnect();
+    cancelAnimationFrame(this._raf); this._ro && this._ro.disconnect(); this._activity && this._activity.disconnect();
     if (this.shadowRoot) this.shadowRoot.innerHTML = '';
   }
   _build() {
     this._built = true; this.gen = (this.gen || 0) + 1;
     const sc = THEMES[this.scenario] ? this.scenario : 'rag', T = THEMES[sc];
     ['bg', 'accent', 'ui'].forEach(k => this.style.setProperty('--' + k, T[k]));
-    this.shadowRoot.innerHTML = `<style>${CSS}</style>
+    this.shadowRoot.innerHTML = `<style>${CSS}:host([data-interface-paused]) *{animation-play-state:paused!important}</style>
 <div class="bg"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i></div>
 <div class="stage">
   <div class="glow"></div>
@@ -150,26 +167,31 @@ class CaseReel extends HTMLElement {
       this.stage.style.transform = `translate(${(w - 1280 * s) / 2}px,${(h - 720 * s) / 2}px) scale(${s})`;
     };
     this._ro = new ResizeObserver(fit); this._ro.observe(this); fit();
-    this.visible = true;
-    this._io = new IntersectionObserver(es => { this.visible = es[0].isIntersecting; }); this._io.observe(this);
-    this.clock = 0; this.waiters = []; let last = performance.now();
-    const tick = () => {
-      const n = performance.now(), dt = Math.min(n - last, 100); last = n;
-      if (this.visible) this.clock += dt * this.speed * 1.45;
+    this.clock = 0; this.waiters = []; this._last = 0;
+    this._tick = () => {
+      const n = performance.now(), dt = Math.min(n - this._last, 100); this._last = n;
+      this.clock += dt * this.speed * 1.45;
       const due = this.waiters.filter(x => x.t <= this.clock); this.waiters = this.waiters.filter(x => x.t > this.clock);
       due.forEach(x => x.r());
-      this._raf = requestAnimationFrame(tick);
+      this._raf = requestAnimationFrame(this._tick);
     };
-    this._raf = requestAnimationFrame(tick);
     if ((this.previewStatic || this['preview-static'] || this.hasAttribute('preview-static'))) {
       this.reset(); this.on('.phone'); this.cam('front', true);
       this.msg('bot', sc === 'rag' ? '<b>Ответ по документам РСВ</b><br>Показатель достигнут на 87%.<br><br>Источник: дашборд КПЭ ↗' : '<b>Заседание правления</b><br>Пятница · 14:00<br><br>Участники и повестка подтверждены.<br>Документы готовы ✓');
       this.$('.phone').style.transform = 'translateX(-170px) scale(.94)';
-      cancelAnimationFrame(this._raf); return;
+      return;
     }
+    this._activity = caseActivity.observe(this, active => this._setRunning(active));
     const gen = this.gen;
     (async () => { while (gen === this.gen) { this.reset(); await this[sc](); } })();
   }
+  _setRunning(active) {
+    if (this._running === active) return;
+    this._running = active;
+    if (!active) { cancelAnimationFrame(this._raf); this._raf = 0; return; }
+    this._last = performance.now(); this._raf = requestAnimationFrame(this._tick);
+  }
+  setExternalPaused(paused) { this._activity && this._activity.setExternallyPaused(paused); }
   cam(n, fast) {
     const C = {
       enter: 'translate3d(40px,520px,-200px) rotateX(62deg) rotateZ(-18deg) scale(.8)',

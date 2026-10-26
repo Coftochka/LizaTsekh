@@ -92,11 +92,11 @@ class DashReel extends HTMLElement {
   set speed(v) { this._speed = parseFloat(v) || 1; } get speed() { return this._speed || 1; }
   attributeChangedCallback(n, o, v) { if (n === 'speed') this._speed = parseFloat(v) || 1; }
   connectedCallback() { if (!this.shadowRoot) this.attachShadow({ mode: 'open' }); setTimeout(() => { if (this.isConnected && !this._built) this.build(); }, 0); }
-  disconnectedCallback() { this._built = false; this.gen = (this.gen || 0) + 1; cancelAnimationFrame(this._raf); this._ro && this._ro.disconnect(); this._io && this._io.disconnect(); this.shadowRoot.innerHTML = ''; }
+  disconnectedCallback() { this._built = false; this.gen = (this.gen || 0) + 1; cancelAnimationFrame(this._raf); this._ro && this._ro.disconnect(); this._activity && this._activity.disconnect(); this.shadowRoot.innerHTML = ''; }
   build() {
     this._built = true; this.gen = (this.gen || 0) + 1;
     const lw = 410, lh = 300;
-    this.shadowRoot.innerHTML = `<style>${CSS}</style><div class="stage"><div class="glow"></div><div class="win">
+    this.shadowRoot.innerHTML = `<style>${CSS}:host([data-interface-paused]) *{animation-play-state:paused!important}</style><div class="stage"><div class="glow"></div><div class="win">
       <aside class="side glass an" data-g="0"><div class="logo"><i></i>HR-аналитика</div>
         <div class="nav act" data-nav="0"><b></b>Кадровый состав</div><div class="nav" data-nav="1"><b></b>Текучесть<em>6</em></div><div class="nav" data-nav="2"><b></b>Подбор<em>42</em></div><div class="nav" data-nav="3"><b></b>Фонд оплаты труда</div><div class="nav" data-nav="4"><b></b>Обучение</div><div class="nav" data-nav="5"><b></b>Вовлеченность</div>
         <div class="sep"></div><div class="nav"><b></b>Загрузка данных</div><div class="nav"><b></b>Настройки</div>
@@ -143,25 +143,31 @@ class DashReel extends HTMLElement {
     this.win = laptop;
     const fit = () => { const w = this.clientWidth, h = this.clientHeight; if (!w || !h) return; const s = Math.min(w / 1920, h / 1080); this.stage.style.transform = `translate(${(w - 1920 * s) / 2}px,${(h - 1080 * s) / 2}px) scale(${s})`; };
     this._ro = new ResizeObserver(fit); this._ro.observe(this); fit();
-    this.visible = true; this._io = new IntersectionObserver(es => { this.visible = es[0].isIntersecting; }); this._io.observe(this);
-    this.clock = 0; this.waiters = []; this.counters = []; let last = performance.now();
-    const tick = () => {
-      const n = performance.now(), dt = Math.min(n - last, 100); last = n;
-      if (this.visible) this.clock += dt * this.speed * 2.5;
+    this.clock = 0; this.waiters = []; this.counters = []; this._last = 0;
+    this._tick = () => {
+      const n = performance.now(), dt = Math.min(n - this._last, 100); this._last = n;
+      this.clock += dt * this.speed * 2.5;
       const due = this.waiters.filter(x => x.t <= this.clock); this.waiters = this.waiters.filter(x => x.t > this.clock); due.forEach(x => x.r());
       this.counters = this.counters.filter(c => { const p = Math.min(1, (this.clock - c.t0) / 1300), e = 1 - Math.pow(1 - p, 3); c.el.textContent = (c.to * e).toLocaleString('ru-RU', { minimumFractionDigits: c.dec, maximumFractionDigits: c.dec }) + c.suf; return p < 1; });
-      this._raf = requestAnimationFrame(tick);
+      this._raf = requestAnimationFrame(this._tick);
     };
-    this._raf = requestAnimationFrame(tick);
     if ((this.previewStatic || this['preview-static'] || this.hasAttribute('preview-static'))) {
       this.$$('.an,.tbl .r').forEach(e => e.classList.add('on'));
       this.$$('[data-n]').forEach(e => e.textContent = Number(e.dataset.n).toLocaleString('ru-RU') + (e.dataset.suf || ''));
       this.$$('[data-ring]').forEach(e => e.style.strokeDashoffset = String(+e.dataset.c * (1 - +e.dataset.p)));
-      this.cam({k:.94},0,true); this.bars(); this.line(); cancelAnimationFrame(this._raf); return;
+      this.cam({k:.94},0,true); this.bars(); this.line(); return;
     }
+    this._activity = (window.InterfaceActivity || { observe: (element, onChange) => { onChange(true); return { disconnect() {}, setExternallyPaused() {} }; } }).observe(this, active => this._setRunning(active));
     const gen = this.gen;
     (async () => { await this.w(200); while (gen === this.gen) await this.loop(); })();
   }
+  _setRunning(active) {
+    if (this._running === active) return;
+    this._running = active;
+    if (!active) { cancelAnimationFrame(this._raf); this._raf = 0; return; }
+    this._last = performance.now(); this._raf = requestAnimationFrame(this._tick);
+  }
+  setExternalPaused(paused) { this._activity && this._activity.setExternallyPaused(paused); }
   w(ms) { return new Promise(r => this.waiters.push({ t: this.clock + ms, r })); }
   cam(o, dur = 1.2, instant) {
     const k = (o.k || 1) * .84, x = o.x ?? W / 2, y = o.y ?? H / 2;
