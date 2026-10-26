@@ -124,17 +124,18 @@ class DeckReel extends HTMLElement {
   set speed(v) { this._speed = parseFloat(v) || 1; } get speed() { return this._speed || 1; }
   attributeChangedCallback(n, o, v) { if (n === 'speed') this._speed = parseFloat(v) || 1; }
   connectedCallback() { if (!this.shadowRoot) this.attachShadow({ mode: 'open' }); setTimeout(() => { if (this.isConnected && !this._built) this.build(); }, 0); }
-  disconnectedCallback() { this._built = false; this.gen = (this.gen || 0) + 1; cancelAnimationFrame(this._raf); this._ro && this._ro.disconnect(); this._io && this._io.disconnect(); this.shadowRoot.innerHTML = ''; }
+  disconnectedCallback() { this._built = false; this.gen = (this.gen || 0) + 1; cancelAnimationFrame(this._raf); this._ro && this._ro.disconnect(); this._activity && this._activity.disconnect(); this.shadowRoot.innerHTML = ''; }
   build() {
     this._built = true; this.gen = (this.gen || 0) + 1;
     this.shadowRoot.innerHTML = `<style>${CSS}</style><div class="stage"><div class="glow"></div><div class="lap"><div class="base"></div><div class="lid"><div class="screen"><div class="slide"><img class="bgimg" src="deck/glass-bg.jpg" alt=""></div></div></div></div></div>`;
     const R = this.shadowRoot; this.stage = R.querySelector('.stage'); this.lap = R.querySelector('.lap'); this.slide = R.querySelector('.slide'); this.els = {};
     const fit = () => { const w = this.clientWidth, h = this.clientHeight; if (!w || !h) return; const s = Math.min(w / 1920, h / 1080); this.stage.style.transform = `translate(${(w - 1920 * s) / 2}px,${(h - 1080 * s) / 2}px) scale(${s})`; };
     this._ro = new ResizeObserver(fit); this._ro.observe(this); fit();
-    this.visible = true; this._io = new IntersectionObserver(es => { this.visible = es[0].isIntersecting; }); this._io.observe(this);
     this.clock = 0; this.waiters = []; let last = performance.now();
-    const tick = () => { const n = performance.now(), dt = Math.min(n - last, 100); last = n; if (this.visible) this.clock += dt * this.speed * 1.5; const due = this.waiters.filter(x => x.t <= this.clock); this.waiters = this.waiters.filter(x => x.t > this.clock); due.forEach(x => x.r()); this._raf = requestAnimationFrame(tick); };
-    this._raf = requestAnimationFrame(tick);
+    this._tick = () => { const n = performance.now(), dt = Math.min(n - last, 100); last = n; this.clock += dt * this.speed * 1.5; const due = this.waiters.filter(x => x.t <= this.clock); this.waiters = this.waiters.filter(x => x.t > this.clock); due.forEach(x => x.r()); this._raf = requestAnimationFrame(this._tick); };
+    this._running = false;
+    this._setRunning = active => { if (this._running === active) return; this._running = active; if (!active) { cancelAnimationFrame(this._raf); this._raf = 0; return; } last = performance.now(); this._raf = requestAnimationFrame(this._tick); };
+    this._activity = (window.InterfaceActivity || { observe: (_element, onChange) => { onChange(true); return { disconnect() {} }; } }).observe(this, this._setRunning);
     if ((this.previewStatic || this['preview-static'] || this.hasAttribute('preview-static'))) {
       this.show(this.sTitle()); this.cam('front', {instant:true});
       this.lap.style.transform = 'scale(.88)';

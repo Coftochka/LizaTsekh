@@ -106,6 +106,10 @@ const CSS = `
 @keyframes ring{from{transform:scale(.6);opacity:1}to{transform:scale(2);opacity:0}}
 `;
 
+const interfaceActivity = window.InterfaceActivity || {
+  observe: (_element, onChange) => { onChange(true); return { disconnect() {}, setExternallyPaused() {} }; }
+};
+
 class CaseReel extends HTMLElement {
   static get observedAttributes() { return ['speed', 'scenario']; }
   set scenario(v) { this.setAttribute('scenario', v); }
@@ -120,7 +124,7 @@ class CaseReel extends HTMLElement {
   disconnectedCallback() { this._teardown(); }
   _teardown() {
     this._built = false; this.gen = (this.gen || 0) + 1; this.waiters = [];
-    cancelAnimationFrame(this._raf); this._ro && this._ro.disconnect(); this._io && this._io.disconnect();
+    cancelAnimationFrame(this._raf); this._ro && this._ro.disconnect(); this._activity && this._activity.disconnect();
     if (this.shadowRoot) this.shadowRoot.innerHTML = '';
   }
   _build() {
@@ -151,17 +155,22 @@ class CaseReel extends HTMLElement {
       this.stage.style.transform = `translate(${w / 2 - (portrait ? 706 : 640) * s}px,${(h - 720 * s) / 2}px) scale(${s})`;
     };
     this._ro = new ResizeObserver(fit); this._ro.observe(this); fit();
-    this.visible = true;
-    this._io = new IntersectionObserver(es => { this.visible = es[0].isIntersecting; }); this._io.observe(this);
     this.clock = 0; this.waiters = []; let last = performance.now();
-    const tick = () => {
+    this._tick = () => {
       const n = performance.now(), dt = Math.min(n - last, 100); last = n;
-      if (this.visible) this.clock += dt * this.speed * 1.45;
+      this.clock += dt * this.speed * 1.45;
       const due = this.waiters.filter(x => x.t <= this.clock); this.waiters = this.waiters.filter(x => x.t > this.clock);
       due.forEach(x => x.r());
-      this._raf = requestAnimationFrame(tick);
+      this._raf = requestAnimationFrame(this._tick);
     };
-    this._raf = requestAnimationFrame(tick);
+    this._running = false;
+    this._setRunning = active => {
+      if (this._running === active) return;
+      this._running = active;
+      if (!active) { cancelAnimationFrame(this._raf); this._raf = 0; return; }
+      last = performance.now(); this._raf = requestAnimationFrame(this._tick);
+    };
+    this._activity = interfaceActivity.observe(this, this._setRunning);
     if ((this.previewStatic || this['preview-static'] || this.hasAttribute('preview-static'))) {
       this.reset(); this.on('.phone'); this.cam('front', true);
       this.msg('bot', sc === 'rag' ? '<b>Ответ по документам РСВ</b><br>Показатель достигнут на 87%.<br><br>Источник: дашборд КПЭ ↗' : '<b>Заседание правления</b><br>Пятница · 14:00<br><br>Участники и повестка подтверждены.<br>Документы готовы ✓');
