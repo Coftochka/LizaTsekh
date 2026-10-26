@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
+<style>:where(body){margin:0;background:#0A0A0A;font-family:'Golos Text',sans-serif;color:#111;-webkit-font-smoothing:antialiased;font-feature-settings:"tnum" 1}:where(a){color:#43D98C;text-decoration:none}:where(a:hover){color:#7BE8AF}</style>
+</helmet>
+<sc-if value="{{ isOverview }}" hint-placeholder-val="{{ true }}">
+<div style="flex:none;position:relative;width:390px;height:844px;border-radius:54px;border:10px solid #1F1F1E;background:#EFEFED;color:#111;overflow:hidden;display:flex;flex-direction:column;box-sizing:content-box">
+      <div style="position:absolute;left:14px;right:14px;top:56px;z-index:2;height:60px;border-radius:30px;background:#111;color:#fff;display:flex;align-items:center;gap:12px;padding:0 10px;font-size:15px;opacity:{{ toastO }};transform:{{ toastT }};transition:opacity .35s ease,transform .5s cubic-bezier(.2,.7,.2,1)"><span style="width:40px;height:40px;border-radius:50%;background:#43D98C;display:grid;place-items:center"><img src="https://unpkg.com/lucide-static@0.452.0/icons/check.svg" alt="" style="width:18px;height:18px"></span>{{ toastText }}</div>
+      <div style="height:48px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 32px;font-size:15px;font-weight:600"><span>9:41</span><span style="width:26px;height:12px;border:1.5px solid #111;border-radius:4px"></span></div>
+      <div style="flex:1;min-height:0;display:flex;flex-direction:column;padding:8px 14px 0;gap:14px">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:0 4px">
+          <div style="height:44px;padding:0 20px;border-radius:22px;background:#fff;display:flex;align-items:center;font-size:15px;font-weight:500">Октябрь</div>
+          <div style="display:flex;gap:8px">
+            <div style="width:44px;height:44px;border-radius:50%;background:#fff;display:grid;place-items:center"><span style="width:14px;height:14px;border-radius:50%;border:2px solid #111;box-sizing:border-box"></span></div>
+            <div style="width:44px;height:44px;border-radius:50%;background:#111;color:#fff;display:grid;place-items:center;font-size:14px;font-weight:500">АС</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;padding:4px 6px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline">
+            <div style="font-size:44px;letter-spacing:-.04em">{{ leftAmt }}<span style="font-size:18px;color:#6B6B67">,00 ₽</span></div>
+            <div style="font-size:16px">Остаток</div>
+          </div>
+          <div style="display:flex;gap:4px;height:8px">
+            <div style="flex:3;border-radius:4px;background:#111"></div><div style="flex:3;border-radius:4px;background:#111"></div><div style="flex:2;border-radius:4px;background:#111"></div><div style="flex:2;border-radius:4px;background:#D9D9D6"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="font-size:14px;white-space:nowrap">{{ spentAmt }} ₽ <span style="color:#5E5E5A">из 85 000 ₽</span></div>
+            <div style="height:24px;padding:0 10px;border-radius:12px;background:#43D98C;font-size:12px;font-weight:500;display:flex;align-items:center;white-space:nowrap">+12% к сент.</div>
+          </div>
+        </div>
+        <div style="background:#fff;border-radius:32px;padding:18px;display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="font-size:17px;font-weight:500">Бюджет по категориям</div>
+            <div style="width:44px;height:44px;border-radius:50%;background:#EFEFED;display:grid;place-items:center;font-size:16px;letter-spacing:1px">•••</div>
+          </div>
+          <div style="display:flex;gap:8px;height:170px;align-items:stretch">
+            <sc-for list="{{ catCols }}" as="c" hint-placeholder-count="5">
+              <div style="flex:1;display:flex;flex-direction:column;gap:6px;min-width:0">
+                <div style="flex:1;border-radius:16px;overflow:hidden;display:flex;flex-direction:column;background:repeating-linear-gradient(135deg,#DADAD7 0 2px,#EFEFED 2px 8px)">
+                  <div style="flex:{{ c.rest }}"></div>
+                  <div style="flex:{{ c.used }};background:{{ c.bg }};display:flex;align-items:flex-start;justify-content:center;padding-top:10px;font-size:12px;font-weight:500;color:{{ c.fg }}">{{ c.pct }}%</div>
+                </div>
+                <div style="font-size:12px;color:#5E5E5A;text-align:center">{{ c.label }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="height:56px;border-radius:28px;background:#111;display:flex;align-items:center;justify-content:space-between;padding:0 8px;color:#fff">
+            <div style="width:44px;height:44px;border-radius:50%;background:#2A2A29;display:grid;place-items:center;font-size:18px">‹</div>
+            <div style="font-size:16px">Продукты {{ prodAmt }} ₽</div>
+            <div style="width:44px;height:44px;border-radius:50%;background:#43D98C;color:#111;display:grid;place-items:center;font-size:18px">›</div>
+          </div>
+        </div>
+        <div style="background:#fff;border-radius:24px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center">
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <div style="font-size:16px;font-weight:500">Лимит на месяц</div>
+            <div style="font-size:14px;color:#5E5E5A">85 000 ₽, обновится 1 ноября</div>
+          </div>
+          <div style="height:44px;padding:0 16px;border-radius:22px;background:#EFEFED;display:flex;align-items:center;font-size:14px">Изменить</div>
+        </div>
+        <div style="margin-top:auto;margin-bottom:22px;height:68px;border-radius:34px;background:#111;display:flex;align-items:center;justify-content:space-between;padding:0 10px;color:#fff">
+          <div style="height:48px;padding:0 18px;border-radius:24px;background:#F2F2F0;color:#111;display:flex;align-items:center;gap:8px;font-size:14px;font-weight:500"><span style="width:12px;height:12px;border-radius:3px;background:#111"></span>Обзор</div>
+          <div style="width:48px;height:48px;border-radius:50%;display:grid;place-items:center"><span style="width:16px;height:12px;border-top:2px solid #A8A8A4;border-bottom:2px solid #A8A8A4"></span></div>
+          <div style="width:52px;height:52px;border-radius:50%;background:#43D98C;color:#111;display:grid;place-items:center;font-size:26px;font-weight:300">+</div>
+          <div style="width:48px;height:48px;border-radius:50%;display:grid;place-items:center"><span style="width:16px;height:16px;border-radius:4px;border:2px solid #A8A8A4;box-sizing:border-box"></span></div>
+          <div style="width:48px;height:48px;border-radius:50%;display:grid;place-items:center"><span style="width:16px;height:16px;border-radius:50%;border:2px solid #A8A8A4;box-sizing:border-box"></span></div>
+        </div>
+      </div>
+    </div>
+</sc-if>
+<sc-if value="{{ isCategory }}" hint-placeholder-val="{{ false }}">
+<div style="flex:none;width:390px;height:844px;border-radius:54px;border:10px solid #1F1F1E;background:#0A0A0A;color:#F2F2F0;overflow:hidden;display:flex;flex-direction:column;box-sizing:content-box">
+      <div style="flex:none;background:#43D98C;color:#111;border-radius:0 0 36px 36px;padding:0 14px 14px;display:flex;flex-direction:column">
+        <div style="height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;font-size:15px;font-weight:600"><span>9:41</span><span style="width:26px;height:12px;border:1.5px solid #111;border-radius:4px"></span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 4px 0">
+          <div style="display:flex;align-items:center;gap:12px;font-size:17px"><div style="width:44px;height:44px;border-radius:50%;background:#111;color:#fff;display:grid;place-items:center;font-size:20px">‹</div>Продукты</div>
+          <div style="width:44px;height:44px;border-radius:50%;background:#111;display:grid;place-items:center"><span style="width:14px;height:14px;border-radius:3px;background:#fff"></span></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;padding:64px 8px 14px">
+          <div style="font-size:52px;letter-spacing:-.04em">83 %</div>
+          <div style="font-size:16px">от лимита 30 000 ₽</div>
+        </div>
+        <div style="height:56px;border-radius:28px;overflow:hidden;display:flex;background:repeating-linear-gradient(135deg,#C9C9C6 0 2px,#EFEFED 2px 8px)">
+          <div style="width:83%;background:#111;border-radius:28px"></div>
+        </div>
+      </div>
+      <div style="flex:1;min-height:0;display:flex;flex-direction:column;padding:18px 14px 0;gap:6px">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:0 6px">
+          <div style="font-size:17px">История трат</div>
+          <div style="font-size:16px;letter-spacing:1px;color:#8C8C88">•••</div>
+        </div>
+        <sc-for list="{{ history }}" as="h" hint-placeholder-count="2">
+          <div style="display:flex;justify-content:space-between;align-items:flex-end;padding:12px 6px 14px;border-bottom:1px solid #222221">
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <div style="font-size:36px;letter-spacing:-.04em">{{ h.sum }}<span style="font-size:15px;color:#8C8C88">,{{ h.kop }} ₽</span></div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:14px"><span style="width:8px;height:8px;border-radius:50%;background:{{ h.dot }}"></span>{{ h.shop }}</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:12px">
+              <div style="width:44px;height:44px;border-radius:50%;border:1px solid #333331;display:grid;place-items:center;font-size:15px">↗</div>
+              <div style="font-size:15px;color:#6B6B67">{{ h.when }}</div>
+            </div>
+          </div>
+        </sc-for>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;padding-top:10px">
+          <sc-for list="{{ tiles }}" as="t" hint-placeholder-count="4">
+            <div style="height:104px;border-radius:26px;background:{{ t.bg }};color:{{ t.fg }};padding:14px 16px;display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start">
+                <div style="font-size:14px;opacity:.85">{{ t.sum }}</div>
+                <div style="width:40px;height:40px;border-radius:50%;background:{{ t.btn }};color:{{ t.btnFg }};display:grid;place-items:center;font-size:14px">↗</div>
+              </div>
+              <div style="font-size:17px">{{ t.name }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+</sc-if>
+<sc-if value="{{ isCalendar }}" hint-placeholder-val="{{ false }}">
+<div style="flex:none;position:relative;width:390px;height:844px;border-radius:54px;border:10px solid #1F1F1E;background:#EFEFED;color:#111;overflow:hidden;display:flex;flex-direction:column;box-sizing:content-box">
+      <div style="position:absolute;left:14px;right:14px;top:56px;z-index:2;height:60px;border-radius:30px;background:#111;color:#fff;display:flex;align-items:center;gap:12px;padding:0 10px;font-size:15px;opacity:{{ toastO }};transform:{{ toastT }};transition:opacity .35s ease,transform .5s cubic-bezier(.2,.7,.2,1)"><span style="width:40px;height:40px;border-radius:50%;background:#43D98C;display:grid;place-items:center"><img src="https://unpkg.com/lucide-static@0.452.0/icons/check.svg" alt="" style="width:18px;height:18px"></span>{{ toastText }}</div>
+      <div style="height:48px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 32px;font-size:15px;font-weight:600"><span>9:41</span><span style="width:26px;height:12px;border:1.5px solid #111;border-radius:4px"></span></div>
+      <div style="background:#fff;border-radius:0 0 36px 36px;padding:8px 16px 18px;display:flex;flex-direction:column;gap:14px;flex:none">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div style="width:48px;height:48px;border-radius:50%;background:#111;color:#fff;display:grid;place-items:center;font-size:22px;font-weight:300">×</div>
+          <div style="height:48px;padding:0 20px;border-radius:24px;background:#EFEFED;display:flex;align-items:center;gap:24px;font-size:16px">Октябрь<span style="font-size:12px">▾</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;justify-items:center">
+          <sc-for list="{{ wd }}" as="d" hint-placeholder-count="7"><div style="font-size:13px;color:#6B6B67;padding-bottom:2px">{{ d }}</div></sc-for>
+          <sc-for list="{{ cal }}" as="c" hint-placeholder-count="35">
+            <div style="width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-size:15px;background:{{ c.bg }};color:{{ c.fg }}">{{ c.n }}</div>
+          </sc-for>
+        </div>
+        <div style="display:flex;gap:14px;font-size:12px;color:#6B6B67">
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:50%;background:#43D98C"></span>В рамках лимита</span>
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:50%;background:#EFEFED;border:1px solid #D0D0CC;box-sizing:border-box"></span>Превышен</span>
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:50%;background:repeating-linear-gradient(135deg,#C9C9C6 0 2px,#F4F4F2 2px 5px)"></span>Без трат</span>
+        </div>
+      </div>
+      <div style="flex:1;min-height:0;display:flex;flex-direction:column;padding:18px 20px 0;gap:14px">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="font-size:38px;letter-spacing:-.04em">24 октября</div>
+          <div style="height:22px;padding:0 8px;border-radius:11px;background:#111;color:#fff;font-size:12px;display:flex;align-items:center">−6% к среднему</div>
+        </div>
+        <sc-for list="{{ dayBars }}" as="b" hint-placeholder-count="2">
+          <div style="display:flex;flex-direction:column;gap:8px;padding-top:10px;border-top:1px solid #DCDCD9">
+            <div style="display:flex;justify-content:space-between;align-items:baseline"><div style="font-size:16px">{{ b.name }}</div><div style="font-size:12px;color:#5E5E5A">лимит {{ b.lim }}</div></div>
+            <div style="height:18px;border-radius:9px;overflow:hidden;display:flex;background:repeating-linear-gradient(135deg,#D4D4D1 0 2px,#EFEFED 2px 8px)"><div style="width:{{ b.w }};background:#111;border-radius:9px"></div></div>
+            <div style="font-size:13px;text-align:right">{{ b.sum }}</div>
+          </div>
+        </sc-for>
+        <div style="margin-top:auto;background:#111;color:#fff;border-radius:28px 28px 0 0;padding:16px 18px 24px;display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="display:flex;flex-direction:column;gap:2px"><div style="font-size:16px">Итог дня</div><div style="font-size:13px;color:#8C8C8A">3 операции</div></div>
+            <div style="width:44px;height:44px;border-radius:50%;border:1px solid #333331;display:grid;place-items:center">↗</div>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:20px;letter-spacing:-.02em"><span>1 240<span style="font-size:12px;color:#8C8C8A"> ₽</span></span><span>486<span style="font-size:12px;color:#8C8C8A"> ₽</span></span><span>350<span style="font-size:12px;color:#8C8C8A"> ₽</span></span></div>
+        </div>
+      </div>
+    </div>
+</sc-if>
+<sc-if value="{{ isAdd }}" hint-placeholder-val="{{ false }}">
+<div style="flex:none;position:relative;width:390px;height:844px;border-radius:54px;border:10px solid #1F1F1E;background:#111;color:#F2F2F0;overflow:hidden;box-sizing:content-box">
+  <div style="height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;font-size:15px;font-weight:600"><span>9:41</span><span style="width:26px;height:12px;border:1.5px solid #F2F2F0;border-radius:4px"></span></div>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 20px 0">
+    <div style="width:44px;height:44px;border-radius:50%;background:#1E1E1D;display:grid;place-items:center;font-size:20px;font-weight:300">×</div>
+    <div style="font-size:16px">Новый расход</div>
+    <div style="width:44px"></div>
+  </div>
+  <div style="position:absolute;left:0;right:0;top:150px;display:flex;flex-direction:column;align-items:center;gap:10px">
+    <div style="font-size:62px;letter-spacing:-.045em;line-height:1;white-space:nowrap;color:{{ amtC }}">{{ amtText }}<span style="font-size:28px;color:#6B6B67"> ₽</span></div>
+    <div style="height:32px;padding:0 14px;border-radius:16px;background:#1E1E1D;display:flex;align-items:center;font-size:13px;color:#A8A8A4">Карта Мир, 4412</div>
+  </div>
+  <div style="position:absolute;left:20px;right:20px;top:300px;font-size:13px;color:#8C8C8A">Категория</div>
+  <div style="position:absolute;left:20px;right:20px;top:352px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+    <sc-for list="{{ addCats }}" as="c" hint-placeholder-count="3"><div style="height:44px;border-radius:22px;display:grid;place-items:center;font-size:14px;background:{{ c.bg }};color:{{ c.fg }};transition:background .25s,color .25s">{{ c.l }}</div></sc-for>
+  </div>
+  <div style="position:absolute;left:20px;right:20px;bottom:88px;display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:56px;gap:8px">
+    <sc-for list="{{ addKeys }}" as="k" hint-placeholder-count="12"><div style="border-radius:16px;background:#1A1A19;display:grid;place-items:center;font-size:24px">{{ k }}</div></sc-for>
+  </div>
+  <div style="position:absolute;left:20px;right:20px;bottom:24px;height:52px;border-radius:26px;display:grid;place-items:center;font-size:16px;background:{{ saveBg }};color:{{ saveFg }};transition:background .3s">Сохранить</div>
+</div>
+</sc-if>
+<sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ false }}">
+<dc-import name="NewKvartalAdminPanel" hint-size="1440px,1700px"></dc-import>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:410,&quot;height&quot;:864},&quot;screen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;overview&quot;,&quot;category&quot;,&quot;calendar&quot;,&quot;add&quot;,&quot;desktop&quot;],&quot;default&quot;:&quot;overview&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;added&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:0,&quot;tsType&quot;:&quot;number&quot;},&quot;amount&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;cat&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:-1,&quot;tsType&quot;:&quot;number&quot;},&quot;toast&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const G = '#43D98C';
+    const added = Number(this.props.added) || 0;
+    const catCols = [['П',24870 + added,30000],['Т',8420,10000],['К',11960,10000],['Д',14310,18000],['Р',8780,12000]].map(([s, v, l], i) => {
+      const p = Math.min(100, Math.round(v / l * 100));
+      return { label: ['Еда','Такси','Кафе','Дом','Досуг'][i], used: p, rest: 100 - p, pct: Math.round(v / l * 100), bg: v > l ? '#F25C5C' : i === 0 ? G : '#111', fg: v > l || i === 0 ? '#111' : '#fff' };
+    });
+    const history = [
+      { sum: '1 240', kop: '00', shop: 'Перекрёсток', dot: G, when: 'Сегодня' },
+      { sum: '2 115', kop: '60', shop: 'Пятёрочка', dot: '#F25C5C', when: 'Вчера' }
+    ];
+    const tiles = [
+      { name: 'Супермаркеты', sum: '18 940 ₽', bg: '#1C1C1B', fg: '#F2F2F0', btn: '#0A0A0A', btnFg: '#F2F2F0' },
+      { name: 'Доход', sum: '+112 000 ₽', bg: '#F25C5C', fg: '#111', btn: '#fff', btnFg: '#111' },
+      { name: 'Доставка', sum: '4 210 ₽', bg: '#1C1C1B', fg: '#F2F2F0', btn: '#0A0A0A', btnFg: '#F2F2F0' },
+      { name: 'Рынки', sum: '1 720 ₽', bg: '#1C1C1B', fg: '#F2F2F0', btn: '#0A0A0A', btnFg: '#F2F2F0' }
+    ];
+    const wd = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+    const hatch = 'repeating-linear-gradient(135deg,#D4D4D1 0 2px,#F4F4F2 2px 6px)';
+    const over = [3, 9, 16, 17, 20], none = [5, 6, 13];
+    const cal = [];
+    for (let i = 0; i < 3; i++) cal.push({ n: '', bg: 'transparent', fg: '#111' });
+    for (let d = 1; d <= 31; d++) {
+      let bg = G, fg = '#111';
+      if (d === 24) { bg = '#111'; fg = '#fff'; }
+      else if (d > 24) { bg = 'transparent'; fg = '#B5B5B1'; }
+      else if (over.includes(d)) bg = '#EFEFED';
+      else if (none.includes(d)) bg = hatch;
+      cal.push({ n: d, bg, fg });
+    }
+    cal.push({ n: '', bg: 'transparent', fg: '#111' });
+    const dayBars = [
+      { name: 'Продукты', lim: '1 000 ₽', w: '86%', sum: '860 ₽' },
+      { name: 'Кафе и рестораны', lim: '350 ₽', w: '100%', sum: '350 ₽' }
+    ];
+    const nav = ['Главная','Начисления','Счётчики','Заявки','Голосования','Документы'].map((label, i) => ({
+      label, bg: i === 0 ? '#F2F2F0' : 'transparent', fg: i === 0 ? '#111' : '#A8A8A4',
+      badge: label === 'Заявки' ? '1' : label === 'Голосования' ? '1' : label === 'Счётчики' ? '2' : '',
+      badgeBg: ['Заявки','Голосования','Счётчики'].includes(label) ? G : 'transparent'
+    }));
+    const charges = [['Содержание',2104.6],['Отопление',1876.2],['Горячая вода',1012.4],['Холодная вода',418.9],['Электроэнергия',612.3],['Капремонт',458]]
+      .map(([name, v], i) => ({ name, v, op: 1 - i * 0.13, sum: v.toLocaleString('ru-RU', { minimumFractionDigits: 2 }) + ' ₽' }));
+    const meters = [['Холодная вода','00412','м³','00418'],['Горячая вода','00287','м³',''],['Свет, день','14 806','кВт·ч','14 991'],['Свет, ночь','06 112','кВт·ч','']]
+      .map(([name, prev, unit, val]) => ({ name, prev, unit, val: val || 'Ввести', bg: val ? '#111' : 'repeating-linear-gradient(135deg,#DADAD7 0 2px,#F4F4F2 2px 7px)', fg: val ? '#fff' : '#4E4E4A', bd: val ? '#111' : '#C9C9C5' }));
+    const vals = [6620,6950,6810,6480,5640,5180,4870,4920,5010,5530,6120,6482];
+    const ym = ['Н','Д','Я','Ф','М','А','М','И','И','А','С','О'];
+    const year = vals.map((v, i) => { const p = Math.round(v / 7200 * 100); return { m: ym[i], used: p, rest: 100 - p, bg: i === 11 ? G : '#111' }; });
+    const tickets = [
+      { title: 'Протечка со стояка в ванной', status: 'В работе', bg: '#111', fg: '#fff', id: '2481', date: '22 октября' },
+      { title: 'Домофон, подъезд 3', status: 'Выполнена', bg: G, fg: '#111', id: '2433', date: '14 октября' },
+      { title: 'Лампа на 9 этаже', status: 'Выполнена', bg: G, fg: '#111', id: '2390', date: '2 октября' }
+    ];
+    const sc = this.props.screen ?? 'overview';
+    return { isOverview: sc === 'overview', isCategory: sc === 'category', isCalendar: sc === 'calendar', isDesktop: sc === 'desktop', isAdd: sc === 'add', prodAmt: (24870 + added).toLocaleString('ru-RU'), leftAmt: (16660 - added).toLocaleString('ru-RU'), spentAmt: (68340 + added).toLocaleString('ru-RU'), toastText: this.props.toast || '', toastO: this.props.toast ? 1 : 0, toastT: this.props.toast ? 'none' : 'translateY(-16px)', amtText: this.props.amount ? Number(this.props.amount).toLocaleString('ru-RU') : '0', amtC: this.props.amount ? '#F2F2F0' : '#5E5E5A', addCats: ['Продукты','Кафе','Транспорт'].map((l, i) => ({ l, bg: Number(this.props.cat ?? -1) === i ? '#43D98C' : '#1E1E1D', fg: Number(this.props.cat ?? -1) === i ? '#111' : '#F2F2F0' })), addKeys: ['1','2','3','4','5','6','7','8','9',',','0','←'], saveBg: this.props.amount ? '#43D98C' : '#2A2A28', saveFg: this.props.amount ? '#111' : '#6B6B67', catCols, history, tiles, wd, cal, dayBars, nav, charges, meters, year, tickets };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:where(body){margin:0;background:#0A0A0A;font-family:'Golos Text',sans-serif;color:#F2F2F0;-webkit-font-smoothing:antialiased;font-feature-settings:"tnum" 1}
+:where(a){color:#43D98C;text-decoration:none}:where(a:hover){color:#7BE8AF}
+</style>
+</helmet>
+<div style="display:flex;flex-direction:column;align-items:center;overflow-x:hidden;background:#0A0A0A;color:#F2F2F0">
+
+<sc-if value="{{ showHero }}" hint-placeholder-val="{{ true }}">
+<header data-reveal="hero" style="width:100%;max-width:1240px;box-sizing:border-box;padding:96px 48px 64px;display:flex;flex-direction:column;gap:56px;opacity:{{ rv.hero.o }};transform:{{ rv.hero.t }};transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)">
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px">
+    <div style="font-size:15px">Елизавета Цех, продуктовый дизайнер</div>
+    <div style="height:32px;padding:0 14px;border-radius:16px;border:1px solid #333331;display:flex;align-items:center;font-size:13px;color:#A8A8A4">Концепт-кейс, 2026</div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:24px">
+    <h1 style="margin:0;font-size:clamp(56px,9vw,128px);font-weight:400;letter-spacing:-.05em;line-height:.95">Учёт<span style="color:#43D98C">.</span></h1>
+    <p style="margin:0;max-width:760px;font-size:22px;line-height:1.5;color:#C9C9C5;text-wrap:pretty">Мобильный трекер расходов, который отвечает на один вопрос: сколько ещё можно потратить сегодня, чтобы уложиться в месячный план.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:#262625;border:1px solid #262625;border-radius:24px;overflow:hidden">
+    <sc-for list="{{ meta }}" as="m" hint-placeholder-count="4">
+      <div style="background:#0A0A0A;padding:22px 24px;display:flex;flex-direction:column;gap:8px">
+        <div style="font-size:13px;color:#8C8C8A">{{ m.k }}</div>
+        <div style="font-size:17px;line-height:1.4">{{ m.v }}</div>
+      </div>
+    </sc-for>
+  </div>
+</header>
+
+<div data-reveal="heroShots" style="width:100%;max-width:1240px;box-sizing:border-box;padding:0 48px 120px;display:flex;justify-content:center;gap:32px;flex-wrap:wrap">
+  <div style="zoom:.82;opacity:{{ rv.heroShots.o }};transform:{{ rv.heroShots.t }};transition:opacity .9s ease .05s,transform 1s cubic-bezier(.2,.7,.2,1) .05s"><dc-import name="NewUchetScreens" screen="overview" hint-size="410px,864px"></dc-import></div>
+  <div style="zoom:.82;margin-top:80px;opacity:{{ rv.heroShots.o }};transform:{{ rv.heroShots.t }};transition:opacity .9s ease .2s,transform 1s cubic-bezier(.2,.7,.2,1) .2s"><dc-import name="NewUchetScreens" screen="category" hint-size="410px,864px"></dc-import></div>
+  <div style="zoom:.82;opacity:{{ rv.heroShots.o }};transform:{{ rv.heroShots.t }};transition:opacity .9s ease .35s,transform 1s cubic-bezier(.2,.7,.2,1) .35s"><dc-import name="NewUchetScreens" screen="calendar" hint-size="410px,864px"></dc-import></div>
+</div>
+
+</sc-if>
+<sc-if value="{{ embedded }}" hint-placeholder-val="{{ false }}"><div style="height:120px"></div></sc-if>
+<section data-reveal="problem" style="width:100%;max-width:1240px;box-sizing:border-box;padding:0 48px 120px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:48px;opacity:{{ rv.problem.o }};transform:{{ rv.problem.t }};transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)">
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="font-size:14px;color:#43D98C">01</div>
+    <h2 style="margin:0;font-size:44px;font-weight:400;letter-spacing:-.03em;line-height:1.05">Проблема</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:20px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px">
+      
+      <div style="background:#161615;border-radius:28px;padding:28px;display:flex;flex-direction:column;gap:12px">
+        <div style="font-size:14px;color:#8C8C8A">Учёт</div>
+        <div style="font-size:18px;line-height:1.55;text-wrap:pretty">Банковская аналитика показывает траты постфактум. Трекеры бросают через пару недель: ручной ввод долгий, а месячный бюджет ничего не говорит в середине месяца.</div>
+      </div>
+    </div>
+    <div style="background:#43D98C;color:#111;border-radius:28px;padding:28px;display:flex;flex-direction:column;gap:8px">
+      <div style="font-size:14px">Цель</div>
+      <div style="font-size:24px;line-height:1.4;letter-spacing:-.01em;text-wrap:pretty">Сделать так, чтобы за 10 секунд человек понимал, сколько ещё можно потратить, и успевал записать трату, пока стоит у кассы.</div>
+    </div>
+  </div>
+</section>
+
+<section data-reveal="research" style="width:100%;max-width:1240px;box-sizing:border-box;padding:0 48px 120px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:48px;opacity:{{ rv.research.o }};transform:{{ rv.research.t }};transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)">
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="font-size:14px;color:#43D98C">02</div>
+    <h2 style="margin:0;font-size:44px;font-weight:400;letter-spacing:-.03em;line-height:1.05">Исследование</h2>
+    <p style="margin:0;font-size:16px;line-height:1.55;color:#A8A8A4;text-wrap:pretty">Начала с вопросов, а не с экранов: где люди сейчас решают эти задачи и в какой момент сдаются.</p>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:20px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px">
+      <sc-for list="{{ methods }}" as="m" hint-placeholder-count="3">
+        <div style="border:1px solid #262625;border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:10px">
+          <div style="font-size:17px">{{ m.t }}</div>
+          <div style="font-size:15px;line-height:1.55;color:#A8A8A4;text-wrap:pretty">{{ m.d }}</div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="background:#161615;border-radius:28px;padding:8px 28px 20px;overflow-x:auto">
+      <div style="display:grid;grid-template-columns:minmax(180px,1.4fr) repeat(4,minmax(110px,1fr));min-width:640px">
+        <sc-for list="{{ compHead }}" as="h" hint-placeholder-count="5">
+          <div style="padding:18px 8px 14px;font-size:13px;color:#8C8C8A;border-bottom:1px solid #262625">{{ h }}</div>
+        </sc-for>
+        <sc-for list="{{ compCells }}" as="c" hint-placeholder-count="20">
+          <div style="padding:12px 8px;border-bottom:1px solid #1E1E1D;display:flex;align-items:center;font-size:15px">
+            <span style="height:26px;padding:0 10px;border-radius:13px;display:flex;align-items:center;font-size:13px;background:{{ c.bg }};color:{{ c.fg }}">{{ c.v }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-reveal="insights" style="width:100%;max-width:1240px;box-sizing:border-box;padding:0 48px 120px;display:flex;flex-direction:column;gap:32px;opacity:{{ rv.insights.o }};transform:{{ rv.insights.t }};transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div style="font-size:14px;color:#43D98C">03</div>
+      <h2 style="margin:0;font-size:44px;font-weight:400;letter-spacing:-.03em;line-height:1.05">Инсайты и решения</h2>
+    </div>
+    <div style="font-size:16px;color:#A8A8A4;max-width:380px;line-height:1.5">Каждое решение в интерфейсе выросло из конкретного наблюдения.</div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px">
+    <sc-for list="{{ insights }}" as="i" hint-placeholder-count="4">
+      <div style="background:#161615;border-radius:28px;padding:26px;display:flex;flex-direction:column;gap:20px;min-height:280px;box-sizing:border-box">
+        <div style="width:44px;height:44px;border-radius:50%;background:{{ i.bg }};color:#111;display:grid;place-items:center;font-size:15px">{{ i.n }}</div>
+        <div style="font-size:21px;line-height:1.35;letter-spacing:-.01em;text-wrap:pretty">{{ i.t }}</div>
+        <div style="margin-top:auto;padding-top:16px;border-top:1px solid #2A2A28;font-size:15px;line-height:1.5;color:#C9C9C5;text-wrap:pretty">{{ i.d }}</div>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<section data-reveal="jtbd" style="width:100%;max-width:1240px;box-sizing:border-box;padding:0 48px 120px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:48px;opacity:{{ rv.jtbd.o }};transform:{{ rv.jtbd.t }};transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)">
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="font-size:14px;color:#43D98C">04</div>
+    <h2 style="margin:0;font-size:44px;font-weight:400;letter-spacing:-.03em;line-height:1.05">Для кого</h2>
+    <p style="margin:0;font-size:16px;line-height:1.55;color:#A8A8A4;text-wrap:pretty">Вместо подробных персон сформулировала работы, ради которых человек открывает продукт.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px">
+    <sc-for list="{{ jobs }}" as="j" hint-placeholder-count="2">
+      <div style="background:#F2F2F0;color:#111;border-radius:28px;padding:28px;display:flex;flex-direction:column;gap:18px">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="width:48px;height:48px;border-radius:50%;background:#111;color:#fff;display:grid;place-items:center;font-size:15px">{{ j.ini }}</div>
+          <div style="display:flex;flex-direction:column;gap:2px"><div style="font-size:17px">{{ j.name }}</div><div style="font-size:14px;color:#5E5E5A">{{ j.who }}</div></div>
+        </div>
+        <div style="font-size:20px;line-height:1.45;letter-spacing:-.01em;text-wrap:pretty">{{ j.job }}</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <sc-for list="{{ j.pains }}" as="p" hint-placeholder-count="2"><span style="height:30px;padding:0 12px;border-radius:15px;background:#fff;display:flex;align-items:center;font-size:13px">{{ p }}</span></sc-for>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<section data-reveal="flow" style="width:100%;max-width:1240px;box-sizing:border-box;padding:0 48px 120px;display:flex;flex-direction:column;gap:32px;opacity:{{ rv.flow.o }};transform:{{ rv.flow.t }};transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)">
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="font-size:14px;color:#43D98C">05</div>
+    <h2 style="margin:0;font-size:44px;font-weight:400;letter-spacing:-.03em;line-height:1.05">Ключевые сценарии</h2>
+  </div>
+  <sc-for list="{{ flows }}" as="f" hint-placeholder-count="2">
+    <div style="border:1px solid #262625;border-radius:28px;padding:28px;display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:12px">
+        <div style="font-size:20px">{{ f.title }}</div>
+        <div style="display:flex;gap:10px;align-items:center;font-size:14px"><span style="color:#8C8C8A;text-decoration:line-through">{{ f.before }}</span><span style="height:28px;padding:0 12px;border-radius:14px;background:#43D98C;color:#111;display:flex;align-items:center">{{ f.after }}</span></div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+        <sc-for list="{{ f.steps }}" as="s" hint-placeholder-count="5">
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="height:48px;padding:0 18px;border-radius:24px;background:{{ s.bg }};color:{{ s.fg }};display:flex;align-items:center;gap:10px;font-size:15px"><span style="font-size:12px;opacity:.6">{{ s.n }}</span>{{ s.t }}</div>
+            <span style="color:#5E5E5A;font-size:18px">{{ s.arrow }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-for>
+</section>
+
+<section data-reveal="principles" style="width:100%;max-width:1240px;box-sizing:border-box;padding:0 48px 120px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:48px;opacity:{{ rv.principles.o }};transform:{{ rv.principles.t }};transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)">
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="font-size:14px;color:#43D98C">06</div>
+    <h2 style="margin:0;font-size:44px;font-weight:400;letter-spacing:-.03em;line-height:1.05">Принципы</h2>
+  </div>
+  <div style="display:flex;flex-direction:column">
+    <sc-for list="{{ principles }}" as="p" hint-placeholder-count="4">
+      <div style="display:grid;grid-template-columns:56px minmax(0,1fr);gap:16px;padding:22px 0;border-top:1px solid #262625">
+        <div style="font-size:15px;color:#8C8C8A">{{ p.n }}</div>
+        <div style="display:flex;flex-direction:column;gap:6px"><div style="font-size:22px;letter-spacing:-.01em">{{ p.t }}</div><div style="font-size:16px;line-height:1.55;color:#A8A8A4;text-wrap:pretty">{{ p.d }}</div></div>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<section data-reveal="kit" style="width:100%;background:#EFEFED;color:#111;display:flex;justify-content:center;opacity:{{ rv.kit.o }};transition:opacity .8s ease">
+  <div style="width:100%;max-width:1240px;box-sizing:border-box;padding:120px 48px;display:flex;flex-direction:column;gap:56px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="font-size:14px;color:#1E7A4C">07</div>
+        <h2 style="margin:0;font-size:44px;font-weight:400;letter-spacing:-.03em;line-height:1.05">UI-кит</h2>
+      </div>
+      <div style="font-size:16px;color:#5E5E5A;max-width:420px;line-height:1.5;text-wrap:pretty">Крупные цифры, капсулы и штриховка. Каждый знак означает одно и то же на всех экранах.</div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="font-size:18px">Цвет</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px">
+        <sc-for list="{{ colors }}" as="c" hint-placeholder-count="6">
+          <div style="background:#fff;border-radius:24px;padding:10px;display:flex;flex-direction:column;gap:12px">
+            <div style="height:96px;border-radius:16px;background:{{ c.hex }};border:1px solid #E2E2DF"></div>
+            <div style="display:flex;flex-direction:column;gap:3px;padding:0 6px 6px"><div style="font-size:15px">{{ c.name }}</div><div style="font-size:13px;color:#5E5E5A">{{ c.hex }}</div><div style="font-size:13px;color:#5E5E5A;line-height:1.4">{{ c.role }}</div></div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px">
+      <div style="background:#fff;border-radius:28px;padding:28px;display:flex;flex-direction:column;gap:4px">
+        <div style="display:flex;justify-content:space-between;padding-bottom:12px"><div style="font-size:18px">Типографика</div><div style="font-size:14px;color:#5E5E5A">Golos Text</div></div>
+        <sc-for list="{{ type }}" as="t" hint-placeholder-count="5">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:10px 0;border-top:1px solid #EAEAE7">
+            <div style="font-size:{{ t.size }};letter-spacing:{{ t.ls }};line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ t.sample }}</div>
+            <div style="font-size:13px;color:#5E5E5A;white-space:nowrap">{{ t.spec }}</div>
+          </div>
+        </sc-for>
+        <div style="font-size:14px;line-height:1.5;color:#5E5E5A;padding-top:12px;text-wrap:pretty">Выбрала за аккуратную кириллицу и табличные цифры: суммы в столбцах не прыгают.</div>
+      </div>
+      <div style="background:#fff;border-radius:28px;padding:28px;display:flex;flex-direction:column;gap:18px">
+        <div style="font-size:18px">Сетка, радиусы, отступы</div>
+        <div style="display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap">
+          <sc-for list="{{ radii }}" as="r" hint-placeholder-count="4">
+            <div style="display:flex;flex-direction:column;gap:8px;align-items:center">
+              <div style="width:76px;height:76px;background:#111;border-radius:{{ r.v }}"></div>
+              <div style="font-size:13px;color:#5E5E5A">{{ r.l }}</div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex;gap:6px;align-items:flex-end">
+          <sc-for list="{{ spaces }}" as="s" hint-placeholder-count="6">
+            <div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="width:{{ s.px }};height:{{ s.px }};background:#43D98C;border-radius:4px"></div><div style="font-size:12px;color:#5E5E5A">{{ s.v }}</div></div>
+          </sc-for>
+        </div>
+        <div style="font-size:14px;line-height:1.5;color:#5E5E5A;text-wrap:pretty">Шаг 4 px, касания от 44 px. Чем крупнее блок, тем больше радиус, поэтому вложенные элементы читаются как части целого.</div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="font-size:18px">Компоненты</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px">
+        <div style="background:#fff;border-radius:28px;padding:28px;display:flex;flex-direction:column;gap:16px">
+          <div style="font-size:14px;color:#5E5E5A">Кнопки</div>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+            <div style="height:56px;padding:0 8px 0 22px;border-radius:28px;background:#111;color:#fff;display:flex;align-items:center;gap:14px;font-size:15px">Сохранить<span style="width:40px;height:40px;border-radius:50%;background:#43D98C;color:#111;display:grid;place-items:center">›</span></div>
+            <div style="height:56px;padding:0 22px;border-radius:28px;background:#EFEFED;display:flex;align-items:center;font-size:15px">Изменить лимит</div>
+            <div style="height:56px;padding:0 22px;border-radius:28px;border:1px solid #111;display:flex;align-items:center;font-size:15px;box-sizing:border-box">Отмена</div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center">
+            <div style="width:44px;height:44px;border-radius:50%;background:#111;color:#fff;display:grid;place-items:center">‹</div>
+            <div style="width:44px;height:44px;border-radius:50%;background:#EFEFED;display:grid;place-items:center">↗</div>
+            <div style="width:44px;height:44px;border-radius:50%;background:#43D98C;display:grid;place-items:center;font-size:20px">+</div>
+            <div style="font-size:13px;color:#5E5E5A">Иконки-кнопки 44 px</div>
+          </div>
+        </div>
+        <div style="background:#fff;border-radius:28px;padding:28px;display:flex;flex-direction:column;gap:16px">
+          <div style="font-size:14px;color:#5E5E5A">Чипы и статусы</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <span style="height:40px;padding:0 16px;border-radius:20px;background:#111;color:#fff;display:flex;align-items:center;font-size:14px">Продукты</span>
+            <span style="height:40px;padding:0 16px;border-radius:20px;border:1px solid #D0D0CC;display:flex;align-items:center;font-size:14px;box-sizing:border-box">Транспорт</span>
+            <span style="height:40px;padding:0 16px;border-radius:20px;border:1px solid #D0D0CC;display:flex;align-items:center;font-size:14px;box-sizing:border-box">Кафе</span>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <span style="height:28px;padding:0 12px;border-radius:14px;background:#43D98C;display:flex;align-items:center;font-size:13px">В рамках лимита</span>
+            <span style="height:28px;padding:0 12px;border-radius:14px;background:#111;color:#fff;display:flex;align-items:center;font-size:13px">Сегодня</span>
+            <span style="height:28px;padding:0 12px;border-radius:14px;background:#F25C5C;display:flex;align-items:center;font-size:13px">Превышен</span>
+          </div>
+        </div>
+        <div style="background:#fff;border-radius:28px;padding:28px;display:flex;flex-direction:column;gap:16px">
+          <div style="font-size:14px;color:#5E5E5A">Поле ввода</div>
+          <div style="display:flex;gap:10px">
+            <div style="flex:1;height:48px;border-radius:24px;border:1px solid #C9C9C5;box-sizing:border-box;background:repeating-linear-gradient(135deg,#DADAD7 0 2px,#F4F4F2 2px 7px);display:grid;place-items:center;font-size:15px;color:#4E4E4A">Ввести</div>
+            <div style="flex:1;height:48px;border-radius:24px;border:2px solid #43D98C;box-sizing:border-box;display:grid;place-items:center;font-size:15px">1 24|</div>
+            <div style="flex:1;height:48px;border-radius:24px;background:#111;color:#fff;display:grid;place-items:center;font-size:15px">1 240 ₽</div>
+          </div>
+          <div style="display:flex;gap:10px;font-size:12px;color:#5E5E5A"><span style="flex:1;text-align:center">Пусто</span><span style="flex:1;text-align:center">Фокус</span><span style="flex:1;text-align:center">Заполнено</span></div>
+        </div>
+        <div style="background:#fff;border-radius:28px;padding:28px;display:flex;flex-direction:column;gap:16px">
+          <div style="font-size:14px;color:#5E5E5A">Прогресс и лимит</div>
+          <div style="height:44px;border-radius:22px;overflow:hidden;display:flex;background:repeating-linear-gradient(135deg,#C9C9C6 0 2px,#EFEFED 2px 8px)"><div style="width:{{ kitBar }};background:#111;border-radius:22px;transition:width 1.4s cubic-bezier(.2,.7,.2,1) .3s"></div></div>
+          <div style="display:flex;gap:4px;height:8px"><div style="flex:3;border-radius:4px;background:#111"></div><div style="flex:3;border-radius:4px;background:#111"></div><div style="flex:2;border-radius:4px;background:#111"></div><div style="flex:2;border-radius:4px;background:#D9D9D6"></div></div>
+          <div style="font-size:14px;line-height:1.5;color:#5E5E5A;text-wrap:pretty">Штриховка везде означает одно: остаток или отсутствие данных. Пользователь учит этот знак один раз.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-reveal="mobile" style="width:100%;max-width:1240px;box-sizing:border-box;padding:120px 48px;display:flex;flex-direction:column;gap:48px">
+  <div style="display:flex;flex-direction:column;gap:12px;opacity:{{ rv.mobile.o }};transform:{{ rv.mobile.t }};transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)">
+    <div style="font-size:14px;color:#43D98C">08</div>
+    <h2 style="margin:0;font-size:44px;font-weight:400;letter-spacing:-.03em;line-height:1.05">Экраны</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:32px">
+    <sc-for list="{{ mobileShots }}" as="m" hint-placeholder-count="3">
+      <div style="display:flex;flex-direction:column;gap:24px;align-items:center;opacity:{{ m.o }};transform:{{ m.t }};transition:opacity .9s ease {{ m.d }},transform 1s cubic-bezier(.2,.7,.2,1) {{ m.d }}">
+        <div style="zoom:.82"><dc-import name="NewUchetScreens" screen="{{ m.screen }}" hint-size="410px,864px"></dc-import></div>
+        <div style="display:flex;flex-direction:column;gap:12px;width:100%;max-width:340px">
+          <div style="font-size:19px">{{ m.title }}</div>
+          <sc-for list="{{ m.notes }}" as="n" hint-placeholder-count="2">
+            <div style="display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;font-size:15px;line-height:1.5;color:#C9C9C5"><span style="width:24px;height:24px;border-radius:50%;background:#262625;display:grid;place-items:center;font-size:12px;color:#F2F2F0">{{ n.n }}</span><span style="text-wrap:pretty">{{ n.t }}</span></div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+
+
+<section data-reveal="metrics" style="width:100%;max-width:1240px;box-sizing:border-box;padding:0 48px 120px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:48px;opacity:{{ rv.metrics.o }};transform:{{ rv.metrics.t }};transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)">
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="font-size:14px;color:#43D98C">09</div>
+    <h2 style="margin:0;font-size:44px;font-weight:400;letter-spacing:-.03em;line-height:1.05">Как измерить успех</h2>
+    <p style="margin:0;font-size:16px;line-height:1.55;color:#A8A8A4;text-wrap:pretty">Проект концептуальный, поэтому вместо результатов показываю метрики, по которым проверяла бы решения после запуска.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px">
+    <sc-for list="{{ metrics }}" as="m" hint-placeholder-count="4">
+      <div style="background:#161615;border-radius:28px;padding:26px;display:flex;flex-direction:column;gap:14px">
+        <div style="font-size:14px;color:#8C8C8A">{{ m.p }}</div>
+        <div style="font-size:20px;line-height:1.35;letter-spacing:-.01em">{{ m.t }}</div>
+        <div style="font-size:15px;line-height:1.5;color:#A8A8A4;text-wrap:pretty">{{ m.d }}</div>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<section data-reveal="outro" style="width:100%;max-width:1240px;box-sizing:border-box;padding:0 48px 96px;opacity:{{ rv.outro.o }};transform:{{ rv.outro.t }};transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)">
+  <div style="background:#43D98C;color:#111;border-radius:36px;padding:48px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="font-size:14px">10</div>
+      <h2 style="margin:0;font-size:44px;font-weight:400;letter-spacing:-.03em;line-height:1.05">Что дальше</h2>
+      <div style="font-size:17px;line-height:1.55;text-wrap:pretty">Главный вывод: в личных финансах важна не точность отчёта, а скорость ответа «можно или нельзя». Одна крупная цифра и цвет дня работают лучше подробных графиков.</div>
+    </div>
+    <div style="display:flex;flex-direction:column">
+      <sc-for list="{{ next }}" as="n" hint-placeholder-count="3">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 0;border-top:1px solid #1F8A55">
+          <div style="font-size:17px;line-height:1.4">{{ n }}</div>
+          <div style="width:40px;height:40px;flex:none;border-radius:50%;background:#111;color:#fff;display:grid;place-items:center">↗</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;padding-top:40px;font-size:15px;color:#A8A8A4">
+    <span>Елизавета Цех</span>
+    <div style="display:flex;gap:24px"><a href="#">Telegram</a><a href="#">Почта</a><a href="#">Резюме</a></div>
+  </div>
+</section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;embedded&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;animate&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { seen: {} };
+  componentDidMount() {
+    const reveal = (k) => this.setState(s => s.seen[k] ? null : ({ seen: { ...s.seen, [k]: true } }));
+    if (!('IntersectionObserver' in window) || this.props.animate === false) {
+      document.querySelectorAll('[data-reveal]').forEach(el => reveal(el.dataset.reveal));
+      return;
+    }
+    this.io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { reveal(e.target.dataset.reveal); this.io.unobserve(e.target); } }), { threshold: 0.12 });
+    const watch = () => document.querySelectorAll('[data-reveal]').forEach(el => this.io.observe(el));
+    watch(); this.t = setTimeout(watch, 600);
+  }
+  componentWillUnmount() { this.io && this.io.disconnect(); clearTimeout(this.t); }
+  renderVals() {
+    const seen = this.state.seen, G = '#43D98C', C = '#F25C5C', embedded = !!this.props.embedded;
+    const keys = ['hero','heroShots','problem','research','insights','jtbd','flow','principles','kit','mobile','desktop','metrics','outro'];
+    const rv = {};
+    keys.forEach(k => { rv[k] = { o: seen[k] ? 1 : 0, t: seen[k] ? 'none' : 'translateY(40px)' }; });
+    const meta = [
+      { k: 'Роль', v: 'Продуктовый дизайнер: исследование, UX, UI-кит, прототип' },
+      { k: 'Срок', v: '4 недели' },
+      { k: 'Платформа', v: 'iOS, 390 px' },
+      { k: 'Инструменты', v: 'Figma, FigJam' }
+    ];
+    const methods = [
+      { t: 'Кабинетное исследование', d: 'Разобрал банковскую аналитику и трекеры расходов, прочитал отзывы в RuStore и App Store.' },
+      { t: 'Интервью', d: 'Поговорил с людьми, которые ведут бюджет или бросили это делать. Спрашивал про последний случай, а не про мнения.' },
+      { t: 'Анализ конкурентов', d: 'Сравнил, как решения закрывают ключевые задачи, и нашёл, где у всех один и тот же провал.' }
+    ];
+    const compHead = ['Задача', 'Банк', 'Другие трекеры', 'Таблица', 'Учёт'];
+    const rows = [
+      ['Видеть остаток на месяц', 'частично', 'да', 'да', 'да'],
+      ['Лимиты по категориям', 'нет', 'частично', 'да', 'да'],
+      ['Лимит трат на сегодня', 'нет', 'нет', 'частично', 'да'],
+      ['Ввести расход быстро', 'да', 'частично', 'нет', 'да']
+    ];
+    const pill = v => v === 'да' ? { bg: G, fg: '#111' } : v === 'частично' ? { bg: '#2A2A28', fg: '#F2F2F0' } : { bg: 'transparent', fg: '#8C8C8A' };
+    const compCells = [];
+    rows.forEach(r => r.forEach((v, i) => compCells.push(i === 0 ? { v, bg: 'transparent', fg: '#F2F2F0' } : { v, ...pill(v) })));
+    const insights = [
+      { n: '1', bg: G, t: 'Люди смотрят на остаток, а не на сумму трат', d: 'Остаток крупно на обзоре, траты и сравнение с прошлым месяцем вторым уровнем.' },
+      { n: '2', bg: G, t: 'Категории без лимита не меняют поведение', d: 'Столбцы категорий с процентом лимита, превышение сразу окрашено коралловым.' },
+      { n: '3', bg: C, t: 'Месячный лимит не помогает принять решение в магазине', d: 'Календарь дневного лимита и цвет дня: в норме или с превышением.' },
+      { n: '4', bg: C, t: 'Если ввод расхода дольше пары секунд, его не делают', d: 'Кнопка «плюс» в центре таббара, клавиатура сразу открыта, категории чипами.' }
+    ];
+    const jobs = [
+      { ini: 'ДК', name: 'Дмитрий, 31', who: 'Копит на первый взнос', job: 'Когда приходит зарплата, я хочу распределить её по категориям, чтобы к концу месяца отложить 20 тысяч.', pains: ['Деньги «утекают»', 'Таблица надоедает'] },
+      { ini: 'МК', name: 'Марина, 27', who: 'Ведёт личный бюджет, Учёт', job: 'Когда я стою на кассе, я хочу видеть, сколько могу потратить сегодня, чтобы не сорвать месячный план.', pains: ['Долгий ввод', 'Бюджет без контекста дня'] }
+    ];
+    const mk = (arr) => arr.map((t, i) => ({ n: i + 1, t, bg: i === arr.length - 1 ? G : '#1C1C1B', fg: i === arr.length - 1 ? '#111' : '#F2F2F0', arrow: i === arr.length - 1 ? '' : '→' }));
+    const flows = [
+      { title: 'Проверить день', before: 'отчёт за месяц', after: '2 касания', steps: mk(['Календарь', 'Выбрать день', 'Разбор по категориям']) },
+      { title: 'Внести расход', before: '6+ касаний', after: '3 касания', steps: mk(['Плюс в таббаре', 'Сумма', 'Категория чипом', 'Сохранено']) }
+    ];
+    const principles = [
+      { n: '01', t: 'Одна главная цифра на экран', d: 'Остаток, сумма к оплате или процент лимита. Всё остальное отвечает на вопрос «почему так».' },
+      { n: '02', t: 'Штриховка значит «осталось или нет данных»', d: 'Один знак для пустых полей, будущих дней и остатка лимита во всём приложении.' },
+      { n: '03', t: 'Цвет отвечает, всё ли в порядке', d: 'Мятный значит «в норме» или «главное действие», коралловый требует внимания. Декоративного цвета нет.' },
+      { n: '04', t: 'Доступность по умолчанию', d: 'Касания от 44 px, контраст текста от 4.5:1, статус никогда не передаётся только цветом.' }
+    ];
+    const colors = [
+      { name: 'Ink', hex: '#111111', role: 'Текст, основные кнопки' },
+      { name: 'Paper', hex: '#EFEFED', role: 'Фон светлых экранов' },
+      { name: 'Surface', hex: '#FFFFFF', role: 'Карточки' },
+      { name: 'Mint', hex: '#43D98C', role: 'Норма, главное действие' },
+      { name: 'Coral', hex: '#F25C5C', role: 'Превышение, внимание' },
+      { name: 'Graphite', hex: '#5E5E5A', role: 'Вторичный текст' }
+    ];
+    const type = [
+      { sample: '6 482 ₽', size: '56px', ls: '-.045em', spec: 'Display 56/400' },
+      { sample: 'Добрый день', size: '32px', ls: '-.03em', spec: 'H1 32/400' },
+      { sample: 'Мои заявки', size: '20px', ls: '-.01em', spec: 'H2 20/400' },
+      { sample: 'Горячая вода с 10:00', size: '16px', ls: '0', spec: 'Body 16/400' },
+      { sample: 'было 00412 м³', size: '13px', ls: '0', spec: 'Caption 13/400' }
+    ];
+    const radii = [{ v: '12px', l: '12 мелкие' }, { v: '24px', l: '24 карточки' }, { v: '32px', l: '32 блоки' }, { v: '38px', l: 'капсула' }];
+    const spaces = [4, 8, 12, 16, 24, 32].map(v => ({ v, px: v + 'px' }));
+    const ms = !!seen.mobile;
+    const mobileShots = [
+      { screen: 'overview', d: '0s', title: 'Обзор месяца', notes: [{ n: 1, t: 'Остаток крупно, траты и сравнение с прошлым месяцем вторым уровнем.' }, { n: 2, t: 'Столбцы категорий: коралловый сразу показывает превышение.' }] },
+      { screen: 'category', d: '.15s', title: 'Категория', notes: [{ n: 1, t: 'Яркая шапка с процентом лимита, полоса повторяет главную цифру.' }, { n: 2, t: 'Плитки подкатегорий ведут глубже в один тап.' }] },
+      { screen: 'calendar', d: '.3s', title: 'Календарь лимита', notes: [{ n: 1, t: 'Цвет дня отвечает «уложился или нет», легенда снимает догадки.' }, { n: 2, t: 'Внизу разбор выбранного дня по категориям.' }] }
+    ].map(m => ({ ...m, o: ms ? 1 : 0, t: ms ? 'none' : 'translateY(60px)' }));
+    const deskNotes = [
+      { n: '01', t: 'Сводка над деталями', d: 'Каждый раздел начинается строкой ключевых цифр, графики и таблицы раскрывают их ниже.' },
+      { n: '02', t: 'Красный только для проблем', d: 'Долг, просрочки и аномальные показания. Всё остальное в чёрном и сером.' },
+      { n: '03', t: 'От графика к действию', d: 'У каждого блока есть ссылка в полный список, у должника кнопка перехода к карточке.' },
+      { n: '04', t: 'Плотность для работы', d: 'Шрифт 12–13 px в таблицах, единая сетка карточек: правление работает с экраном часами.' }
+    ];
+    const metrics = [
+      { p: 'Поведение', t: 'Доля дней в рамках лимита', d: 'Главный признак того, что календарь действительно помогает решать в моменте.' },
+      { p: 'Вовлечённость', t: 'Активные дни в неделю', d: 'Сколько дней человек записывает траты. Цель: 5 из 7.' },
+      { p: 'Скорость', t: 'Время ввода расхода', d: 'Цель: меньше 5 секунд от открытия до сохранения.' },
+      { p: 'Удержание', t: 'Удержание на 4-й неделе', d: 'Главная метрика трекера: остаётся ли привычка после первого месяца.' }
+    ];
+    const next = ['Юзабилити-тест прототипа на 5 респондентах', 'Тёмная тема и виджет для экрана iOS', 'Пустые состояния, ошибки и загрузка'];
+    return { showHero: !embedded, embedded, rv, meta, methods, compHead, compCells, insights, jobs, flows, principles, colors, type, radii, spaces, kitBar: seen.kit ? '72%' : '0%', mobileShots, deskNotes, metrics, next };
+  }
+}
+</script>
+</body>
+</html>

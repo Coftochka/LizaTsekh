@@ -1,0 +1,125 @@
+<!doctype html><meta charset="utf-8"><script src="./support.js"></script><x-dc><helmet><style>body{margin:0;background:#121212} [data-rh]{border-radius:0!important;padding:24px!important;box-sizing:border-box;height:900px} [data-rh] > div:last-child{display:none!important}</style></helmet><div data-rh="st1" style="border-radius:28px;background:#14161C;padding:56px 40px 36px;display:{{ cover1 }};flex-direction:column;align-items:center;gap:40px;overflow:hidden">
+      <div style="opacity:{{ rv.st1.o }};transform:{{ rv.st1.t }};transition:opacity 1s ease,transform 1.2s cubic-bezier(.2,.7,.2,1);display:flex;flex-direction:column;align-items:center;width:100%">
+        <div style="width:min(100%,1060px);display:flex;flex-direction:column;align-items:center">
+          <div style="zoom:{{ lapZoom }};display:flex;flex-direction:column;align-items:center">
+            <div style="position:relative;width:921px;padding:14px 14px 18px;box-sizing:border-box;background:#0C0C0E;border-radius:24px 24px 8px 8px;box-shadow:0 0 0 1.5px #3B3D42,0 60px 120px rgba(0,0,0,.55)">
+              <span style="position:absolute;top:5px;left:50%;width:6px;height:6px;margin-left:-3px;border-radius:50%;background:#26272B"></span>
+              <div style="position:relative;width:893px;height:558px;overflow:hidden;border-radius:4px;background:#F3F4F6">
+                <div style="position:relative;width:1440px;height:900px;zoom:.62">
+                  <div style="position:absolute;left:0;top:0;opacity:{{ kv.oDash }};transition:opacity .35s ease"><dc-import name="NewKvartalAdminPanel" page="dashboard" hint-size="1440px,1700px"></dc-import></div>
+                  <div style="position:absolute;left:0;top:0;opacity:{{ kv.oDebt }};transition:opacity .35s ease"><dc-import name="NewKvartalAdminPanel" page="debtors" checked="{{ kv.checked }}" toast="{{ kv.toastD }}" hint-size="1440px,1100px"></dc-import></div>
+                  <div style="position:absolute;left:0;top:0;opacity:{{ kv.oTix }};transition:opacity .35s ease"><dc-import name="NewKvartalAdminPanel" page="tickets" ticket-sel="{{ kv.sel }}" ticket-done="{{ kv.done }}" toast="{{ kv.toastT }}" hint-size="1440px,1100px"></dc-import></div>
+                  <div style="position:absolute;left:0;top:0;z-index:6;pointer-events:none;transform:{{ kv.cur }};transition:transform .75s cubic-bezier(.55,0,.2,1)">
+                    <span style="position:absolute;left:-22px;top:-22px;width:44px;height:44px;border-radius:50%;background:rgba(211,35,58,.35);opacity:{{ kv.rip }};transform:{{ kv.ripS }};transition:opacity .35s ease,transform .35s ease"></span>
+                    <img src="https://unpkg.com/lucide-static@0.452.0/icons/mouse-pointer-2.svg" alt="" style="position:relative;display:block;width:34px;height:34px;margin:-3px 0 0 -3px;filter:drop-shadow(0 0 1.5px #fff) drop-shadow(0 0 1.5px #fff) drop-shadow(0 4px 6px rgba(0,0,0,.3));transform:{{ kv.press }};transform-origin:0 0;transition:transform .15s ease">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="position:relative;width:1060px;height:20px;background:linear-gradient(#D6D8DB,#9EA1A6);border-radius:2px 2px 18px 18px;box-shadow:0 30px 60px rgba(0,0,0,.5)"><span style="position:absolute;top:0;left:50%;width:150px;height:7px;margin-left:-75px;background:#8F9297;border-radius:0 0 8px 8px"></span></div>
+          </div>
+        </div>
+      </div>
+      <div style="width:100%;max-width:1060px;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px">
+        <sc-for list="{{ kvSteps }}" as="st" hint-placeholder-count="5">
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="height:3px;border-radius:2px;background:{{ st.bar }};transition:background .4s"></div>
+            <div style="display:flex;gap:10px;align-items:flex-start">
+              <span style="width:22px;height:22px;flex:none;border-radius:50%;display:grid;place-items:center;font-size:11px;background:{{ st.nb }};color:{{ st.nf }};transition:background .4s">{{ st.n }}</span>
+              <span style="font-size:14px;line-height:1.4;color:{{ st.c }};transition:color .4s;text-wrap:pretty">{{ st.t }}</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div></x-dc><script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { seen: {}, open1: false, open2: false, w: 1200,
+    kv: { page: 'dashboard', checked: 0, toast: '', sel: false, done: false, cx: 760, cy: 430, click: false, step: 0 },
+    uc: { screen: 'overview', amount: '', cat: -1, added: 0, toast: '', tx: 205, ty: 600, tap: false, step: 0 } };
+  componentDidMount() {
+    const reveal = k => this.setState(s => s.seen[k] ? null : ({ seen: { ...s.seen, [k]: true } }));
+    if (!('IntersectionObserver' in window)) ['hero','t1','st1','t2','st2','foot'].forEach(reveal);
+    else {
+      this.io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { reveal(e.target.dataset.rh); this.io.unobserve(e.target); } }), { threshold: 0.15 });
+      document.querySelectorAll('[data-rh]').forEach(el => this.io.observe(el));
+    }
+    this.tm = [];
+    this.onResize = () => this.setState({ w: 1440 });
+    window.addEventListener('resize', this.onResize); this.onResize();
+    if (!window.matchMedia || !window.matchMedia('(prefers-reduced-motion: reduce)').matches) { this.runKv(); this.runUc(); }
+    else { this.setKv({ page: 'debtors', checked: 4, step: 1 }); }
+  }
+  componentWillUnmount() { this.io && this.io.disconnect(); this.tm.forEach(clearTimeout); window.removeEventListener('resize', this.onResize); }
+  at(t, fn) { this.tm.push(setTimeout(fn, t / 0.8)); }
+  setKv(p) { this.setState(s => ({ kv: { ...s.kv, ...p } })); }
+  setUc(p) { this.setState(s => ({ uc: { ...s.uc, ...p } })); }
+  kvClick(t, p) { this.at(t, () => this.setKv({ click: true })); this.at(t + 180, () => this.setKv({ click: false, ...(p || {}) })); }
+  ucTap(t, x, y, p) { this.at(t - 450, () => this.setUc({ tx: x, ty: y })); this.at(t, () => this.setUc({ tap: true })); this.at(t + 200, () => this.setUc({ tap: false, ...(p || {}) })); }
+  runKv() {
+    this.setKv({ page: 'dashboard', checked: 0, toast: '', sel: false, done: false, cx: 760, cy: 430, step: 0 });
+    const mv = (t, cx, cy) => this.at(t, () => this.setKv({ cx, cy }));
+    mv(1300, 110, 483); this.kvClick(2300, { page: 'debtors', step: 1 });
+    mv(3200, 305, 598); this.kvClick(3900, { checked: 1 });
+    mv(4200, 305, 650); this.kvClick(4600, { checked: 2 });
+    mv(4900, 305, 702); this.kvClick(5300, { checked: 3 });
+    mv(5600, 305, 754); this.kvClick(6000, { checked: 4 });
+    mv(6500, 1305, 506); this.kvClick(7300, { toast: 'Напоминание отправлено 4 квартирам', step: 2 });
+    mv(9000, 110, 558); this.kvClick(9800, { page: 'tickets', toast: '', step: 3 });
+    mv(10500, 520, 398); this.kvClick(11300, { sel: true });
+    mv(12200, 1127, 268); this.kvClick(13000, { done: true, step: 4, toast: 'Заявка № 2493 закрыта' });
+    this.at(15800, () => this.runKv());
+  }
+  runUc() {
+    this.setUc({ screen: 'overview', amount: '', cat: -1, added: 0, toast: '', step: 0, tx: 205, ty: 520 });
+    this.ucTap(1600, 229, 798, { screen: 'add', step: 1 });
+    this.ucTap(2700, 85.7, 546, { amount: '1' });
+    this.ucTap(3200, 205, 546, { amount: '12' });
+    this.ucTap(3700, 85.7, 610, { amount: '124' });
+    this.ucTap(4200, 205, 738, { amount: '1240' });
+    this.ucTap(5100, 85.7, 384, { cat: 0 });
+    this.ucTap(6000, 205, 804, { screen: 'overview', added: 1240, toast: 'Продукты: 1 240 ₽ записано', step: 2 });
+    this.at(8200, () => this.setUc({ toast: '' }));
+    this.ucTap(9000, 292, 798, { screen: 'calendar', step: 3 });
+    this.at(12000, () => this.runUc());
+  }
+  toggle(key, id) {
+    const closing = this.state[key];
+    this.setState({ [key]: !closing }, () => {
+      requestAnimationFrame(() => { const el = document.getElementById(closing ? id : id + '-details'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+    });
+  }
+  renderVals() {
+    const { seen, open1, open2, kv, uc, w } = this.state;
+    const rv = {};
+    ['hero','t1','st1','t2','st2','foot'].forEach(k => { rv[k] = { o: seen[k] ? 1 : 0, t: seen[k] ? 'none' : 'translateY(60px)' }; });
+    const stage = Math.min(1060, Math.max(320, Math.min(w, 1320) - 48 - 80 - 80));
+    const kvT = ['Видит рост долга на дашборде', 'Отмечает должников в таблице', 'Отправляет напоминание в один клик', 'Открывает заявку с фото жильца', 'Закрывает заявку'];
+    const kvSteps = kvT.map((t, i) => { const a = i === kv.step, past = i < kv.step; return { n: i + 1, t, bar: a ? '#FFA41B' : past ? '#4A4E58' : '#262A33', nb: a ? '#FFA41B' : '#262A33', nf: a ? '#fff' : '#8A8F99', c: a ? '#fff' : '#8A8F99' }; });
+    const ucT = [
+      ['Видит остаток на месяц', 'Главная цифра экрана: сколько ещё можно потратить.'],
+      ['Вводит сумму и категорию', 'Плюс в таббаре, клавиатура открыта сразу, категория чипом.'],
+      ['Остаток пересчитан сразу', 'Подтверждение и обновлённый столбец категории.'],
+      ['Проверяет день в календаре', 'Цвет дня показывает, уложился ли в дневной лимит.']
+    ];
+    const ucSteps = ucT.map(([t, d], i) => { const a = i === uc.step; return { n: i + 1, t, d, nb: a ? '#FFA41B' : '#1E1E1D', nf: a ? '#111' : '#8C8C8A', c: a ? '#F2F2F0' : '#6B6B67', dc: a ? '#A8A8A4' : '#4E4E4A' }; });
+    return {
+      rv, open1, open2, cover1: open1 ? 'none' : 'flex', cover2: open2 ? 'none' : 'grid', kvSteps, ucSteps, lapZoom: (stage / 1060).toFixed(3),
+      kv: { checked: kv.checked, sel: kv.sel, done: kv.done,
+        oDash: kv.page === 'dashboard' ? 1 : 0, oDebt: kv.page === 'debtors' ? 1 : 0, oTix: kv.page === 'tickets' ? 1 : 0,
+        toastD: kv.page === 'debtors' ? kv.toast : '', toastT: kv.page === 'tickets' ? kv.toast : '',
+        cur: 'translate(' + kv.cx + 'px,' + kv.cy + 'px)', press: kv.click ? 'scale(.82)' : 'none', rip: kv.click ? 1 : 0, ripS: kv.click ? 'scale(1)' : 'scale(.4)' },
+      uc: { added: uc.added, toast: uc.toast, amount: uc.amount, cat: uc.cat,
+        oOv: uc.screen === 'overview' ? 1 : 0, tOv: uc.screen === 'add' ? 'scale(.94)' : 'none', oCal: uc.screen === 'calendar' ? 1 : 0,
+        tAdd: uc.screen === 'add' ? 'none' : 'translateY(105%)',
+        tapPos: 'translate(' + uc.tx + 'px,' + uc.ty + 'px)', tapO: uc.tap ? 1 : 0 },
+      did1: ['Интервью', 'Карта процессов', 'IA', 'Прототип', 'UI-кит'],
+      did2: ['Интервью', 'JTBD', 'Сценарии', 'Прототип', 'UI-кит'],
+      btn1: open1 ? '← Вернуть обложку' : 'Открыть кейс по шагам ↓',
+      btn2: open2 ? '← Вернуть обложку' : 'Открыть кейс по шагам ↓',
+      arrow1: open1 ? 'rotate(180deg)' : 'none', arrow2: open2 ? 'rotate(180deg)' : 'none',
+      toggle1: () => this.toggle('open1', 'case1'), toggle2: () => this.toggle('open2', 'case2'),
+      contacts: ['Telegram', 'Почта', 'Резюме PDF']
+    };
+  }
+}
+</script>

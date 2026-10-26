@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0B0B0B">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600&amp;display=swap" rel="stylesheet">
+<style>html{scroll-behavior:smooth}body{margin:0;background:#0B0B0B;-webkit-font-smoothing:antialiased}a{color:inherit;text-decoration:none}a:hover{color:#FFA41B}::selection{background:#FFA41B;color:#0B0B0B}[data-strip]::-webkit-scrollbar{display:none}
+@media (max-width:760px){[data-m=nav]{grid-template-columns:1fr!important;justify-items:center;padding:14px 10px!important}[data-m=hide]{display:none!important}[data-m=pill]{font-size:13px!important}[data-m=pill] a{padding:8px 11px!important}[data-m=orbs]{flex-wrap:wrap!important}[data-m=orb1]{order:-1;width:64vw!important;margin:0 18vw -9vw!important}[data-m=orb0]{width:54vw!important;margin:0 -8vw 0 0!important}[data-m=orb2]{width:54vw!important}[data-m=orbtext]{left:17%!important;right:17%!important;top:15%!important;gap:6px!important}[data-m=orbp]{font-size:2.85vw!important}[data-m=h1]{margin-top:28px!important;font-size:9vw!important}[data-m=h1l]{padding-left:0!important;text-align:center!important}[data-m=track]{padding-left:16px!important;padding-right:16px!important}[data-m=slide]{height:50vw!important}[data-m=nrow]{flex-direction:column!important;align-items:center!important;padding-left:0!important}[data-m=phone]{height:min(120vw,560px)!important}[data-m=nmask]{width:100%;flex:none!important;-webkit-mask-image:none!important;mask-image:none!important}[data-m=nitem]{height:46vw!important}[data-tools]{gap:8px!important}[data-m=tool]{gap:8px!important;padding:6px 14px 6px 6px!important}[data-m=toolic]{width:30px!important;height:30px!important}[data-m=toolic] img[style*="inset:11px"]{inset:7px!important;width:16px!important;height:16px!important}[data-m=tooln]{font-size:14px!important}}</style>
+</helmet>
+
+<div style="font-family:Manrope,sans-serif;color:#F3F1EC;background:#0B0B0B;overflow-x:hidden">
+
+<nav data-m="nav" style="position:fixed;top:0;left:0;right:0;z-index:50;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;padding:20px clamp(16px,4vw,56px);background:linear-gradient(180deg,rgba(11,11,11,.85),rgba(11,11,11,0))">
+  <a data-m="hide" href="#top" style="font-weight:600;font-size:17px;letter-spacing:-0.02em;display:flex;align-items:center;gap:10px">Лиза Цех</a>
+  <div data-m="pill" style="display:flex;gap:2px;padding:5px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);font-size:14px;font-weight:500;backdrop-filter:blur(12px);white-space:nowrap">
+    <a href="#top" style="padding:9px 16px;border-radius:999px;background:#F3F1EC;color:#0B0B0B" style-hover="color:#0B0B0B">Обо мне</a>
+    <a href="#cases" style="padding:9px 16px;border-radius:999px">Кейсы</a>
+    <a href="#tools" style="padding:9px 16px;border-radius:999px">Инструменты</a>
+    <a href="#contact" style="padding:9px 16px;border-radius:999px">Контакты</a>
+  </div>
+  <div data-m="hide" style="display:flex;justify-content:flex-end"><a href="#contact" style="padding:11px 20px;border-radius:999px;background:#FFA41B;color:#0B0B0B;font-size:14px;font-weight:600" style-hover="color:#0B0B0B;background:#FFB648">Написать</a></div>
+</nav>
+
+<section id="top" data-screen-label="01 Hero" style="position:relative;min-height:100vh;padding:110px 0 40px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;overflow:hidden">
+  <div data-drift="" style="position:absolute;left:0;top:50%;transform:translateY(-58%);white-space:nowrap;font-weight:300;font-size:min(41vw,66vh,750px);line-height:.8;letter-spacing:-0.05em;color:transparent;-webkit-text-stroke:3px rgba(243,241,236,.28);pointer-events:none;will-change:transform">DESIGN · DESIGN · DESIGN · DESIGN</div>
+  <div data-m="orbs" style="position:relative;display:flex;justify-content:center;align-items:center">
+    <div data-m="orb0" data-orb="0" data-depth="18" style="position:relative;z-index:1;width:min(30vw,48vh,540px);aspect-ratio:1;border-radius:50%;background:#EE8E0E;color:#FFFFFF;flex:none;margin-right:-6.5vw"><div data-m="orbtext" style="position:absolute;left:13%;right:31%;top:23%;display:flex;flex-direction:column;gap:clamp(8px,1vw,16px)">
+      <div style="line-height:0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:clamp(20px,2.3vw,38px);height:clamp(20px,2.3vw,38px);display:block"><path d="M7 17L17 7M8 7h9v9"></path></svg></div>
+      <div data-m="orbp" style="font-size:clamp(10px,.92vw,16px);line-height:1.32;font-weight:900;letter-spacing:-0.01em;text-wrap:pretty">Делаю презентации, которые хочется досмотреть.<br>Нейрографика, видео и анимация — всё ради <span data-wow="" style="position:relative;z-index:5;transform-origin:30% 50%;display:inline-block;padding:1px 6px;margin-top:3px;border-radius:6px;background-color:transparent;background-image:linear-gradient(#0B0B0B,#0B0B0B);background-repeat:no-repeat;background-position:0 0;background-size:0% 100%;white-space:nowrap">вау-эффекта</span></div>
+    </div></div>
+    <div data-m="orb1" data-orb="1" data-depth="10" style="position:relative;z-index:2;width:min(30vw,48vh,540px);aspect-ratio:1;border-radius:50%;overflow:hidden;background:#E4E4E2;flex:none;margin-right:-6.5vw;box-shadow:0 0 0 clamp(6px,.75vw,12px) #0B0B0B">
+      <img src="img/photo-grey.jpg" alt="Лиза Цех" style="width:100%;height:100%;object-fit:cover;object-position:50% 18%;display:block"></img>
+    </div>
+    <div data-m="orb2" data-orb="2" data-depth="24" style="position:relative;z-index:3;width:min(30vw,48vh,540px);aspect-ratio:1;border-radius:50%;overflow:hidden;background:rgba(40,34,31,.25);backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);flex:none;box-shadow:0 0 0 clamp(6px,.75vw,12px) #0B0B0B">
+      <x-import component-from-global-scope="stat-roll" from="./stat-roll.js?v=11" font="{{ numFont }}" style="position:absolute;inset:0" hint-size="100%,100%"></x-import>
+    </div>
+  </div>
+  <h1 data-m="h1" style="position:relative;z-index:4;margin:clamp(-120px,-6vw,-30px) 0 0;text-align:center;font-weight:300;font-size:clamp(30px,min(6.2vw,9.5vh),116px);line-height:.92;letter-spacing:-0.055em;text-transform:uppercase;pointer-events:none">
+    <span style="display:block;overflow:hidden;text-align:left;padding-left:8vw" data-m="h1l"><span data-line="" style="display:inline-block;white-space:nowrap">Привет, я Лиза.</span></span>
+    <span style="display:block;overflow:hidden;text-align:left;padding-left:22vw" data-m="h1l"><span data-line="" style="display:inline-block;white-space:nowrap">Помогаю идеям</span></span>
+    <span style="display:block;overflow:hidden;text-align:left;padding-left:36vw" data-m="h1l"><span data-line="" style="display:inline-block;white-space:nowrap">выглядеть <span style="color:#FFA41B">эффектно</span></span></span>
+  </h1>
+</section>
+
+<section data-screen-label="02 Цифры" style="padding:0 clamp(16px,4vw,56px) clamp(80px,9vw,140px)">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px">
+    <div data-reveal="0" style="position:relative;overflow:hidden;border-radius:28px;background:#171717;min-height:220px;padding:28px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between">
+      <img src="img/psych-cover.jpg" alt="" style="position:absolute;left:55%;top:0;width:45%;height:100%;object-fit:cover;object-position:78% 50%;display:block"></img>
+      <div style="position:absolute;left:55%;top:50%;width:64%;max-width:200px;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;overflow:hidden"><img src="img/psych-cover.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:78% 50%;display:block;transform:scaleX(-1)"></img><div style="position:absolute;left:50%;top:0;right:0;bottom:0;background:#171717"></div></div>
+      <div style="position:absolute;left:0;top:0;bottom:0;width:66%;background:linear-gradient(90deg,rgba(23,23,23,.92) 0%,rgba(23,23,23,.75) 55%,rgba(23,23,23,0) 100%);pointer-events:none"></div>
+      <div data-count="60" data-suffix="+" style="position:relative;font-weight:300;font-size:clamp(56px,5.5vw,84px);line-height:.9;letter-spacing:-0.05em">60+</div>
+      <div style="position:relative;font-size:16px;line-height:1.35;font-weight:500;max-width:15ch">презентаций для бизнеса и выступлений</div>
+    </div>
+    <div data-reveal="1" style="position:relative;overflow:hidden;border-radius:28px;background:#171717;min-height:220px;padding:28px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between">
+      <img src="img/laptop.jpg" alt="" style="position:absolute;left:55%;top:0;width:45%;height:100%;object-fit:cover;object-position:45% 50%;display:block"></img>
+      <div style="position:absolute;left:55%;top:50%;width:64%;max-width:200px;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;overflow:hidden"><img src="img/laptop.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:45% 50%;display:block;transform:scaleX(-1)"></img><div style="position:absolute;left:50%;top:0;right:0;bottom:0;background:#171717"></div></div>
+      <div style="display:flex;flex-direction:column;align-items:flex-start;gap:14px">
+        <div style="position:relative;font-weight:300;font-size:clamp(56px,5.5vw,84px);line-height:.9;letter-spacing:-0.05em"><span data-count="24">24</span> ч</div>
+<div style="position:absolute;right:28px;top:50%;transform:translateY(-50%);z-index:2;padding:7px 11px;border-radius:10px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);font-size:12px;font-weight:600;white-space:nowrap">Строгие дедлайны</div>
+      </div>
+      <div style="position:relative;font-size:16px;line-height:1.35;font-weight:500;max-width:15ch">на срочную презентацию — за день или ночь</div>
+    </div>
+    <div data-reveal="2" style="position:relative;overflow:hidden;border-radius:28px;background:#171717;min-height:220px;padding:28px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between">
+      <img src="img/desk.jpg" alt="" style="position:absolute;left:55%;top:0;width:45%;height:100%;object-fit:cover;object-position:65% 50%;display:block"></img>
+      <div style="position:absolute;left:55%;top:50%;width:64%;max-width:200px;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;overflow:hidden"><img src="img/desk.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:65% 50%;display:block;transform:scaleX(-1)"></img><div style="position:absolute;left:50%;top:0;right:0;bottom:0;background:#171717"></div></div>
+      <div style="position:absolute;left:0;top:0;bottom:0;width:66%;background:linear-gradient(90deg,rgba(23,23,23,.92) 0%,rgba(23,23,23,.75) 55%,rgba(23,23,23,0) 100%);pointer-events:none"></div>
+      <div style="position:relative;font-weight:300;font-size:clamp(56px,5.5vw,84px);line-height:.9;letter-spacing:-0.05em">3 в 1</div>
+      <div style="position:relative;font-size:16px;line-height:1.35;font-weight:500;max-width:15ch">дизайн, сторителлинг и копирайтинг</div>
+    </div>
+  </div>
+</section>
+
+<section id="tools" data-screen-label="03 Инструменты" style="padding:0 0 clamp(90px,10vw,160px)">
+  <div data-reveal="0" style="padding:0 clamp(16px,4vw,56px) 28px;display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid rgba(243,241,236,.12);margin:0 clamp(16px,4vw,56px) 36px;padding-left:0;padding-right:0">
+    <div style="font-size:14px;font-weight:500;color:#8F8C86;text-transform:uppercase;letter-spacing:.06em">Инструменты</div>
+  </div>
+  <div style="overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)">
+    <div data-tools="" style="display:flex;gap:14px;width:max-content;will-change:transform">
+      <sc-for list="{{ toolsLoop }}" as="t" hint-placeholder-count="8">
+        <div data-m="tool" style="display:flex;align-items:center;gap:14px;padding:12px 26px 12px 12px;border-radius:999px;border:1px solid rgba(243,241,236,.14);background:#141414;flex:none">
+          <div data-m="toolic" style="position:relative;width:46px;height:46px;border-radius:50%;background:{{ t.bg }};display:flex;align-items:center;justify-content:center;font-weight:600;font-size:16px;color:#fff;overflow:hidden">{{ t.short }}<sc-if value="{{ t.icon }}" hint-placeholder-val="{{ false }}"><img data-dc-src="{{ t.icon }}" alt="" style="position:absolute;inset:11px;width:24px;height:24px;display:block;background:{{ t.bg }}"></img></sc-if><sc-if value="{{ t.logo }}" hint-placeholder-val="{{ false }}"><img data-dc-src="{{ t.logo }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;background:#141414;transform:scale({{ t.sc }})"></img></sc-if></div>
+          <div data-m="tooln" style="font-size:19px;font-weight:500;letter-spacing:-0.01em;white-space:nowrap">{{ t.name }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section id="cases" data-screen-label="04 Кейсы" style="padding:0 clamp(16px,4vw,56px)">
+  <div data-reveal="0" style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;padding-bottom:28px;border-bottom:1px solid rgba(243,241,236,.12)">
+    <div style="font-weight:300;font-size:clamp(44px,7vw,120px);line-height:.85;letter-spacing:-0.06em;text-transform:uppercase">Кейсы</div>
+  </div>
+</section>
+
+<sc-for list="{{ cases }}" as="c" hint-placeholder-count="4">
+  <section data-screen-label="Кейс" style="padding:clamp(56px,6vw,96px) 0 0">
+    <div data-reveal="0" style="padding:0 clamp(16px,4vw,56px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:clamp(20px,3vw,48px) clamp(24px,4vw,72px);align-items:start">
+      <div style="grid-column:1 / -1;display:flex;gap:clamp(16px,2vw,28px);align-items:flex-start">
+        <div style="font-weight:300;font-size:clamp(18px,1.5vw,22px);color:#FFA41B;padding-top:.6em">{{ c.num }}</div>
+        <h2 style="margin:0;font-weight:300;font-size:clamp(34px,4.4vw,72px);line-height:1.04;letter-spacing:-0.05em;text-wrap:balance">{{ c.title }}</h2>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px"><div style="font-size:13px;font-weight:600;color:#8F8C86;text-transform:uppercase;letter-spacing:.08em">Задача</div><p style="margin:0;font-size:17px;line-height:1.5;color:#D7D4CE;text-wrap:pretty">{{ c.task }}</p></div>
+      <div style="display:flex;flex-direction:column;gap:10px"><div style="font-size:13px;font-weight:600;color:#8F8C86;text-transform:uppercase;letter-spacing:.08em">Решение</div><p style="margin:0;font-size:17px;line-height:1.5;color:#D7D4CE;text-wrap:pretty">{{ c.solution }}</p></div>
+    </div>
+    <div data-reveal="1" style="position:relative;margin-top:clamp(32px,4vw,56px)">
+      <div data-strip="" style="overflow:hidden;cursor:grab;touch-action:pan-y;user-select:none"><div data-m="track" data-track="" style="display:flex;gap:14px;width:max-content;padding:0 clamp(16px,4vw,56px) 0 max(16px,calc(50vw - clamp(220px,26vw,400px) * 0.8889));will-change:transform">
+        <sc-for list="{{ c.items }}" as="it" hint-placeholder-count="5">
+          <div data-set="{{ c.key }}" data-i="{{ it.i }}" onClick="{{ open }}" data-m="slide" style="flex:none;height:clamp(220px,26vw,400px);aspect-ratio:{{ it.ar }};border-radius:16px;overflow:hidden;background:#171717;scroll-snap-align:start;cursor:zoom-in">
+            <img data-dc-src="{{ it.src }}" alt="" draggable="false" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s cubic-bezier(.2,.8,.2,1)" style-hover="transform:scale(1.05)"></img>
+          </div>
+        </sc-for>
+      </div></div>
+      <div style="display:flex;justify-content:flex-end;gap:10px;padding:20px clamp(16px,4vw,56px) 0">
+        <button data-dir="-1" onClick="{{ scrollStrip }}" style="width:48px;height:48px;border-radius:50%;border:1px solid rgba(243,241,236,.3);background:transparent;color:#F3F1EC;font-size:18px;cursor:pointer" style-hover="background:#F3F1EC;color:#0B0B0B">←</button>
+        <button data-dir="1" onClick="{{ scrollStrip }}" style="width:48px;height:48px;border-radius:50%;border:1px solid rgba(243,241,236,.3);background:transparent;color:#F3F1EC;font-size:18px;cursor:pointer" style-hover="background:#F3F1EC;color:#0B0B0B">→</button>
+      </div>
+    </div>
+    <sc-if value="{{ c.neuro }}" hint-placeholder-val="{{ false }}">
+      <div data-reveal="1" style="margin-top:clamp(48px,6vw,88px)">
+        <div style="padding:0 clamp(16px,4vw,56px) 24px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+          <div style="padding:9px 16px;border-radius:999px;background:#FFA41B;color:#fff;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em">Нейрографика</div>
+          <div style="font-size:17px;color:#D7D4CE">Все фото образов и видеоролик сгенерировала нейросетями сама</div>
+        </div>
+        <div data-m="nrow" style="display:flex;align-items:center;gap:clamp(16px,2vw,32px);padding-left:clamp(16px,4vw,56px)">
+        <div data-m="phone" style="flex:none;position:relative;height:clamp(440px,46vw,720px);aspect-ratio:9/19.5;border-radius:clamp(44px,4.4vw,68px);background:#0B0B0B;border:clamp(3px,.3vw,5px) solid #111;box-shadow:0 0 0 1px #5A5752,0 40px 100px rgba(0,0,0,.65);overflow:hidden;box-sizing:border-box">
+          <video ref="{{ heroVid }}" data-dc-src="img/lr/hero.mp4" autoplay="" muted="" loop="" playsinline="" preload="auto" style="width:100%;height:100%;object-fit:cover;display:block"></video>
+          <div style="position:absolute;top:2.2%;left:50%;transform:translateX(-50%);width:30%;height:3.4%;border-radius:999px;background:#000"></div>
+        </div>
+        <div data-m="nmask" style="flex:1;min-width:0;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,transparent 3%,#000 22%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,transparent 3%,#000 22%,#000 94%,transparent)">
+          <div data-neuro="" style="display:grid;grid-auto-flow:column;grid-template-rows:repeat(2,auto);gap:14px;width:max-content;will-change:transform">
+            <sc-for list="{{ neuroLoop }}" as="n" hint-placeholder-count="8">
+              <div data-m="nitem" style="flex:none;height:clamp(213px,calc(23vw - 7px),353px);aspect-ratio:3/4;border-radius:16px;overflow:hidden;background:#171717">
+                <sc-if value="{{ n.img }}" hint-placeholder-val="{{ true }}"><img data-dc-src="{{ n.src }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></img></sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        </div>
+      </div>
+    </sc-if>
+    <div style="margin:clamp(40px,5vw,72px) clamp(16px,4vw,56px) 0;border-bottom:1px solid rgba(243,241,236,.12)"></div>
+  </section>
+</sc-for>
+
+<section id="contact" data-screen-label="05 Контакты" style="position:relative;padding:clamp(100px,12vw,190px) clamp(16px,4vw,56px) 36px;overflow:hidden">
+  <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:clamp(28px,3vw,44px)">
+    <div data-reveal="0" style="width:clamp(120px,12vw,180px);aspect-ratio:1;border-radius:50%;overflow:hidden;background:#E4E4E2"><img src="img/photo-grey.jpg" alt="Лиза Цех" style="width:100%;height:100%;object-fit:cover;object-position:50% 18%;display:block"></img></div>
+    <h2 data-reveal="1" style="margin:0;font-weight:300;font-size:clamp(40px,7vw,120px);line-height:.92;letter-spacing:-0.055em;text-transform:uppercase">Обсудим<br>вашу презентацию?</h2>
+    <div data-reveal="2" style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px">
+      <a href="https://t.me/liza_tsekh" target="_blank" style="display:flex;align-items:center;gap:14px;background:#FFA41B;color:#0B0B0B;border-radius:999px;padding:8px 8px 8px 28px;font-weight:600;font-size:17px" style-hover="color:#0B0B0B;background:#FFB648">Telegram @liza_tsekh<span style="width:46px;height:46px;border-radius:50%;background:#0B0B0B;color:#FFA41B;display:flex;align-items:center;justify-content:center;font-size:18px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;display:block"><path d="M7 17L17 7M8 7h9v9"></path></svg></span></a>
+      <a href="tel:+79308362182" style="display:flex;align-items:center;border:1px solid rgba(243,241,236,.3);border-radius:999px;padding:0 28px;min-height:62px;font-weight:500;font-size:17px">+7 930 836-21-82</a>
+    </div>
+  </div>
+  <div style="margin-top:clamp(90px,10vw,150px);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:13px;color:#8F8C86;text-transform:uppercase;letter-spacing:.06em">
+    <div>Лиза Цех</div>
+    <div>Дизайнер презентаций</div>
+    <div>©2026</div>
+  </div>
+</section>
+
+<sc-if value="{{ lbOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ close }}" style="position:fixed;inset:0;z-index:100;background:rgba(8,8,8,.95);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:72px clamp(16px,7vw,110px)">
+    <img data-dc-src="{{ lbSrc }}" onClick="{{ stop }}" alt="" style="max-width:100%;max-height:100%;border-radius:14px;display:block"></img>
+    <button onClick="{{ close }}" style="position:absolute;top:20px;right:20px;width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:transparent;color:#fff;font-size:18px;cursor:pointer">✕</button>
+    <button onClick="{{ prev }}" style="position:absolute;left:clamp(8px,2vw,32px);top:50%;transform:translateY(-50%);width:52px;height:52px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(11,11,11,.5);color:#fff;font-size:18px;cursor:pointer">←</button>
+    <button onClick="{{ next }}" style="position:absolute;right:clamp(8px,2vw,32px);top:50%;transform:translateY(-50%);width:52px;height:52px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(11,11,11,.5);color:#fff;font-size:18px;cursor:pointer">→</button>
+    <div style="position:absolute;bottom:24px;left:50%;transform:translateX(-50%);color:#8F8C86;font-size:14px">{{ lbCount }}</div>
+  </div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;numFont&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Unbounded&quot;,&quot;Tektur&quot;,&quot;Russo One&quot;,&quot;Tungsten&quot;,&quot;Druk&quot;],&quot;default&quot;:&quot;Unbounded&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Круг со статистикой&quot;}}">
+class Component extends DCLogic {
+  state = { lb: null };
+  heroVid = React.createRef();
+  tools = [
+    { name: 'Claude', slug: 'claude', bg: '#D97757', short: 'C' },
+    { name: 'Figma', slug: '', logo: 'img/tools/figma.png', sc: 1.66, bg: '#000', short: '' },
+    { name: 'PowerPoint', slug: '', logo: 'img/tools/powerpoint.png', sc: .8, bg: '#141414', short: '' },
+    { name: 'Keynote', slug: '', logo: 'img/tools/keynote.png', sc: 1, bg: '#1A9FFF', short: '' },
+    { name: 'Google Slides', slug: 'googleslides', bg: '#F4B400', short: 'G' },
+    { name: 'Midjourney', slug: '', logo: 'img/tools/midjourney.png', sc: 1.55, bg: '#F8F9FB', short: '' },
+    { name: 'ChatGPT', slug: '', logo: 'img/tools/chatgpt.png', sc: 1, bg: '#3C3C3B', short: '' },
+    { name: 'Photoshop', slug: '', logo: 'img/tools/photoshop.png', sc: 1, bg: '#001E36', short: '' }
+  ];
+  slides = (k, ns) => ns.map((n, i) => ({ src: `img/${k}-${n}.jpg`, ar: '16/9', i }));
+  data = [
+    { key: 'lr', num: '01', title: 'Питч кидалт-капсулы для Love Republic',
+      task: 'Убедить маркетинг Love Republic запустить кидалт-капсулу к Хеллоуину — смелую, но носибельную.',
+      solution: 'Построила сюжет от инсайта аудитории к прогнозу продаж. Фото капсулы и видеоролик сгенерировала нейросетями сама.',
+      neuro: true,
+      items: this.slides('lr', ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11']) },
+    { key: 'psych', num: '02', title: 'Результаты научного исследования о социальном влиянии', _t: 'Друг не послушал совета',
+      task: 'Пересказать научную статью о социальном влиянии так, чтобы её слушали, а не пролистывали.',
+      solution: 'Начала с бытовой ситуации и разложила семь экспериментов на понятные пары «вопрос — ответ».',
+      items: this.slides('psych', ['01', '02', '03', '05', '09', '12']) },
+    { key: 'books', num: '03', title: 'Методология исследования для «Яндекс Книг»',
+      task: 'Обосновать для «Яндекс Книг» качественное исследование и оформить методологию в понятный документ.',
+      solution: 'Собрала контрастную жёлто-чёрную систему: гайд интервью стал навигацией, квоты — наглядной таблицей.',
+      items: this.slides('books', ['01', '04', '07', '10', '11', '17']) },
+    { key: 'constr', num: '04', title: 'Разбор фильма через теорию коммуникации',
+      task: 'Объяснить англоязычной аудитории теорию коммуникации так, чтобы это не звучало как лекция.',
+      solution: 'Показала теорию на одной сцене из «Волка с Уолл-стрит»: пять таймкодов — пять понятий в действии.',
+      items: this.slides('constr', ['01', '05', '08', '09', '10']) }
+  ];
+  ease = 'cubic-bezier(.2,.8,.2,1)';
+  componentDidMount() {
+    this.anims = [];
+    this.t0 = setTimeout(() => this.init(), 60);
+    this.onKey = e => { if (!this.state.lb) return; if (e.key === 'Escape') this.setState({ lb: null }); if (e.key === 'ArrowRight') this.step(1); if (e.key === 'ArrowLeft') this.step(-1); };
+    window.addEventListener('keydown', this.onKey);
+  }
+  componentWillUnmount() {
+    clearTimeout(this.t0); clearInterval(this.kickT); cancelAnimationFrame(this.autoRaf);
+    window.removeEventListener('keydown', this.onKey);
+    window.removeEventListener('scroll', this.onScroll); window.removeEventListener('mousemove', this.onMove);
+    if (this.io) this.io.disconnect();
+    (this.anims || []).forEach(a => a.cancel());
+  }
+  init() {
+    const q = s => Array.from(document.querySelectorAll(s)), E = this.ease;
+    const orbEls = q('[data-orb]'), mid = orbEls.find(el => el.dataset.orb === '1');
+    const mc = mid ? mid.getBoundingClientRect() : null;
+    orbEls.forEach(el => {
+      const i = +el.dataset.orb;
+      if (i === 1) { this.anims.push(el.animate([{ opacity: 0, transform: 'scale(.6)' }, { opacity: 1, transform: 'scale(1)' }], { duration: 800, delay: 100, easing: E, fill: 'both' })); return; }
+      const r = el.getBoundingClientRect(), dx = mc ? (mc.left + mc.width / 2) - (r.left + r.width / 2) : 0;
+      this.anims.push(el.animate([{ opacity: 0, transform: `translateX(${dx}px) scale(.92)` }, { opacity: 1, transform: `translateX(${dx * 0.3}px) scale(.97)`, offset: 0.25 }, { opacity: 1, transform: 'none' }], { duration: 1200, delay: 750, easing: 'cubic-bezier(.65,0,.15,1)', fill: 'both' }));
+    });
+    q('[data-line]').forEach((el, i) => this.anims.push(el.animate([{ transform: 'translateY(105%)' }, { transform: 'none' }], { duration: 1200, delay: 600 + i * 130, easing: E, fill: 'both' })));
+    q('[data-drift]').forEach(el => this.anims.push(el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 2000, delay: 300, fill: 'both' })));
+    const tl = document.querySelector('[data-tools]');
+    if (tl) { const go = () => { if (!tl.scrollWidth) return setTimeout(go, 200); this.anims.push(tl.animate([{ transform: 'translateX(0)' }, { transform: `translateX(-${(tl.scrollWidth + 14) / 2}px)` }], { duration: 38000, iterations: Infinity })); }; go(); }
+    this.io = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return; const el = e.target; this.io.unobserve(el);
+      this.anims.push(el.animate([{ opacity: 0, transform: 'translateY(48px)' }, { opacity: 1, transform: 'none' }], { duration: 1100, delay: (+el.dataset.reveal || 0) * 110, easing: E, fill: 'both' }));
+      el.querySelectorAll('[data-count]').forEach(n => this.count(n));
+    }), { threshold: 0.15 });
+    q('[data-reveal]').forEach(el => { if (el.getBoundingClientRect().top > innerHeight * 0.92) el.style.opacity = '0'; this.io.observe(el); });
+    this.drift = q('[data-drift]'); this.orbs = q('[data-orb]');
+    this.onScroll = () => { if (this.tick) return; this.tick = true; requestAnimationFrame(() => { this.tick = false; const y = scrollY; this.drift.forEach(el => el.style.transform = `translate(${-y * 0.5}px,-58%)`); }); };
+    window.addEventListener('scroll', this.onScroll, { passive: true }); this.onScroll();
+    this.onMove = e => {
+      const dx = e.clientX / innerWidth - 0.5, dy = e.clientY / innerHeight - 0.5;
+      this.orbs.forEach(el => { const d = +el.dataset.depth; el.style.translate = `${dx * d}px ${dy * d}px`; });
+    };
+    window.addEventListener('mousemove', this.onMove, { passive: true });
+    q('[data-wow]').forEach(el => this.anims.push(el.animate([
+      { backgroundSize: '0% 100%', transform: 'rotate(0deg) scale(1)', boxShadow: '0 0 0 0 rgba(255,214,140,0)', offset: 0 },
+      { backgroundSize: '100% 100%', transform: 'rotate(-5deg) scale(1.9)', boxShadow: '0 0 28px 6px rgba(255,214,140,.85)', offset: 0.22 },
+      { backgroundSize: '100% 100%', transform: 'rotate(-5deg) scale(1.9)', boxShadow: '0 0 10px 1px rgba(255,214,140,.35)', offset: 0.5 },
+      { backgroundSize: '100% 100%', transform: 'rotate(-5deg) scale(1.9)', boxShadow: '0 0 24px 5px rgba(255,214,140,.75)', offset: 0.8 },
+      { backgroundSize: '0% 100%', transform: 'rotate(0deg) scale(1)', boxShadow: '0 0 0 0 rgba(255,214,140,0)', offset: 1 }
+    ], { duration: 2400, delay: 1100, iterations: Infinity, easing: 'cubic-bezier(.6,0,.2,1)' })));
+    const nl = document.querySelector('[data-neuro]');
+    if (nl) { const go = () => { if (!nl.scrollWidth) return setTimeout(go, 200); this.anims.push(nl.animate([{ transform: 'translateX(0)' }, { transform: `translateX(-${(nl.scrollWidth + 14) / 2}px)` }], { duration: 64000, iterations: Infinity })); }; go(); }
+    q('video[data-seg]').forEach(v => {
+      v.muted = true;
+      const A = 4.6, B = 28.2;
+      v.addEventListener('loadedmetadata', () => { if (v.currentTime < A) v.currentTime = A; });
+      v.addEventListener('timeupdate', () => { if (v.currentTime < A - 0.2 || v.currentTime > B) v.currentTime = A; });
+      v.addEventListener('ended', () => { v.currentTime = A; v.play().catch(() => {}); });
+      if (v.readyState >= 1 && v.currentTime < A) v.currentTime = A;
+    });
+    this.strips = q('[data-strip]').map(s => {
+      const o = { s, t: s.firstElementChild, dir: 1, hold: false, x: 0, target: null };
+      s.addEventListener('mouseenter', () => o.hold = true); s.addEventListener('mouseleave', () => o.hold = false);
+      let down = false, x0 = 0, l0 = 0, moved = false;
+      s.addEventListener('pointerdown', e => { down = true; moved = false; x0 = e.clientX; l0 = o.x; o.target = null; o.drag = true; s.style.cursor = 'grabbing'; });
+      window.addEventListener('pointermove', e => { if (!down) return; const d = e.clientX - x0; if (Math.abs(d) > 5) moved = true; o.x = l0 - d; });
+      window.addEventListener('pointerup', e => { if (!down) return; down = false; o.drag = false; s.style.cursor = 'grab'; if (e.pointerType !== 'mouse') { o.hold = true; clearTimeout(o.ht); o.ht = setTimeout(() => o.hold = false, 2500); } s.dataset.moved = moved ? '1' : ''; setTimeout(() => s.dataset.moved = '', 50); });
+      return o;
+    });
+    let last = performance.now();
+    const auto = now => {
+      const dt = Math.min(50, now - last); last = now;
+      this.strips.forEach(o => {
+        const max = o.t.scrollWidth - o.s.clientWidth; if (max <= 0) return;
+        const r = o.s.getBoundingClientRect(); if (r.bottom < 0 || r.top > innerHeight) { o.seen = 0; return; }
+        if (!o.seen) { o.seen = now; if (!o.started) { o.started = true; o.x = 0; o.dir = 1; } }
+        if (o.target != null) { o.x += (o.target - o.x) * Math.min(1, dt * 0.01); if (Math.abs(o.target - o.x) < 0.5) { o.x = o.target; o.target = null; } }
+        else if (!o.hold && !o.drag) { o.x += o.dir * dt * 0.11; if (o.x >= max) { o.x = max; o.dir = -1; } else if (o.x <= 0) { o.x = 0; o.dir = 1; } }
+        o.x = Math.max(0, Math.min(max, o.x));
+        o.t.style.transform = `translate3d(${-o.x}px,0,0)`;
+      });
+      this.autoRaf = requestAnimationFrame(auto);
+    };
+    this.autoRaf = requestAnimationFrame(auto);
+    const v = this.heroVid.current;
+    if (v) { v.muted = true; const kick = () => { if (v.paused) v.play().catch(() => {}); }; v.addEventListener('canplay', kick); kick(); this.kickT = setInterval(kick, 1500); }
+  }
+  count(n) {
+    const to = +n.dataset.count, suf = n.dataset.suffix || '', t0 = performance.now();
+    const f = t => { const p = Math.min(1, (t - t0) / 1600), e = 1 - Math.pow(1 - p, 3); n.textContent = Math.round(to * e) + suf; if (p < 1) requestAnimationFrame(f); };
+    requestAnimationFrame(f);
+  }
+  drag(s) {
+    let down = false, x0 = 0, l0 = 0, moved = false;
+    s.addEventListener('pointerdown', e => { if (e.pointerType !== 'mouse') return; down = true; moved = false; x0 = e.clientX; l0 = s.scrollLeft; s.style.scrollSnapType = 'none'; s.style.cursor = 'grabbing'; });
+    window.addEventListener('pointermove', e => { if (!down) return; const d = e.clientX - x0; if (Math.abs(d) > 5) moved = true; s.scrollLeft = l0 - d; });
+    window.addEventListener('pointerup', () => { if (!down) return; down = false; s.style.cursor = 'grab'; s.style.scrollSnapType = 'x proximity'; s.dataset.moved = moved ? '1' : ''; setTimeout(() => s.dataset.moved = '', 50); });
+  }
+  step(d) { this.setState(s => { if (!s.lb) return null; const n = this.data.find(c => c.key === s.lb.set).items.length; return { lb: { set: s.lb.set, i: (s.lb.i + d + n) % n } }; }); }
+  renderVals() {
+    const lb = this.state.lb, items = lb ? this.data.find(c => c.key === lb.set).items : null;
+    const tools = this.tools.map(t => ({ ...t, icon: t.slug ? `https://cdn.simpleicons.org/${t.slug}/ffffff` : '' }));
+    return {
+      heroVid: this.heroVid,
+      numFont: this.props.numFont ?? 'Unbounded',
+      cases: this.data,
+      toolsLoop: [...tools, ...tools],
+      hideImg: e => { e.currentTarget.style.display = 'none'; },
+      scrollStrip: e => { const s = e.currentTarget.parentElement.previousElementSibling, d = +e.currentTarget.dataset.dir; const o = (this.strips || []).find(x => x.s === s); if (!o) return; o.dir = d; o.target = Math.max(0, Math.min(o.t.scrollWidth - s.clientWidth, (o.target ?? o.x) + d * s.clientWidth * 0.7)); }, _ss: e => { const s = e.currentTarget.parentElement.previousElementSibling, d = +e.currentTarget.dataset.dir; s.dataset.busy = '1'; s.scrollBy({ left: d * s.clientWidth * 0.7, behavior: 'smooth' }); const o = (this.strips || []).find(x => x.s === s); if (o) o.dir = d; setTimeout(() => { delete s.dataset.busy; if (o) o.x = s.scrollLeft; }, 700); },
+      neuroLoop: (() => { const A = ['frankie-front', 'clips', 'drac', 'girl', 'claw', 'tee', 'cape', 'bomber', 'cardigan', 'dress'], l = []; A.forEach((n, i) => { l.push({ img: true, src: `img/lr/${n}.jpg` }, { img: true, src: `img/lr/${A[(i + 5) % 10]}.jpg` }); }); return [...l, ...l]; })(),
+      open: e => { const s = e.currentTarget.closest('[data-strip]'); if (s && s.dataset.moved) return; const d = e.currentTarget.dataset; this.setState({ lb: { set: d.set, i: +d.i } }); },
+      close: () => this.setState({ lb: null }),
+      stop: e => e.stopPropagation(),
+      prev: e => { e.stopPropagation(); this.step(-1); },
+      next: e => { e.stopPropagation(); this.step(1); },
+      lbOpen: !!lb, lbSrc: lb ? items[lb.i].src : '', lbCount: lb ? `${lb.i + 1} / ${items.length}` : ''
+    };
+  }
+}
+</script>
+</body>
+</html>

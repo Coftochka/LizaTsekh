@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
+<style>:where(body){margin:0;background:#E9EAEC;font-family:'Golos Text',sans-serif;color:#15171C;-webkit-font-smoothing:antialiased;font-feature-settings:"tnum" 1}:where(a){color:#D3233A;text-decoration:none}:where(a:hover){color:#A81A2D}</style>
+</helmet>
+<div style="position:relative;width:1440px;border-radius:28px;overflow:hidden;display:grid;grid-template-columns:248px minmax(0,1fr);background:#F3F4F6;color:#15171C;font-size:13px">
+  <aside style="background:#14161C;color:#C5C8D0;display:flex;flex-direction:column;padding:28px 16px 24px;gap:22px">
+    <div style="display:flex;align-items:center;gap:10px;padding:0 8px">
+      <div style="width:32px;height:32px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:3px"><span style="background:#fff;border-radius:4px 4px 4px 9px"></span><span style="background:#D3233A;border-radius:50%"></span><span style="background:#fff;border-radius:4px"></span><span style="background:#fff;border-radius:4px 9px 4px 4px"></span></div>
+      <div style="display:flex;flex-direction:column"><div style="font-size:16px;font-weight:600;color:#fff">Квартал</div><div style="font-size:11px;color:#7C818C">Панель правления ТСЖ</div></div>
+    </div>
+    <div style="height:38px;border-radius:8px;background:#1F222A;display:flex;align-items:center;gap:10px;padding:0 12px;color:#7C818C"><img src="https://unpkg.com/lucide-static@0.452.0/icons/search.svg" alt="" style="width:15px;height:15px;filter:invert(.55)">Квартира или ФИО</div>
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <sc-for list="{{ navGroups }}" as="g" hint-placeholder-count="4">
+        <div style="display:flex;flex-direction:column;gap:2px">
+          <div style="font-size:11px;color:#7C818C;padding:0 12px 6px">{{ g.title }}</div>
+          <sc-for list="{{ g.items }}" as="n" hint-placeholder-count="3">
+            <div style="height:36px;border-radius:6px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-size:13px;font-weight:500;background:{{ n.bg }};color:{{ n.fg }};box-shadow:{{ n.bar }}">
+              <span>{{ n.label }}</span>
+              <sc-if value="{{ n.badge }}" hint-placeholder-val="{{ false }}"><span style="min-width:22px;height:20px;box-sizing:border-box;padding:0 6px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;line-height:1;background:{{ n.badgeBg }};color:{{ n.badgeFg }}">{{ n.badge }}</span></sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </sc-for>
+    </div>
+    <div style="margin-top:auto;height:40px;border-radius:8px;background:#fff;color:#D3233A;display:flex;align-items:center;padding:0 14px;font-size:13px;font-weight:500">Выйти</div>
+  </aside>
+
+  <main style="display:flex;flex-direction:column;gap:16px;padding:0 24px 24px;min-width:0">
+    <div style="height:76px;flex:none;display:flex;align-items:center;gap:16px">
+      <div style="font-size:20px;font-weight:500">{{ pageTitle }}</div>
+      <div style="height:32px;padding:0 12px;border-radius:8px;background:#fff;border:1px solid #E6E8EC;display:flex;align-items:center;font-size:12px;color:#5F6470">ЖК Северный парк, 520 квартир</div>
+      <div style="margin-left:auto;height:38px;width:190px;border-radius:8px;background:#fff;border:1px solid #E6E8EC;display:flex;align-items:center;justify-content:space-between;padding:0 12px;color:#5F6470">Октябрь 2026<span style="width:12px;height:12px;border:1.5px solid #5F6470;border-radius:3px;box-sizing:border-box"></span></div>
+      <div style="width:38px;height:38px;border-radius:50%;background:#fff;border:1px solid #E6E8EC;display:grid;place-items:center;position:relative"><span style="width:12px;height:12px;border-radius:50% 50% 3px 3px;border:1.5px solid #15171C;box-sizing:border-box"></span><span style="position:absolute;top:7px;right:8px;width:8px;height:8px;border-radius:50%;background:#D3233A;border:2px solid #fff"></span></div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:38px;height:38px;border-radius:50%;background:#15171C;color:#fff;display:grid;place-items:center;font-size:12px;font-weight:600">ОМ</div>
+        <div style="display:flex;flex-direction:column;gap:1px"><div style="font-size:13px;font-weight:600">Ольга Миронова</div><div style="font-size:11px;color:#5F6470">Председатель правления</div></div>
+      </div>
+    </div>
+
+    <sc-if value="{{ isDash }}" hint-placeholder-val="{{ true }}"><div style="display:flex;flex-direction:column;gap:16px;flex:1">
+
+    <div style="height:60px;flex:none;background:#fff;border:1px solid #E6E8EC;border-radius:12px;display:flex;align-items:center;gap:12px;padding:0 20px">
+      <div style="width:34px;height:34px;border-radius:50%;background:#D3233A;color:#fff;display:grid;place-items:center;font-size:14px;font-weight:600"><img src="https://unpkg.com/lucide-static@0.452.0/icons/wallet.svg" alt="" style="width:17px;height:17px;filter:invert(1)"></div>
+      <div style="font-size:15px;font-weight:500">Платежи</div>
+      <div style="margin-left:auto;display:flex;gap:28px;align-items:baseline">
+        <sc-for list="{{ kpiPay }}" as="k" hint-placeholder-count="5"><div style="display:flex;gap:8px;align-items:baseline"><span style="font-size:12px;color:#5F6470">{{ k.l }}</span><span style="font-size:18px;font-weight:500;color:{{ k.c }}">{{ k.v }}</span></div></sc-for>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:16px;height:270px;flex:none">
+      <div style="background:#fff;border:1px solid #E6E8EC;border-radius:12px;padding:16px 20px;display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;justify-content:space-between;align-items:center"><div style="font-weight:500">Начислено и оплачено, млн ₽</div><div style="height:26px;padding:0 10px;border:1px solid #E6E8EC;border-radius:6px;display:flex;align-items:center;gap:8px;font-size:11px">6 месяцев<span style="font-size:9px">▾</span></div></div>
+        <div style="flex:1;display:grid;grid-template-columns:24px minmax(0,1fr);gap:8px;min-height:0">
+          <div style="display:flex;flex-direction:column;justify-content:space-between;font-size:10px;color:#8A8F99;padding-bottom:20px"><span>3</span><span>2</span><span>1</span><span>0</span></div>
+          <div style="display:flex;justify-content:space-around;align-items:flex-end">
+            <sc-for list="{{ payBars }}" as="b" hint-placeholder-count="6">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end">
+                <div style="display:flex;gap:3px;align-items:flex-end;height:150px">
+                  <div style="width:10px;height:{{ b.a }};background:#15171C;border-radius:2px"></div>
+                  <div style="width:10px;height:{{ b.p }};background:#D3233A;border-radius:2px"></div>
+                  <div style="width:10px;height:{{ b.d }};background:#C9CCD2;border-radius:2px"></div>
+                </div>
+                <div style="font-size:10px;color:#8A8F99">{{ b.m }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display:flex;gap:16px;justify-content:center;font-size:11px;color:#5F6470"><span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:4px;border-radius:2px;background:#15171C"></span>Начислено</span><span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:4px;border-radius:2px;background:#D3233A"></span>Оплачено</span><span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:4px;border-radius:2px;background:#C9CCD2"></span>Долг</span></div>
+      </div>
+      <div style="background:#fff;border:1px solid #E6E8EC;border-radius:12px;padding:16px 20px;display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;justify-content:space-between;align-items:center"><div style="font-weight:500">Способы оплаты</div><div style="font-size:11px;color:#5F6470">за октябрь</div></div>
+        <div style="flex:1;position:relative">
+          <div style="position:absolute;left:34px;top:14px;width:168px;height:168px;border-radius:50%;background:#15171C;color:#fff;display:grid;place-items:center;font-size:32px;font-weight:500">62%</div>
+          <div style="position:absolute;left:176px;top:0;width:108px;height:108px;border-radius:50%;background:#D3233A;color:#fff;display:grid;place-items:center;font-size:20px;font-weight:500;border:4px solid #fff">24%</div>
+          <div style="position:absolute;left:170px;top:104px;width:72px;height:72px;border-radius:50%;background:#B4B8C0;color:#fff;display:grid;place-items:center;font-size:14px;font-weight:500;border:4px solid #fff">14%</div>
+        </div>
+        <div style="display:flex;gap:16px;justify-content:center;font-size:11px;color:#5F6470"><span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:4px;border-radius:2px;background:#15171C"></span>СБП</span><span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:4px;border-radius:2px;background:#D3233A"></span>Карта</span><span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:4px;border-radius:2px;background:#B4B8C0"></span>Касса банка</span></div>
+      </div>
+      <div style="background:#fff;border:1px solid #E6E8EC;border-radius:12px;padding:16px 20px;display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;justify-content:space-between;align-items:center"><div style="font-weight:500">Задолженность, тыс ₽</div><div style="height:26px;padding:0 10px;border:1px solid #E6E8EC;border-radius:6px;display:flex;align-items:center;gap:8px;font-size:11px">По месяцам<span style="font-size:9px">▾</span></div></div>
+        <div style="flex:1;display:grid;grid-template-columns:28px minmax(0,1fr);gap:6px;min-height:0">
+          <div style="display:flex;flex-direction:column;justify-content:space-between;font-size:10px;color:#8A8F99;padding-bottom:18px"><span>600</span><span>400</span><span>200</span><span>0</span></div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <svg viewBox="0 0 300 150" preserveAspectRatio="none" style="width:100%;flex:1;overflow:visible">
+              <line x1="0" y1="0" x2="300" y2="0" stroke="#EEF0F2"></line><line x1="0" y1="50" x2="300" y2="50" stroke="#EEF0F2"></line><line x1="0" y1="100" x2="300" y2="100" stroke="#EEF0F2"></line><line x1="0" y1="150" x2="300" y2="150" stroke="#E6E8EC"></line>
+              <polyline points="{{ debtPrev }}" fill="none" stroke="#B4B8C0" stroke-width="2" vector-effect="non-scaling-stroke"></polyline>
+              <polyline points="{{ debtNow }}" fill="none" stroke="#D3233A" stroke-width="2.5" vector-effect="non-scaling-stroke"></polyline>
+            </svg>
+            <div style="display:flex;justify-content:space-between;font-size:10px;color:#8A8F99"><span>Май</span><span>Июн</span><span>Июл</span><span>Авг</span><span>Сен</span><span>Окт</span></div>
+          </div>
+        </div>
+        <div style="display:flex;gap:16px;justify-content:center;font-size:11px;color:#5F6470"><span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:4px;border-radius:2px;background:#D3233A"></span>2026</span><span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:4px;border-radius:2px;background:#B4B8C0"></span>2025</span></div>
+      </div>
+    </div>
+
+    <div style="height:60px;flex:none;background:#fff;border:1px solid #E6E8EC;border-radius:12px;display:flex;align-items:center;gap:12px;padding:0 20px">
+      <div style="width:34px;height:34px;border-radius:50%;background:#D3233A;color:#fff;display:grid;place-items:center;font-size:14px;font-weight:600"><img src="https://unpkg.com/lucide-static@0.452.0/icons/wrench.svg" alt="" style="width:17px;height:17px;filter:invert(1)"></div>
+      <div style="font-size:15px;font-weight:500">Заявки жильцов</div>
+      <div style="margin-left:auto;display:flex;gap:28px;align-items:baseline">
+        <sc-for list="{{ kpiTix }}" as="k" hint-placeholder-count="5"><div style="display:flex;gap:8px;align-items:baseline"><span style="font-size:12px;color:#5F6470">{{ k.l }}</span><span style="font-size:18px;font-weight:500;color:{{ k.c }}">{{ k.v }}</span></div></sc-for>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:340px minmax(0,1fr);gap:16px;height:250px;flex:none">
+      <div style="background:#fff;border:1px solid #E6E8EC;border-radius:12px;padding:16px 20px;display:flex;flex-direction:column">
+        <div style="display:flex;justify-content:space-between;align-items:center"><div style="font-weight:500">Закрыто в срок</div><div style="font-size:11px;color:#5F6470">норматив 48 часов</div></div>
+        <div style="flex:1;position:relative;display:flex;justify-content:center;align-items:flex-end">
+          <svg viewBox="0 0 240 130" style="width:240px;height:130px">
+            <path d="M 20 120 A 100 100 0 0 1 220 120" fill="none" stroke="#E4E6EA" stroke-width="22" stroke-linecap="round"></path>
+            <path d="M 20 120 A 100 100 0 0 1 220 120" fill="none" stroke="#D3233A" stroke-width="22" stroke-linecap="round" pathLength="100" stroke-dasharray="86 100"></path>
+          </svg>
+          <div style="position:absolute;bottom:6px;display:flex;flex-direction:column;align-items:center;gap:2px"><div style="font-size:36px;font-weight:500;letter-spacing:-.02em">86%</div><div style="font-size:11px;color:#5F6470">127 из 148 заявок</div></div>
+        </div>
+        <div style="display:flex;gap:16px;justify-content:center;font-size:11px;color:#5F6470;padding-top:12px"><span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:4px;border-radius:2px;background:#E4E6EA"></span>Все</span><span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:4px;border-radius:2px;background:#D3233A"></span>В срок</span></div>
+      </div>
+      <div style="background:#fff;border:1px solid #E6E8EC;border-radius:12px;padding:16px 20px;display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;justify-content:space-between;align-items:center"><div style="font-weight:500">Заявки по видам работ</div><div style="display:flex;gap:8px"><div style="height:26px;padding:0 10px;border:1px solid #E6E8EC;border-radius:6px;display:flex;align-items:center;gap:8px;font-size:11px">Все подрядчики<span style="font-size:9px">▾</span></div><div style="height:26px;padding:0 10px;border:1px solid #E6E8EC;border-radius:6px;display:flex;align-items:center;gap:8px;font-size:11px">Месяц<span style="font-size:9px">▾</span></div></div></div>
+        <div style="flex:1;display:grid;grid-template-columns:24px minmax(0,1fr);gap:8px;min-height:0">
+          <div style="display:flex;flex-direction:column;justify-content:space-between;font-size:10px;color:#8A8F99;padding-bottom:20px"><span>40</span><span>30</span><span>20</span><span>10</span><span>0</span></div>
+          <div style="display:flex;justify-content:space-around;align-items:flex-end">
+            <sc-for list="{{ workBars }}" as="w" hint-placeholder-count="10">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+                <div style="width:18px;height:130px;position:relative;display:flex;align-items:flex-end">
+                  <div style="position:absolute;bottom:0;left:0;right:0;height:{{ w.t }};background:#E4E6EA;border-radius:3px"></div>
+                  <div style="position:relative;width:100%;height:{{ w.c }};background:#D3233A;border-radius:3px"></div>
+                </div>
+                <div style="font-size:10px;color:#8A8F99">{{ w.l }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display:flex;gap:16px;justify-content:center;font-size:11px;color:#5F6470"><span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:4px;border-radius:2px;background:#E4E6EA"></span>Поступило</span><span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:4px;border-radius:2px;background:#D3233A"></span>Закрыто</span></div>
+      </div>
+    </div>
+
+    <div style="height:60px;flex:none;background:#fff;border:1px solid #E6E8EC;border-radius:12px;display:flex;align-items:center;gap:12px;padding:0 20px">
+      <div style="width:34px;height:34px;border-radius:50%;background:#D3233A;color:#fff;display:grid;place-items:center;font-size:14px;font-weight:600"><img src="https://unpkg.com/lucide-static@0.452.0/icons/gauge.svg" alt="" style="width:17px;height:17px;filter:invert(1)"></div>
+      <div style="font-size:15px;font-weight:500">Показания счётчиков</div>
+      <div style="height:24px;padding:0 10px;border-radius:12px;background:#FFF1DC;color:#8A5200;font-size:11px;display:flex;align-items:center">приём до 25 октября</div>
+      <div style="margin-left:auto;display:flex;gap:28px;align-items:baseline">
+        <sc-for list="{{ kpiMeter }}" as="k" hint-placeholder-count="4"><div style="display:flex;gap:8px;align-items:baseline"><span style="font-size:12px;color:#5F6470">{{ k.l }}</span><span style="font-size:18px;font-weight:500;color:{{ k.c }}">{{ k.v }}</span></div></sc-for>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:16px;height:296px;flex:none">
+      <div style="background:#fff;border:1px solid #E6E8EC;border-radius:12px;padding:16px 20px;display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;justify-content:space-between;align-items:center"><div style="font-weight:500">Последние показания</div><div style="display:flex;gap:16px;align-items:center"><div style="height:26px;padding:0 10px;border:1px solid #E6E8EC;border-radius:6px;display:flex;align-items:center;gap:8px;font-size:11px">Сегодня<span style="font-size:9px">▾</span></div><span style="font-size:12px;color:#D3233A">Все показания →</span></div></div>
+        <div style="display:grid;grid-template-columns:56px minmax(0,1.6fr) 64px 80px minmax(0,1fr);background:#F3F4F6;border-radius:6px;font-size:11px;font-weight:500;color:#5F6470">
+          <div style="padding:9px 10px">КВ.</div><div style="padding:9px 10px">ЖИЛЕЦ</div><div style="padding:9px 10px">ТИП</div><div style="padding:9px 10px">ЗНАЧЕНИЕ</div><div style="padding:9px 10px">ОТКЛОНЕНИЕ</div>
+        </div>
+        <sc-for list="{{ readings }}" as="r" hint-placeholder-count="5">
+          <div style="display:grid;grid-template-columns:56px minmax(0,1.6fr) 64px 80px minmax(0,1fr);align-items:center;font-size:12px">
+            <div style="padding:0 10px;color:#5F6470">{{ r.flat }}</div>
+            <div style="padding:0 10px;display:flex;flex-direction:column;gap:1px"><span style="font-weight:500">{{ r.name }}</span><span style="font-size:11px;color:#8A8F99">{{ r.phone }}</span></div>
+            <div style="padding:0 10px"><span style="padding:3px 8px;border-radius:4px;font-size:11px;background:{{ r.tbg }};color:{{ r.tfg }}">{{ r.type }}</span></div>
+            <div style="padding:0 10px">{{ r.val }}</div>
+            <div style="padding:0 10px;color:{{ r.dc }};font-weight:500">{{ r.dev }}</div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="background:#fff;border:1px solid #E6E8EC;border-radius:12px;padding:16px 20px;display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;justify-content:space-between;align-items:center"><div style="font-weight:500">Передали показания, по подъездам</div><div style="font-size:11px;color:#5F6470">квартир</div></div>
+        <div style="flex:1;display:flex;flex-direction:column;justify-content:space-around">
+          <sc-for list="{{ entrances }}" as="e" hint-placeholder-count="5">
+            <div style="display:grid;grid-template-columns:72px minmax(0,1fr);gap:10px;align-items:center">
+              <div style="font-size:11px;color:#5F6470">{{ e.l }}</div>
+              <div style="display:flex;align-items:center;gap:8px">
+                <div style="height:14px;width:{{ e.w }};background:#D3233A;border-radius:3px"></div>
+                <div style="font-size:11px;font-weight:500">{{ e.v }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:grid;grid-template-columns:72px minmax(0,1fr);gap:10px;font-size:10px;color:#8A8F99"><span></span><div style="display:flex;justify-content:space-between;padding-right:40px"><span>0</span><span>25</span><span>50</span><span>75</span><span>104</span></div></div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) minmax(0,.95fr);gap:16px;flex:1;min-height:0">
+      <div style="background:#fff;border:1px solid #E6E8EC;border-radius:12px;padding:16px 20px;display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;align-items:center;gap:10px"><div style="width:30px;height:30px;border-radius:50%;background:#D3233A;color:#fff;display:grid;place-items:center;font-size:12px;font-weight:600"><img src="https://unpkg.com/lucide-static@0.452.0/icons/piggy-bank.svg" alt="" style="width:15px;height:15px;filter:invert(1)"></div><div style="font-weight:500">Фонд капремонта</div></div>
+        <div style="display:flex;gap:24px;align-items:baseline"><div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:11px;color:#5F6470">На счёте</span><span style="font-size:22px;font-weight:500">18,4 млн ₽</span></div><div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:11px;color:#5F6470">Долг по взносам</span><span style="font-size:22px;font-weight:500;color:#D3233A">612 тыс ₽</span></div></div>
+        <div style="flex:1;display:flex;justify-content:space-between;align-items:flex-end;gap:6px;min-height:0;padding-top:8px">
+          <sc-for list="{{ fund }}" as="f" hint-placeholder-count="12">
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end">
+              <div style="width:100%;display:flex;flex-direction:column;border-radius:3px;overflow:hidden;height:{{ f.h }}">
+                <div style="flex:{{ f.d }};background:#D3233A"></div><div style="flex:{{ f.p }};background:#15171C"></div>
+              </div>
+              <div style="font-size:10px;color:#8A8F99">{{ f.m }}</div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex;gap:16px;justify-content:center;font-size:11px;color:#5F6470"><span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:4px;border-radius:2px;background:#15171C"></span>Поступило</span><span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:4px;border-radius:2px;background:#D3233A"></span>Не оплачено</span></div>
+      </div>
+      <div style="background:#fff;border:1px solid #E6E8EC;border-radius:12px;padding:16px 20px;display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;justify-content:space-between;align-items:center"><div style="display:flex;align-items:center;gap:10px"><div style="width:30px;height:30px;border-radius:50%;background:#D3233A;color:#fff;display:grid;place-items:center;font-size:12px;font-weight:600"><img src="https://unpkg.com/lucide-static@0.452.0/icons/clipboard-list.svg" alt="" style="width:15px;height:15px;filter:invert(1)"></div><div style="font-weight:500">Новые заявки</div></div><span style="font-size:12px;color:#D3233A">Все заявки →</span></div>
+        <div style="display:grid;grid-template-columns:56px 64px minmax(0,1.4fr) minmax(0,1fr) 92px;background:#F3F4F6;border-radius:6px;font-size:11px;font-weight:500;color:#5F6470">
+          <div style="padding:9px 10px">№</div><div style="padding:9px 10px">КВ.</div><div style="padding:9px 10px">ПРОБЛЕМА</div><div style="padding:9px 10px">ИСПОЛНИТЕЛЬ</div><div style="padding:9px 10px">СТАТУС</div>
+        </div>
+        <sc-for list="{{ tickets }}" as="t" hint-placeholder-count="6">
+          <div style="display:grid;grid-template-columns:56px 64px minmax(0,1.4fr) minmax(0,1fr) 92px;align-items:center;font-size:12px;padding:3px 0">
+            <div style="padding:0 10px;color:#5F6470">{{ t.id }}</div>
+            <div style="padding:0 10px">{{ t.flat }}</div>
+            <div style="padding:0 10px;display:flex;flex-direction:column;gap:1px"><span style="font-weight:500">{{ t.title }}</span><span style="font-size:11px;color:#8A8F99">{{ t.date }}</span></div>
+            <div style="padding:0 10px;display:flex;flex-direction:column;gap:1px"><span>{{ t.who }}</span><span style="font-size:11px;color:#8A8F99">{{ t.org }}</span></div>
+            <div style="padding:0 10px"><span style="padding:3px 8px;border-radius:4px;font-size:11px;white-space:nowrap;background:{{ t.sbg }};color:{{ t.sfg }}">{{ t.status }}</span></div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="background:#fff;border:1px solid #E6E8EC;border-radius:12px;padding:16px 20px;display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;align-items:center;gap:10px"><div style="width:30px;height:30px;border-radius:50%;background:#D3233A;color:#fff;display:grid;place-items:center;font-size:12px;font-weight:600"><img src="https://unpkg.com/lucide-static@0.452.0/icons/user-x.svg" alt="" style="width:15px;height:15px;filter:invert(1)"></div><div style="font-weight:500">Крупные должники</div></div>
+        <div style="display:flex;gap:16px;border-bottom:1px solid #E6E8EC;font-size:12px"><span style="padding:6px 2px;border-bottom:2px solid #15171C;font-weight:500">Жильё и ЖКУ</span><span style="padding:6px 2px;color:#8A8F99">Капремонт</span></div>
+        <sc-for list="{{ debtors }}" as="d" hint-placeholder-count="5">
+          <div style="display:grid;grid-template-columns:32px minmax(0,1fr) 28px;gap:10px;align-items:center;padding:4px 0">
+            <div style="width:32px;height:32px;border-radius:50%;background:#E4E6EA;display:grid;place-items:center;font-size:11px;font-weight:600;color:#5F6470">{{ d.ini }}</div>
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <div style="display:flex;justify-content:space-between;font-size:12px"><span style="font-weight:500">{{ d.name }}</span><span style="font-weight:500">{{ d.sum }}</span></div>
+              <div style="height:5px;border-radius:3px;background:#EEF0F2;overflow:hidden"><div style="width:{{ d.w }};height:100%;background:#D3233A"></div></div>
+              <div style="font-size:10px;color:#8A8F99">кв. {{ d.flat }}, долг {{ d.months }}</div>
+            </div>
+            <div style="width:28px;height:28px;border-radius:6px;border:1px solid #E6E8EC;display:grid;place-items:center;font-size:12px;color:#5F6470">↗</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    </div></sc-if>
+    <sc-if value="{{ isTickets }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:16px;flex:1">
+      <div style="height:60px;flex:none;background:#fff;border:1px solid #E6E8EC;border-radius:12px;display:flex;align-items:center;gap:12px;padding:0 20px">
+        <div style="width:34px;height:34px;border-radius:50%;background:#D3233A;display:grid;place-items:center"><img src="https://unpkg.com/lucide-static@0.452.0/icons/wrench.svg" alt="" style="width:17px;height:17px;filter:invert(1)"></div>
+        <div style="font-size:15px;font-weight:500">Заявки жильцов</div>
+        <div style="margin-left:auto;display:flex;gap:28px;align-items:baseline">
+          <sc-for list="{{ kpiTix2 }}" as="k" hint-placeholder-count="5"><div style="display:flex;gap:8px;align-items:baseline"><span style="font-size:12px;color:#5F6470">{{ k.l }}</span><span style="font-size:18px;font-weight:500;color:{{ k.c }}">{{ k.v }}</span></div></sc-for>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) {{ panelWidth }};gap:{{ panelGap }};flex:1;overflow:hidden;transition:grid-template-columns .55s cubic-bezier(.22,1,.36,1),gap .55s cubic-bezier(.22,1,.36,1)">
+        <div style="background:#fff;border:1px solid #E6E8EC;border-radius:12px;display:flex;flex-direction:column">
+          <div style="display:flex;align-items:center;gap:6px;padding:14px 16px;border-bottom:1px solid #EEF0F2">
+            <sc-for list="{{ tixTabs }}" as="t" hint-placeholder-count="5">
+              <div style="height:32px;padding:0 12px;border-radius:8px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:500;background:{{ t.bg }};color:{{ t.fg }}">{{ t.l }}<span style="font-size:11px;color:{{ t.cc }}">{{ t.n }}</span></div>
+            </sc-for>
+            <div style="margin-left:auto;height:34px;padding:0 14px;border-radius:8px;background:#D3233A;color:#fff;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:500"><img src="https://unpkg.com/lucide-static@0.452.0/icons/plus.svg" alt="" style="width:14px;height:14px;filter:invert(1)">Создать заявку</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:12px 16px">
+            <div style="flex:1;max-width:280px;height:34px;border-radius:8px;border:1px solid #E6E8EC;display:flex;align-items:center;gap:8px;padding:0 10px;color:#8A8F99;font-size:12px"><img src="https://unpkg.com/lucide-static@0.452.0/icons/search.svg" alt="" style="width:14px;height:14px;opacity:.5">Номер, квартира или текст</div>
+            <sc-for list="{{ tixFilters }}" as="f" hint-placeholder-count="3"><div style="height:34px;padding:0 12px;border-radius:8px;border:1px solid #E6E8EC;display:flex;align-items:center;gap:10px;font-size:12px">{{ f }}<span style="font-size:9px;color:#8A8F99">▾</span></div></sc-for>
+            <div style="margin-left:auto;font-size:12px;color:#5F6470">Сортировка: по сроку</div>
+          </div>
+          <div style="display:grid;grid-template-columns:36px 56px 48px minmax(0,1.6fr) 92px minmax(130px,1fr) 72px 108px;margin:0 16px;background:#F3F4F6;border-radius:6px;font-size:11px;font-weight:500;color:#5F6470">
+            <div style="padding:9px 10px"><span style="display:block;width:14px;height:14px;border:1.5px solid #B4B8C0;border-radius:4px;box-sizing:border-box"></span></div><div style="padding:9px 6px">№</div><div style="padding:9px 6px">КВ.</div><div style="padding:9px 6px">ПРОБЛЕМА</div><div style="padding:9px 6px">ВИД РАБОТ</div><div style="padding:9px 6px">ИСПОЛНИТЕЛЬ</div><div style="padding:9px 6px">СРОК</div><div style="padding:9px 6px">СТАТУС</div>
+          </div>
+          <div style="display:flex;flex-direction:column;padding:4px 16px">
+            <sc-for list="{{ tixRows }}" as="t" hint-placeholder-count="12">
+              <div style="display:grid;grid-template-columns:36px 56px 48px minmax(0,1.6fr) 92px minmax(130px,1fr) 72px 108px;align-items:center;font-size:12px;min-height:50px;border-bottom:1px solid #F0F1F3;border-radius:6px;background:{{ t.rowBg }};box-shadow:{{ t.rowBar }}">
+                <div style="padding:0 10px"><span style="display:grid;place-items:center;width:14px;height:14px;border:1.5px solid {{ t.cbBd }};background:{{ t.cbBg }};border-radius:4px;box-sizing:border-box;color:#fff;font-size:10px;line-height:1">{{ t.cb }}</span></div>
+                <div style="padding:0 6px;color:#5F6470">{{ t.id }}</div>
+                <div style="padding:0 6px">{{ t.flat }}</div>
+                <div style="padding:0 6px;display:flex;flex-direction:column;gap:1px;min-width:0"><span style="font-weight:500">{{ t.title }}</span><span style="font-size:11px;color:#8A8F99">{{ t.date }}</span></div>
+                <div style="padding:0 6px"><span style="padding:3px 8px;border-radius:4px;font-size:11px;background:#EEF0F2;color:#3E434D">{{ t.kind }}</span></div>
+                <div style="padding:0 6px;display:flex;align-items:center;gap:8px;min-width:0"><span style="width:24px;height:24px;flex:none;border-radius:50%;background:#E4E6EA;display:grid;place-items:center;font-size:10px;font-weight:600;color:#5F6470">{{ t.ini }}</span><span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ t.who }}</span></div>
+                <div style="padding:0 6px;white-space:nowrap;color:{{ t.dueC }};font-weight:{{ t.dueW }}">{{ t.due }}</div>
+                <div style="padding:0 6px"><span style="padding:3px 8px;border-radius:4px;font-size:11px;white-space:nowrap;background:{{ t.sbg }};color:{{ t.sfg }}">{{ t.status }}</span></div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="margin-top:auto;display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-top:1px solid #EEF0F2;font-size:12px;color:#5F6470">
+            <span>Показано 1–12 из 148</span>
+            <div style="display:flex;gap:4px">
+              <sc-for list="{{ pager }}" as="p" hint-placeholder-count="5"><span style="min-width:30px;height:30px;padding:0 8px;box-sizing:border-box;border-radius:6px;display:grid;place-items:center;background:{{ p.bg }};color:{{ p.fg }};border:1px solid {{ p.bd }}">{{ p.l }}</span></sc-for>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:#fff;border:1px solid #E6E8EC;border-radius:12px;display:flex;flex-direction:column;width:340px;min-width:0;box-sizing:border-box;overflow:hidden;opacity:{{ panelO }};transform:translateX({{ panelX }});pointer-events:{{ panelEvents }};transition:opacity .35s ease,transform .55s cubic-bezier(.22,1,.36,1)">
+          <div style="padding:18px 20px;border-bottom:1px solid #EEF0F2;display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:12px;color:#5F6470">Заявка № 2493</span><div style="width:28px;height:28px;border-radius:6px;border:1px solid #E6E8EC;display:grid;place-items:center"><img src="https://unpkg.com/lucide-static@0.452.0/icons/x.svg" alt="" style="width:14px;height:14px;opacity:.6"></div></div>
+            <div style="font-size:18px;font-weight:500">Протечка со стояка в ванной</div>
+            <div style="display:flex;gap:6px"><span style="padding:3px 8px;border-radius:4px;font-size:11px;background:{{ pBg }};color:{{ pFg }};transition:background .3s">{{ pStatus }}</span><span style="padding:3px 8px;border-radius:4px;font-size:11px;background:#EEF0F2;color:#3E434D">Сантехника</span><span style="padding:3px 8px;border-radius:4px;font-size:11px;background:#FBE3E6;color:#A81A2D">Аварийная</span></div>
+          </div>
+          <div style="padding:16px 20px;display:flex;flex-direction:column;gap:16px;border-bottom:1px solid #EEF0F2">
+            <div style="display:flex;align-items:center;gap:10px">
+              <div style="width:36px;height:36px;border-radius:50%;background:#15171C;color:#fff;display:grid;place-items:center;font-size:12px;font-weight:600">АС</div>
+              <div style="display:flex;flex-direction:column;gap:2px;flex:1"><span style="font-size:13px;font-weight:500">Андрей Соколов, кв. 148</span><span style="font-size:11px;color:#8A8F99">+7 916 204-11-87, подъезд 4, этаж 9</span></div>
+              <div style="width:32px;height:32px;border-radius:8px;border:1px solid #E6E8EC;display:grid;place-items:center"><img src="https://unpkg.com/lucide-static@0.452.0/icons/phone.svg" alt="" style="width:14px;height:14px;opacity:.7"></div>
+            </div>
+            <div style="font-size:13px;line-height:1.5;color:#3E434D">Течёт из-под соединения стояка ХВС за коробом, вода на полу. Перекрыл кран в квартире, но капает.</div>
+            <div style="display:flex;gap:6px"><div style="flex:1;height:120px;border-radius:8px;overflow:hidden;position:relative"><img src="./assets/new-cases/leak.png" alt="Фото протечки от жильца" style="width:100%;height:100%;object-fit:cover;display:block"><span style="position:absolute;left:6px;bottom:6px;padding:2px 6px;border-radius:4px;background:rgba(21,23,28,.72);color:#fff;font-size:10px">22.10, 19:01</span></div><div style="width:56px;height:120px;border-radius:8px;border:1px dashed #C9CCD2;display:grid;place-items:center;font-size:11px;color:#8A8F99;text-align:center;line-height:1.3">+2<br>фото</div></div>
+          </div>
+          <div style="padding:16px 20px;display:flex;flex-direction:column;gap:10px;border-bottom:1px solid #EEF0F2">
+            <div style="display:flex;justify-content:space-between;font-size:12px"><span style="font-weight:500">Норматив 48 часов</span><span style="color:{{ slaC }};font-weight:500">{{ slaText }}</span></div>
+            <div style="height:6px;border-radius:3px;background:#EEF0F2;overflow:hidden"><div style="width:88%;height:100%;background:{{ slaC }}"></div></div>
+          </div>
+          <div style="padding:16px 20px;display:flex;flex-direction:column;gap:0;flex:1">
+            <div style="font-size:12px;font-weight:500;padding-bottom:12px">История</div>
+            <sc-for list="{{ timeline }}" as="e" hint-placeholder-count="4">
+              <div style="display:grid;grid-template-columns:18px minmax(0,1fr);gap:10px">
+                <div style="display:flex;flex-direction:column;align-items:center"><span style="width:10px;height:10px;border-radius:50%;flex:none;margin-top:3px;background:{{ e.dot }};box-shadow:0 0 0 3px {{ e.ring }}"></span><span style="flex:1;width:1px;background:{{ e.line }};margin:4px 0"></span></div>
+                <div style="display:flex;flex-direction:column;gap:2px;padding-bottom:14px"><span style="font-size:12px;font-weight:500">{{ e.t }}</span><span style="font-size:11px;color:#8A8F99">{{ e.d }}</span></div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="padding:16px 20px;border-top:1px solid #EEF0F2;display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <div style="height:38px;border-radius:8px;border:1px solid #E6E8EC;display:grid;place-items:center;font-size:12px;font-weight:500">Написать жильцу</div>
+            <div style="height:38px;border-radius:8px;background:#15171C;color:#fff;display:grid;place-items:center;font-size:12px;font-weight:500">Сменить статус</div>
+          </div>
+        </div>
+      </div>
+    </div></sc-if>
+
+    <sc-if value="{{ isDebtors }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:16px;flex:1">
+      <div style="height:60px;flex:none;background:#fff;border:1px solid #E6E8EC;border-radius:12px;display:flex;align-items:center;gap:12px;padding:0 20px">
+        <div style="width:34px;height:34px;border-radius:50%;background:#D3233A;display:grid;place-items:center"><img src="https://unpkg.com/lucide-static@0.452.0/icons/user-x.svg" alt="" style="width:17px;height:17px;filter:invert(1)"></div>
+        <div style="font-size:15px;font-weight:500">Должники</div>
+        <div style="margin-left:auto;display:flex;gap:28px;align-items:baseline">
+          <sc-for list="{{ kpiDebt }}" as="k" hint-placeholder-count="5"><div style="display:flex;gap:8px;align-items:baseline"><span style="font-size:12px;color:#5F6470">{{ k.l }}</span><span style="font-size:18px;font-weight:500;color:{{ k.c }}">{{ k.v }}</span></div></sc-for>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 0.85fr;gap:16px;height:236px;flex:none">
+        <div style="background:#fff;border:1px solid #E6E8EC;border-radius:12px;padding:16px 20px;display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;justify-content:space-between;align-items:center"><div style="font-weight:500">Долг по срокам, тыс ₽</div><div style="font-size:11px;color:#5F6470">на 24 октября</div></div>
+          <div style="flex:1;display:flex;justify-content:space-around;align-items:flex-end;gap:16px">
+            <sc-for list="{{ aging }}" as="a" hint-placeholder-count="4">
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end">
+                <div style="font-size:12px;font-weight:500">{{ a.v }}</div>
+                <div style="width:100%;max-width:56px;height:{{ a.h }};background:{{ a.c }};border-radius:4px"></div>
+                <div style="font-size:11px;color:#5F6470">{{ a.l }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="background:#fff;border:1px solid #E6E8EC;border-radius:12px;padding:16px 20px;display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;justify-content:space-between;align-items:center"><div style="font-weight:500">Напоминания за октябрь</div><div style="font-size:11px;color:#5F6470">Telegram, СМС, почта</div></div>
+          <div style="flex:1;display:flex;flex-direction:column;justify-content:space-around">
+            <sc-for list="{{ funnel }}" as="f" hint-placeholder-count="3">
+              <div style="display:grid;grid-template-columns:86px minmax(0,1fr) 40px;gap:10px;align-items:center">
+                <span style="font-size:12px;color:#5F6470">{{ f.l }}</span>
+                <div style="height:26px;border-radius:4px;background:#F3F4F6;overflow:hidden"><div style="height:100%;width:{{ f.w }};background:{{ f.c }};border-radius:4px"></div></div>
+                <span style="font-size:13px;font-weight:500;text-align:right">{{ f.v }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="font-size:12px;color:#5F6470">После напоминаний оплачено <span style="color:#15171C;font-weight:500">86 400 ₽</span></div>
+        </div>
+        <div style="background:#15171C;color:#fff;border-radius:12px;padding:18px 20px;display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:center;gap:10px"><div style="width:30px;height:30px;border-radius:50%;background:#D3233A;display:grid;place-items:center"><img src="https://unpkg.com/lucide-static@0.452.0/icons/scale.svg" alt="" style="width:15px;height:15px;filter:invert(1)"></div><span style="font-size:12px;color:#A4A8B1">Рекомендуемый шаг</span></div>
+          <div style="font-size:16px;line-height:1.45;font-weight:500;text-wrap:pretty">У 11 квартир долг больше 3 месяцев. Можно направить досудебную претензию.</div>
+          <div style="font-size:12px;color:#A4A8B1">Сумма требований 327 640 ₽</div>
+          <div style="margin-top:auto;display:flex;gap:8px">
+            <div style="height:36px;padding:0 14px;border-radius:8px;background:#D3233A;display:flex;align-items:center;font-size:12px;font-weight:500">Сформировать претензии</div>
+            <div style="height:36px;padding:0 14px;border-radius:8px;border:1px solid #3A3E48;display:flex;align-items:center;font-size:12px;font-weight:500">Список</div>
+          </div>
+        </div>
+      </div>
+      <div style="background:#fff;border:1px solid #E6E8EC;border-radius:12px;display:flex;flex-direction:column;flex:1">
+        <div style="display:flex;align-items:center;gap:8px;padding:14px 16px">
+          <div style="width:280px;height:34px;border-radius:8px;border:1px solid #E6E8EC;display:flex;align-items:center;gap:8px;padding:0 10px;color:#8A8F99;font-size:12px"><img src="https://unpkg.com/lucide-static@0.452.0/icons/search.svg" alt="" style="width:14px;height:14px;opacity:.5">Квартира или собственник</div>
+          <sc-for list="{{ debtFilters }}" as="f" hint-placeholder-count="3"><div style="height:34px;padding:0 12px;border-radius:8px;border:1px solid #E6E8EC;display:flex;align-items:center;gap:10px;font-size:12px">{{ f }}<span style="font-size:9px;color:#8A8F99">▾</span></div></sc-for>
+          <div style="margin-left:auto;height:34px;padding:0 12px;border-radius:8px;border:1px solid #E6E8EC;display:flex;align-items:center;gap:8px;font-size:12px"><img src="https://unpkg.com/lucide-static@0.452.0/icons/download.svg" alt="" style="width:14px;height:14px;opacity:.7">Выгрузить в Excel</div>
+        </div>
+        <sc-if value="{{ hasSel }}" hint-placeholder-val="{{ true }}"><div style="margin:0 16px 8px;height:46px;border-radius:8px;background:#15171C;color:#fff;display:flex;align-items:center;gap:16px;padding:0 8px 0 14px;font-size:12px">
+          <span style="display:grid;place-items:center;width:16px;height:16px;border-radius:4px;background:#D3233A;font-size:11px;line-height:1">–</span>
+          <span style="font-weight:500">{{ selLabel }}</span><span style="color:#A4A8B1">{{ selSum }}</span>
+          <div style="margin-left:auto;display:flex;gap:6px">
+            <div style="height:32px;padding:0 12px;border-radius:6px;border:1px solid #3A3E48;display:flex;align-items:center;gap:8px"><img src="https://unpkg.com/lucide-static@0.452.0/icons/file-text.svg" alt="" style="width:13px;height:13px;filter:invert(1)">Претензия</div>
+            <div style="height:32px;padding:0 12px;border-radius:6px;background:#D3233A;display:flex;align-items:center;gap:8px;font-weight:500"><img src="https://unpkg.com/lucide-static@0.452.0/icons/send.svg" alt="" style="width:13px;height:13px;filter:invert(1)">Отправить напоминание</div>
+          </div>
+        </div></sc-if><sc-if value="{{ noSel }}" hint-placeholder-val="{{ false }}"><div style="margin:0 16px 8px;height:46px;border-radius:8px;background:#F3F4F6;color:#5F6470;display:flex;align-items:center;gap:12px;padding:0 14px;font-size:12px"><img src="https://unpkg.com/lucide-static@0.452.0/icons/info.svg" alt="" style="width:14px;height:14px;opacity:.6">Отметьте квартиры, чтобы отправить напоминание или претензию</div></sc-if>
+        <div style="display:grid;grid-template-columns:36px 56px minmax(0,1.4fr) 110px minmax(0,1fr) 120px minmax(0,1fr) 140px;margin:0 16px;background:#F3F4F6;border-radius:6px;font-size:11px;font-weight:500;color:#5F6470">
+          <div style="padding:9px 10px"></div><div style="padding:9px 6px">КВ.</div><div style="padding:9px 6px">СОБСТВЕННИК</div><div style="padding:9px 6px">ДОЛГ</div><div style="padding:9px 6px">СРОК ДОЛГА</div><div style="padding:9px 6px">ПОСЛЕДНЯЯ ОПЛАТА</div><div style="padding:9px 6px">НАПОМИНАНИЕ</div><div style="padding:9px 6px">ЭТАП</div>
+        </div>
+        <div style="display:flex;flex-direction:column;padding:4px 16px 12px">
+          <sc-for list="{{ debtRows }}" as="d" hint-placeholder-count="10">
+            <div style="display:grid;grid-template-columns:36px 56px minmax(0,1.4fr) 110px minmax(0,1fr) 120px minmax(0,1fr) 140px;align-items:center;font-size:12px;min-height:52px;border-bottom:1px solid #F0F1F3;background:{{ d.rowBg }}">
+              <div style="padding:0 10px"><span style="display:grid;place-items:center;width:14px;height:14px;border:1.5px solid {{ d.cbBd }};background:{{ d.cbBg }};border-radius:4px;box-sizing:border-box;color:#fff;font-size:10px;line-height:1">{{ d.cb }}</span></div>
+              <div style="padding:0 6px">{{ d.flat }}</div>
+              <div style="padding:0 6px;display:flex;flex-direction:column;gap:1px"><span style="font-weight:500">{{ d.name }}</span><span style="font-size:11px;color:#8A8F99">{{ d.phone }}</span></div>
+              <div style="padding:0 6px;font-weight:500;color:{{ d.sumC }}">{{ d.sum }}</div>
+              <div style="padding:0 6px;display:flex;align-items:center;gap:8px"><div style="flex:1;max-width:90px;display:flex;gap:2px"><sc-for list="{{ d.cells }}" as="c" hint-placeholder-count="8"><span style="flex:1;height:8px;border-radius:2px;background:{{ c }}"></span></sc-for></div><span style="color:#5F6470">{{ d.months }}</span></div>
+              <div style="padding:0 6px;color:#5F6470">{{ d.last }}</div>
+              <div style="padding:0 6px;color:{{ d.remC }}">{{ d.rem }}</div>
+              <div style="padding:0 6px"><span style="padding:3px 8px;border-radius:4px;font-size:11px;white-space:nowrap;background:{{ d.sbg }};color:{{ d.sfg }}">{{ d.stage }}</span></div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div></sc-if>
+  </main>
+  <div style="position:absolute;top:86px;right:24px;z-index:3;height:48px;padding:0 18px 0 10px;border-radius:10px;background:#15171C;color:#fff;display:flex;align-items:center;gap:12px;font-size:14px;box-shadow:0 20px 40px rgba(20,22,28,.25);opacity:{{ toastO }};transform:{{ toastT }};transition:opacity .3s ease,transform .4s cubic-bezier(.2,.7,.2,1)"><span style="width:28px;height:28px;border-radius:50%;background:#1C7A48;display:grid;place-items:center"><img src="https://unpkg.com/lucide-static@0.452.0/icons/check.svg" alt="" style="width:14px;height:14px;filter:invert(1)"></span>{{ toastText }}</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1700},&quot;page&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;dashboard&quot;,&quot;tickets&quot;,&quot;debtors&quot;],&quot;default&quot;:&quot;dashboard&quot;,&quot;tsType&quot;:&quot;'dashboard'|'tickets'|'debtors'&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const checked = this.props.checked ?? 4, ticketSel = this.props.ticketSel ?? true, done = !!this.props.ticketDone, toastText = this.props.toast || '';
+    const R = '#D3233A', ok = { bg: '#E3F6EC', fg: '#1C7A48' }, warn = { bg: '#FFF1DC', fg: '#8A5200' }, ink = { bg: '#15171C', fg: '#fff' }, grey = { bg: '#EEF0F2', fg: '#3E434D' };
+    const item = (label, active, badge, urgent) => ({ label, bg: active ? '#232731' : 'transparent', fg: active ? '#fff' : '#C5C8D0', bar: active ? 'inset 3px 0 0 ' + R : 'none', badge: badge || '', badgeBg: urgent ? 'rgba(211,35,58,.18)' : '#2A2E37', badgeFg: urgent ? '#FF8A98' : '#C5C8D0' });
+    const navGroups = [
+      { title: 'Главное', items: [item('Дашборд', true)] },
+      { title: 'Дом', items: [item('Жильцы'), item('Квартиры'), item('Показания', false, '108')] },
+      { title: 'Финансы', items: [item('Начисления'), item('Оплаты'), item('Должники', false, '37', true)] },
+      { title: 'Обслуживание', items: [item('Заявки', false, '12'), item('Подрядчики'), item('Объявления')] },
+      { title: 'Управление', items: [item('Собрания'), item('Документы'), item('Настройки')] }
+    ];
+    const kpiPay = [
+      { l: 'Начислено', v: '2,84 млн ₽', c: '#15171C' }, { l: 'Оплачено', v: '2,31 млн ₽', c: '#15171C' },
+      { l: 'Долг', v: '534 тыс ₽', c: R }, { l: 'Собираемость', v: '81%', c: '#15171C' }, { l: 'Должников', v: '37', c: '#15171C' }
+    ];
+    const pa = [2.61, 2.48, 2.52, 2.55, 2.71, 2.84], pp = [2.42, 2.30, 2.21, 2.28, 2.39, 2.31];
+    const px = v => Math.round(v / 3 * 150) + 'px';
+    const payBars = ['Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт'].map((m, i) => ({ m, a: px(pa[i]), p: px(pp[i]), d: px(pa[i] - pp[i]) }));
+    const pts = arr => arr.map((v, i) => `${i * 60},${150 - v / 600 * 150}`).join(' ');
+    const kpiTix = [
+      { l: 'Всего', v: '148', c: '#15171C' }, { l: 'Новые', v: '12', c: '#15171C' }, { l: 'В работе', v: '23', c: '#15171C' },
+      { l: 'Выполнено', v: '109', c: '#15171C' }, { l: 'Просрочено', v: '4', c: R }
+    ];
+    const works = [['Сантех.', 34, 31], ['Электр.', 22, 20], ['Лифт', 18, 14], ['Уборка', 15, 15], ['Домоф.', 12, 10], ['Кровля', 6, 3], ['Двор', 14, 12], ['Мусор', 9, 9], ['Двери', 11, 8], ['Прочее', 7, 5]];
+    const workBars = works.map(([l, t, c]) => ({ l, t: Math.round(t / 40 * 130) + 'px', c: Math.round(c / 40 * 130) + 'px' }));
+    const kpiMeter = [
+      { l: 'Передали', v: '412 из 520', c: '#15171C' }, { l: 'Осталось', v: '108', c: '#15171C' },
+      { l: 'Аномалии', v: '6', c: R }, { l: 'Через приложение', v: '74%', c: '#15171C' }
+    ];
+    const t = { 'ХВС': grey, 'ГВС': warn, 'Свет': ink };
+    const readings = [
+      ['148', 'Андрей Соколов', '+7 916 204-11-87', 'ХВС', '00418 м³', '+6 м³', '#3E434D'],
+      ['72', 'Елена Павлова', '+7 903 771-09-42', 'ГВС', '00931 м³', '+19 м³', R],
+      ['311', 'Тимур Галиев', '+7 925 118-60-03', 'Свет', '21 406 кВт·ч', '+212', '#3E434D'],
+      ['19', 'Нина Орлова', '+7 916 552-30-71', 'ХВС', '00207 м³', '+4 м³', '#3E434D'],
+      ['254', 'Дмитрий Ким', '+7 977 640-28-15', 'ГВС', '00118 м³', '0 м³', R]
+    ].map(([flat, name, phone, type, val, dev, dc]) => ({ flat, name, phone, type, val, dev, dc, tbg: t[type].bg, tfg: t[type].fg }));
+    const ent = [[1, 96, 104], [2, 88, 104], [3, 71, 104], [4, 92, 104], [5, 65, 104]];
+    const entrances = ent.map(([n, v, of]) => ({ l: 'Подъезд ' + n, v: v + ' из ' + of, w: `calc((100% - 72px) * ${(v / of).toFixed(3)})` }));
+    const fv = [[1.42, .06], [1.40, .08], [1.43, .05], [1.39, .09], [1.41, .07], [1.36, .12], [1.33, .15], [1.35, .13], [1.38, .10], [1.37, .11], [1.34, .14], [1.30, .18]];
+    const fund = ['Н', 'Д', 'Я', 'Ф', 'М', 'А', 'М', 'И', 'И', 'А', 'С', 'О'].map((m, i) => ({ m, p: fv[i][0], d: fv[i][1], h: Math.round((fv[i][0] + fv[i][1]) / 1.6 * 100) + '%' }));
+    const st = { 'Новая': ink, 'В работе': warn, 'Выполнена': ok };
+    const tickets = [
+      ['2496', '87', 'Не греет полотенцесушитель', '24.10, 12:40', 'Сергей П.', 'Сантехник', 'Новая'],
+      ['2495', '203', 'Застрял лифт, подъезд 3', '24.10, 11:15', 'Лифтсервис', 'Подрядчик', 'В работе'],
+      ['2493', '148', 'Протечка со стояка', '22.10, 19:02', 'Сергей П.', 'Сантехник', 'В работе'],
+      ['2490', '12', 'Не горит свет в тамбуре', '22.10, 08:30', 'Игорь Н.', 'Электрик', 'Выполнена'],
+      ['2488', '466', 'Мусор у контейнеров', '21.10, 17:45', 'Чистый двор', 'Подрядчик', 'Выполнена'],
+      ['2485', '330', 'Сломан доводчик двери', '21.10, 10:10', 'Игорь Н.', 'Электрик', 'Выполнена']
+    ].map(([id, flat, title, date, who, org, status]) => ({ id, flat, title, date, who, org, status, sbg: st[status].bg, sfg: st[status].fg }));
+    const debtors = [
+      ['ВЛ', 'Виктор Лебедев', '64', '48 210 ₽', '7 мес.', 1], ['ГС', 'Галина Смирнова', '415', '31 870 ₽', '5 мес.', .66],
+      ['РА', 'Руслан Алиев', '198', '22 440 ₽', '4 мес.', .47], ['ОБ', 'Ольга Белова', '27', '17 905 ₽', '3 мес.', .37],
+      ['ПК', 'Павел Кузнецов', '352', '12 630 ₽', '2 мес.', .26]
+    ].map(([ini, name, flat, sum, months, w]) => ({ ini, name, flat, sum, months, w: Math.round(w * 100) + '%' }));
+    const page = this.props.page ?? 'dashboard';
+    const activeLabel = { dashboard: 'Дашборд', tickets: 'Заявки', debtors: 'Должники' }[page];
+    navGroups.forEach(g => g.items.forEach(n => { const a = n.label === activeLabel; n.bg = a ? '#232731' : 'transparent'; n.fg = a ? '#fff' : '#C5C8D0'; n.bar = a ? 'inset 3px 0 0 ' + R : 'none'; }));
+    const red = { bg: '#FBE3E6', fg: '#A81A2D' };
+    const kpiTix2 = [
+      { l: 'Открыто', v: '35', c: '#15171C' }, { l: 'Новые', v: '12', c: '#15171C' }, { l: 'Аварийные', v: '3', c: R },
+      { l: 'Просрочено', v: '4', c: R }, { l: 'Среднее время', v: '31 ч', c: '#15171C' }
+    ];
+    const tixTabs = [['Все', 148], ['Новые', 12], ['В работе', 23], ['Выполнены', 109], ['Просрочены', 4]].map(([l, n], i) => ({ l, n, bg: i === 2 ? '#15171C' : 'transparent', fg: i === 2 ? '#fff' : '#3E434D', cc: i === 2 ? '#A4A8B1' : '#8A8F99' }));
+    const tixFilters = ['Вид работ', 'Исполнитель', 'Подъезд'];
+    const tst = { 'Новая': ink, 'В работе': warn, 'Ждёт запчасть': grey, 'Выполнена': ok, 'Просрочена': red };
+    const tixRows = [
+      ['2495', '24.10 11:15', '203', 'Застрял лифт, подъезд 3', 'Лифт', 'ЛС', 'Лифтсервис', '2 ч', 'В работе'],
+      ['2493', '22.10 19:02', '148', 'Протечка со стояка в ванной', 'Сантехника', 'СП', 'Сергей П.', '6 ч', 'В работе'],
+      ['2479', '20.10 09:40', '57', 'Нет напора горячей воды', 'Сантехника', 'СП', 'Сергей П.', '−14 ч', 'Просрочена'],
+      ['2482', '21.10 14:22', '390', 'Искрит розетка в коридоре', 'Электрика', 'ИН', 'Игорь Н.', '18 ч', 'В работе'],
+      ['2486', '21.10 18:05', '12', 'Не закрывается почтовый ящик', 'Двери', 'ИН', 'Игорь Н.', '1 д 4 ч', 'Ждёт запчасть'],
+      ['2488', '22.10 08:10', '466', 'Шумит вентиляция ночью', 'Прочее', 'АК', 'Алексей К.', '1 д 8 ч', 'В работе'],
+      ['2489', '22.10 10:30', '233', 'Течёт кран в подвале', 'Сантехника', 'СП', 'Сергей П.', '1 д 10 ч', 'В работе'],
+      ['2491', '22.10 16:48', '301', 'Мигает свет на 11 этаже', 'Электрика', 'ИН', 'Игорь Н.', '1 д 16 ч', 'В работе'],
+      ['2477', '19.10 12:00', '88', 'Скрипит дверь в тамбур', 'Двери', 'ИН', 'Игорь Н.', '−1 д', 'Просрочена'],
+      ['2494', '23.10 20:11', '175', 'Сломан замок калитки', 'Двор', 'ЧД', 'Чистый двор', '2 д', 'В работе'],
+      ['2492', '23.10 09:55', '414', 'Не работает кнопка лифта', 'Лифт', 'ЛС', 'Лифтсервис', '2 д 1 ч', 'Ждёт запчасть'],
+      ['2490', '22.10 08:30', '12', 'Не горит свет в тамбуре', 'Электрика', 'ИН', 'Игорь Н.', 'Закрыта', 'Выполнена']
+    ].map(([id, date, flat, title, kind, ini, who, due, status]) => {
+      const sel = id === '2493' && ticketSel, chk = false;
+      if (id === '2493' && done) { status = 'Выполнена'; due = 'Закрыта'; }
+      const late = due.startsWith('−'), soon = /^\d+ ч$/.test(due);
+      return { id, date, flat, title, kind, ini, who, due, status, sbg: tst[status].bg, sfg: tst[status].fg,
+        rowBg: sel ? '#FFF6F7' : 'transparent', rowBar: sel ? 'inset 3px 0 0 ' + R : 'none',
+        cb: chk ? '✓' : '', cbBg: chk ? R : '#fff', cbBd: chk ? R : '#C9CCD2',
+        dueC: late || soon ? R : due === 'Закрыта' ? '#8A8F99' : '#3E434D', dueW: late ? 600 : 400 };
+    });
+    const pager = ['‹', '1', '2', '3', '…', '13', '›'].map(l => ({ l, bg: l === '1' ? '#15171C' : '#fff', fg: l === '1' ? '#fff' : '#3E434D', bd: l === '1' ? '#15171C' : '#E6E8EC' }));
+    const timeline = [
+      ['Жилец создал заявку в приложении', '22 октября, 19:02', R],
+      ['Назначен исполнитель: Сергей П.', '22 октября, 19:20, диспетчер Мария', '#15171C'],
+      ['Выезд, перекрыт стояк', '23 октября, 09:10', '#15171C'],
+      ['Ожидается муфта 32 мм', '23 октября, 11:40, срок поставки 24 октября', '#B4B8C0']
+    ].map(([t, d, dot], i, a) => ({ t, d, dot, ring: i === a.length - 1 ? '#EEF0F2' : 'transparent', line: i === a.length - 1 ? 'transparent' : '#E4E6EA' }));
+    const kpiDebt = [
+      { l: 'Общий долг', v: '534 тыс ₽', c: R }, { l: 'Должников', v: '37', c: '#15171C' }, { l: 'Больше 3 мес.', v: '11', c: R },
+      { l: 'Обещали оплатить', v: '9', c: '#15171C' }, { l: 'У юриста', v: '2', c: '#15171C' }
+    ];
+    const ag = [['до 1 мес.', 94], ['1–3 мес.', 112], ['3–6 мес.', 196], ['6+ мес.', 132]];
+    const aging = ag.map(([l, v], i) => ({ l, v, h: Math.round(v / 200 * 130) + 'px', c: i < 2 ? '#15171C' : R }));
+    const funnel = [['Отправлено', 64, '#15171C'], ['Прочитано', 51, '#6B707B'], ['Оплатили', 29, R]].map(([l, v, c]) => ({ l, v, c, w: Math.round(v / 64 * 100) + '%' }));
+    const debtFilters = ['Срок долга', 'Подъезд', 'Этап'];
+    const dst = { 'Новый': grey, 'Напомнили': ink, 'Обещал оплатить': ok, 'Претензия': warn, 'У юриста': red };
+    const debtRows = [
+      ['64', 'Виктор Лебедев', '+7 915 330-12-08', 48210, 7, '12.03.2026', 'Не прочитано, 18.10', 'Претензия', 1],
+      ['415', 'Галина Смирнова', '+7 903 118-45-22', 31870, 5, '30.05.2026', 'Прочитано, 18.10', 'Напомнили', 1],
+      ['198', 'Руслан Алиев', '+7 926 774-01-39', 22440, 4, '14.06.2026', 'Не отправлялось', 'Новый', 1],
+      ['27', 'Ольга Белова', '+7 916 902-66-14', 17905, 3, '08.07.2026', 'Прочитано, 21.10', 'Обещал оплатить', 1],
+      ['352', 'Павел Кузнецов', '+7 977 215-80-47', 12630, 2, '19.08.2026', 'Прочитано, 21.10', 'Напомнили', 0],
+      ['111', 'Ирина Фролова', '+7 905 641-27-93', 41300, 8, '02.02.2026', 'Передано 01.10', 'У юриста', 0],
+      ['280', 'Сергей Титов', '+7 925 087-53-60', 9840, 2, '21.08.2026', 'Не отправлялось', 'Новый', 0],
+      ['143', 'Марат Хасанов', '+7 916 448-19-02', 8115, 1, '10.09.2026', 'Не отправлялось', 'Новый', 0],
+      ['356', 'Анна Воронина', '+7 903 552-74-81', 7420, 1, '12.09.2026', 'Прочитано, 21.10', 'Обещал оплатить', 0],
+      ['502', 'Денис Морозов', '+7 977 390-61-25', 6980, 1, '15.09.2026', 'Не отправлялось', 'Новый', 0]
+    ].map(([flat, name, phone, sum, m, last, rem, stage], idx) => { const chk = idx < checked; return ({
+      flat, name, phone, last, rem, stage, sum: sum.toLocaleString('ru-RU') + ' ₽', sumC: m > 3 ? R : '#15171C',
+      months: m + ' мес.', cells: Array.from({ length: 8 }, (_, i) => i < m ? (m > 3 ? R : '#15171C') : '#EEF0F2'),
+      remC: rem.startsWith('Не') ? '#8A8F99' : '#3E434D', sbg: dst[stage].bg, sfg: dst[stage].fg,
+      cb: chk ? '✓' : '', cbBg: chk ? R : '#fff', cbBd: chk ? R : '#C9CCD2', rowBg: chk ? '#FFF6F7' : 'transparent'
+    }); });
+    const selTotal = [48210, 31870, 22440, 17905, 12630, 41300, 9840, 8115, 7420, 6980].slice(0, checked).reduce((x, y) => x + y, 0);
+    const qw = n => n === 1 ? 'квартира' : n < 5 ? 'квартиры' : 'квартир';
+    return { hasSel: checked > 0, noSel: checked === 0, selLabel: 'Выбрано ' + checked + ' ' + qw(checked), selSum: 'на ' + selTotal.toLocaleString('ru-RU') + ' ₽',
+      panelWidth: ticketSel ? '340px' : '0px', panelGap: ticketSel ? '16px' : '0px', panelX: ticketSel ? '0px' : '32px', panelEvents: ticketSel ? 'auto' : 'none', panelO: ticketSel ? 1 : 0, pStatus: done ? 'Выполнена' : 'В работе', pBg: done ? '#E3F6EC' : '#FFF1DC', pFg: done ? '#1C7A48' : '#8A5200', slaText: done ? 'закрыта за 41 ч' : 'осталось 6 ч', slaC: done ? '#1C7A48' : R,
+      toastText, toastO: toastText ? 1 : 0, toastT: toastText ? 'none' : 'translateY(-12px)',
+      pageTitle: { dashboard: 'Дашборд', tickets: 'Заявки', debtors: 'Должники' }[page], isDash: page === 'dashboard', isTickets: page === 'tickets', isDebtors: page === 'debtors',
+      kpiTix2, tixTabs, tixFilters, tixRows, pager, timeline, kpiDebt, aging, funnel, debtFilters, debtRows, navGroups, kpiPay, payBars, debtNow: pts([190, 180, 310, 270, 320, 534]), debtPrev: pts([240, 260, 250, 300, 280, 310]), kpiTix, workBars, kpiMeter, readings, entrances, fund, tickets, debtors };
+  }
+}
+</script>
+</body>
+</html>
