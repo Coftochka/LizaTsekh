@@ -38,26 +38,7 @@
       [11.4, { transform: 'translateY(-3.9em)' }, L]
     ]);
 
-    // Three continuous slide ribbons, alternating directions.
-    const ringA = q('ringA');
-    const sources = ["../hero-slides/kid-3.html", "../hero-slides/deck0-11.jpg", "../hero-slides/kid-4.html", "../hero-slides/deck0-4.jpg", "../hero-slides/kid-5.html", "../hero-slides/deck0-3.jpg", "../hero-slides/kid-6.html", "../hero-slides/deck0-9.jpg", "../hero-slides/kid-7.html", "../hero-slides/deck0-2.jpg", "../hero-slides/kid-10.html", "../hero-slides/deck0-5.jpg", "../hero-slides/kid-11.html", "../hero-slides/deck0-13.jpg", "../hero-slides/kid-13.html", "../hero-slides/deck0-8.jpg", "../hero-slides/kid-8.jpg", "../hero-slides/deck0-6.jpg", "../hero-slides/kid-9.jpg", "../hero-slides/deck0-7.jpg", "../hero-slides/deck0-12.jpg", "./img/kv-dashboard.png", "../hero-slides/deck0-14.jpg", "../hero-slides/deck0-10.jpg"];
-    ringA.replaceChildren();
-    Object.assign(ringA.style, { left: '-160px', top: '210px', width: '2240px', height: '780px', transform: 'rotate(-8deg)', transformOrigin: '50% 50%' });
-    for (let row = 0; row < 3; row++) {
-      const lane = document.createElement('div');
-      Object.assign(lane.style, { position: 'absolute', left: '0', top: (row * 357) + 'px', display: 'flex', gap: '28px', width: 'max-content', willChange: 'transform' });
-      for (let j = 0; j < 8; j++) {
-        const source = sources[row * 8 + j];
-        const img = document.createElement(source.endsWith('.html') ? 'iframe' : 'img');
-        img.src = source; img.setAttribute('title', 'Слайд презентации'); img.setAttribute('tabindex', '-1');
-        Object.assign(img.style, { width: '600px', height: '337.5px', objectFit: 'contain', background: '#171717', borderRadius: '14px', boxShadow: '0 12px 28px #0005', flex: 'none', border: '0', pointerEvents: 'none' });
-        lane.appendChild(img);
-      }
-      ringA.appendChild(lane);
-      const start = row === 1 ? -2760 : -240;
-      const end = row === 1 ? -240 : -2760;
-      tl(lane, [[0, { transform: `translateX(${start}px)` }, L], [4.4, { transform: `translateX(${end}px)` }, L]]);
-    }
+    // Scene A is intentionally still: it introduces the author before the reel begins.
 
     const pb = (sc, x, y) => `translate(960px,540px) scale(${sc}) rotateX(38deg) rotateZ(-24deg) translate(${x}px,${y}px)`;
     tl(q('planeB'), [[4.4, { transform: pb(1.45, 260, -180) }, 'cubic-bezier(.25,.6,.35,1)'], [9.1, { transform: pb(1, -260, 160) }]]);
