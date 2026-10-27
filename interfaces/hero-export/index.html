@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
 <style>body{margin:0;background:#000;-webkit-font-smoothing:antialiased}.hero{position:relative;height:100vh;min-height:560px;overflow:hidden}</style>
-<style>@media (max-aspect-ratio: 1 / 1){[data-k="titleA"]{left:16px!important;right:16px!important;top:110px!important;text-align:center!important;font-size:clamp(40px,10vw,60px)!important;line-height:1.05!important}}</style><style>.portrait-intro{background:#101010;overflow:hidden}.intro-photo{position:absolute;right:7%;bottom:0;width:42%;height:90%;object-fit:cover;object-position:50% 30%;border-radius:24px 24px 0 0}.intro-shade{position:absolute;inset:0;background:linear-gradient(90deg,#101010 6%,transparent 70%)}.intro-name{position:absolute;left:8%;top:42%;transform:translateY(-30%);margin:0;font-size:clamp(64px,10vw,180px);font-weight:300;letter-spacing:-.065em;line-height:.95;color:#f3f1ec}@media (max-aspect-ratio: 1 / 1){.intro-photo{right:0;width:100%;height:100%;border-radius:0;object-position:50% 28%}.intro-shade{background:linear-gradient(0deg,rgba(0,0,0,.85),transparent 65%)}.intro-name{left:24px;top:auto;bottom:35px;transform:none;font-size:clamp(58px,15vw,90px)}}</style></head>
+</head>
 <body>
 <section class="hero">
 <div id="hero-reel" style="position:absolute;inset:0;min-height:100%;overflow:hidden;background:#000;font-family:Manrope,sans-serif;color:#F3F1EC;pointer-events:none;user-select:none">
@@ -17,6 +17,18 @@
   <div data-s="F" style="display:none;position:absolute;inset:0;background:#E8E5DC"><div style="position:absolute;left:0;right:0;top:0;height:54%;background:#A4A4A0"></div></div>
 
   <div style="position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform:translate(-50%,-50%) scale(.75);transform-origin:50% 50%" data-k="stage">
+
+    <div data-s="A" style="position:absolute;inset:0;perspective:1300px;perspective-origin:960px 560px">
+      <div data-k="ringA" style="position:absolute;left:960px;top:560px;width:0;height:0;transform-style:preserve-3d">
+        <div style="position:absolute;left:-380px;top:-214px;width:760px;height:428px;border-radius:14px;overflow:hidden;background:#121212;backface-visibility:hidden;transform:rotateY(36deg) translateZ(-1250px)"><img src="../hero-slides/deck0-6.jpg?select=2" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:50% 0"></div>
+        <div style="position:absolute;left:-380px;top:-214px;width:760px;height:428px;border-radius:14px;overflow:hidden;background:#121212;backface-visibility:hidden;transform:rotateY(0deg) translateZ(-1250px)"><img src="../hero-slides/kid-8.jpg?select=2" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:50% 0"></div>
+        <div style="position:absolute;left:-380px;top:-214px;width:760px;height:428px;border-radius:14px;overflow:hidden;background:#F3F4F6;backface-visibility:hidden;transform:rotateY(-36deg) translateZ(-1250px)"><img src="./img/kv-dashboard.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:50% 0"></div>
+        <div style="position:absolute;left:-380px;top:-214px;width:760px;height:428px;border-radius:14px;overflow:hidden;background:#121212;backface-visibility:hidden;transform:rotateY(-72deg) translateZ(-1250px)"><img src="../hero-slides/deck1-9.jpg?select=2" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:50% 0"></div>
+        <div style="position:absolute;left:-380px;top:-214px;width:760px;height:428px;border-radius:14px;overflow:hidden;background:#121212;backface-visibility:hidden;transform:rotateY(-108deg) translateZ(-1250px)"><img src="../hero-slides/deck0-7.jpg?select=3" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:50% 0"></div>
+        <div style="position:absolute;left:-380px;top:-214px;width:760px;height:428px;border-radius:14px;overflow:hidden;background:#F3F4F6;backface-visibility:hidden;transform:rotateY(-144deg) translateZ(-1250px)"><img src="./img/kv-tickets.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:50% 0"></div>
+        <div style="position:absolute;left:-380px;top:-214px;width:760px;height:428px;border-radius:14px;overflow:hidden;background:#F3F4F6;backface-visibility:hidden;transform:rotateY(-180deg) translateZ(-1250px)"><img src="./img/kv-debtors.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:50% 0"></div>
+      </div>
+    </div>
 
     <div data-s="B" style="display:none;position:absolute;inset:0;perspective:2200px;perspective-origin:960px 540px">
       <div data-k="planeB" style="position:absolute;left:0;top:0;width:0;height:0;transform-style:preserve-3d">
@@ -72,7 +84,10 @@
     </div>
   </div>
 
-  <div data-s="A" class="portrait-intro" style="position:absolute;inset:0;z-index:2"><img class="intro-photo" src="../img/photo-grey.jpg" alt="Елизавета Цех"><div class="intro-shade"></div><h1 class="intro-name">Елизавета<br>Цех</h1></div>
+  <div data-s="A" style="position:absolute;inset:0;z-index:2">
+    <div data-k="titleA" style="position:absolute;left:12%;right:4%;text-align:center;top:clamp(100px,16vh,180px);font-size:clamp(48px,6.8vw,124px);font-weight:300;line-height:1;letter-spacing:-.045em">Елизавета Цех</div>
+  </div>
+
   <div data-s="C" style="display:none;position:absolute;inset:0;z-index:2">
     <div style="position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);display:flex;justify-content:center;align-items:center;gap:.28em;font-size:clamp(24px,2.7vw,52px);letter-spacing:-0.03em;line-height:1.3;white-space:nowrap">
       <span data-k="fixedDesign" style="font-weight:300;flex:none">Дизайн</span>
@@ -93,6 +108,6 @@
   <span data-k="clock" style="position:absolute;width:1px;height:1px;opacity:0"></span>
 </div>
 </section>
-<script src="./hero-reel.js?v=portrait-intro"></script>
+<script src="./hero-reel.js?v=kid-consumer"></script>
 </body>
 </html>
