@@ -282,7 +282,7 @@ class CaseReel extends HTMLElement {
     await this.w(1500);
     await this.type('Совещание по бюджету на 2026 год, 15 марта в 10:00, зал Коллегия…', {
       paste: true,
-      bubble: 'Совещание по бюджету на 2026 год<br>15 марта в 10:00, зал Коллегия<br>Участники: Бетин, Гусев И.П., Деев<br>Повестка:<br>1. Итоги года — Гусев<br>2. Планирование бюджета — Деев<br>3. Организационные вопросы — Бетин'
+      bubble: 'Совещание по бюджету на 2026 год<br>15 марта в 10:00, зал Коллегия<br>Участники: Романов, Фёдоров И.П., Волков<br>Повестка:<br>1. Итоги года — Фёдоров<br>2. Планирование бюджета — Волков<br>3. Организационные вопросы — Романов'
     });
     await this.w(300); this.cam('zoom'); await this.w(1700); this.cam('right'); await this.w(500);
     this.card('<div class="lab">Распознано</div><div class="chk">' +
@@ -290,11 +290,11 @@ class CaseReel extends HTMLElement {
         .map((r, i) => `<div style="--d:${0.25 + i * 0.22}"><em></em><span>${r[0]}</span><b>${r[1]}</b></div>`).join('') + '</div>', 900, 150, 320);
     await this.w(3400); await this.clearCards();
     this.feat(1); this.cam('left'); await this.typing(1000);
-    this.msg('bot', 'Уточните участника <b>Деев</b>:<br>1. Деев Андрей Сергеевич, начальник управления<br>2. Деев Павел Олегович, советник<br>3. Деев Илья Романович, аналитик<br><span class="g">Введите номер</span>');
+    this.msg('bot', 'Уточните участника <b>Волков</b>:<br>1. Волков Андрей Сергеевич, начальник управления<br>2. Волков Павел Олегович, советник<br>3. Волков Илья Романович, аналитик<br><span class="g">Введите номер</span>');
     await this.w(1600); this.cam('front'); await this.w(900);
     await this.type('1', { cps: 6 });
     this.feat(2); await this.typing(1100);
-    const pv = this.msg('bot', '<b>Проверьте данные:</b><br><span class="g">Название:</span> Совещание по бюджету на 2026 год<br><span class="g">Дата:</span> 15 марта<br><span class="g">Время:</span> 10:00<br><span class="g">Место:</span> зал Коллегия<br><span class="g">Участники:</span> Бетин, Гусев И.П., Деев А.С.<br><span class="g">Повестка:</span> 3 пункта<div class="ib"><span>Редактировать</span><span>Подтвердить</span></div>');
+    const pv = this.msg('bot', '<b>Проверьте данные:</b><br><span class="g">Название:</span> Совещание по бюджету на 2026 год<br><span class="g">Дата:</span> 15 марта<br><span class="g">Время:</span> 10:00<br><span class="g">Место:</span> зал Коллегия<br><span class="g">Участники:</span> Романов, Фёдоров И.П., Волков А.С.<br><span class="g">Повестка:</span> 3 пункта<div class="ib"><span>Редактировать</span><span>Подтвердить</span></div>');
     await this.w(300); this.cam('zoom'); await this.w(2200);
     const ok = pv.querySelectorAll('.ib span')[1];
     await this.tap(ok); ok.classList.add('hit'); await this.w(400); this.on('.cursor', false);
