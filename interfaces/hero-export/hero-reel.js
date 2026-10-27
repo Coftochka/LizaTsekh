@@ -10,8 +10,8 @@
   (function build(R) {
     const T = 18.2, EO = 'cubic-bezier(.16,.84,.24,1)', E1 = 'cubic-bezier(.7,0,.2,1)', L = 'linear';
     // Preserve scene choreography while giving the flat slide montage a brisker pace.
-    const toTime = t => t <= 4.4 ? t / 1.6 : t <= 9.1 ? 4.4 / 1.6 + (t - 4.4) * 1.3 / 4.7 : 4.4 / 1.6 + 1.3 + (t - 9.1) / 1.6;
-    const fromTime = t => t <= 2.75 ? t * 1.6 : t <= 4.05 ? 4.4 + (t - 2.75) * 4.7 / 1.3 : 9.1 + (t - 4.05) * 1.6;
+    const toTime = t => t <= 2.6 ? t / 1.6 : t <= 9.1 ? 2.6 / 1.6 + (t - 2.6) * 1.3 / 6.5 : 2.6 / 1.6 + 1.3 + (t - 9.1) / 1.6;
+    const fromTime = t => t <= 1.625 ? t * 1.6 : t <= 2.925 ? 2.6 + (t - 1.625) * 6.5 / 1.3 : 9.1 + (t - 2.925) * 1.6;
     const duration = toTime(T);
     const q = k => R.querySelector('[data-k="' + k + '"]');
     const anims = self.anims = [];
@@ -41,7 +41,7 @@
     // Scene A is intentionally still: it introduces the author before the reel begins.
 
     const pb = (sc, x, y) => `translate(960px,540px) scale(${sc}) rotateX(38deg) rotateZ(-24deg) translate(${x}px,${y}px)`;
-    tl(q('planeB'), [[4.4, { transform: pb(1.45, 260, -180) }, 'cubic-bezier(.25,.6,.35,1)'], [9.1, { transform: pb(1, -260, 160) }]]);
+    tl(q('planeB'), [[2.6, { transform: pb(1.45, 260, -180) }, 'cubic-bezier(.25,.6,.35,1)'], [9.1, { transform: pb(1, -260, 160) }]]);
 
     const P = (x, y, r, s) => `translate(${x - 205}px,${y - 432}px) rotate(${r}deg) scale(${s})`;
     const D = [[690, 400, -26], [1000, 330, 16], [1250, 600, -12], [820, 760, 22], [1130, 880, -30]];
@@ -66,13 +66,13 @@
     const st = document.timeline.currentTime;
     anims.forEach(a => { a.startTime = st; });
 
-    const SC = [['A', 4.4], ['B', 9.1], ['C', 11.4], ['D', 12.2], ['E', 13.4], ['F', 14.6], ['G', 18.2]];
+    const SC = [['A', 2.6], ['B', 9.1], ['C', 11.4], ['D', 12.2], ['E', 13.4], ['F', 14.6], ['G', 18.2]];
     const sEls = [...R.querySelectorAll('[data-s]')], wEls = [...R.querySelectorAll('[data-w]')];
     let cur = '', cw = -1;
     const tick = () => {
       const t = fromTime(((clock.currentTime || 0) / 1000) % duration);
       const sc = (SC.find(s => t < s[1]) || SC[0])[0];
-      if (sc !== cur) { cur = sc; sEls.forEach(el => { el.style.display = el.dataset.s.split(' ').includes(sc) ? 'block' : 'none'; }); }
+      if (sc !== cur) { cur = sc; sEls.forEach(el => { el.style.display = el.dataset.s.split(' ').includes(sc) ? (el.dataset.display || 'block') : 'none'; }); }
       const w = sc === 'C' ? Math.min(3, Math.floor((t - 9.1) / 0.575)) : 0;
       if (w !== cw) { cw = w; wEls.forEach(el => { el.style.display = +el.dataset.w === w ? 'inline-block' : 'none'; }); }
       self.raf = requestAnimationFrame(tick);
