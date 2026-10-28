@@ -10,8 +10,8 @@
   (function build(R) {
     const T = 18.2, EO = 'cubic-bezier(.16,.84,.24,1)', E1 = 'cubic-bezier(.7,0,.2,1)', L = 'linear';
     // Preserve scene choreography while giving the flat slide montage a brisker pace.
-    const toTime = t => t <= 2.6 ? t / 1.6 : t <= 9.1 ? 2.6 / 1.6 + (t - 2.6) * 1.3 / 6.5 : 2.6 / 1.6 + 1.3 + (t - 9.1) / 1.6;
-    const fromTime = t => t <= 1.625 ? t * 1.6 : t <= 2.925 ? 2.6 + (t - 1.625) * 6.5 / 1.3 : 9.1 + (t - 2.925) * 1.6;
+    const toTime = t => t <= 2.6 ? t / 3.2 : t <= 9.1 ? 2.6 / 3.2 + (t - 2.6) * 1.3 / 6.5 : 2.6 / 3.2 + 1.3 + (t - 9.1) / 1.6;
+    const fromTime = t => t <= .8125 ? t * 3.2 : t <= 2.1125 ? 2.6 + (t - .8125) * 6.5 / 1.3 : 9.1 + (t - 2.1125) * 1.6;
     const duration = toTime(T);
     const q = k => R.querySelector('[data-k="' + k + '"]');
     const anims = self.anims = [];
